@@ -1,9 +1,12 @@
 package data.minmax;
 
 public interface Node {
-    public Node getLeftChild();
-    public Node getMiddleChild();
-    public Node getRightChild();
-    
+    Node getLeftChild();
+    Node getMiddleChild();
+    Node getRightChild();
 
+    int calculateHeuristic();
+
+
+    int getValue();
 }
