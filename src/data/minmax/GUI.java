@@ -58,18 +58,12 @@ public class GUI extends JFrame {
     public void update() {
         for (int i = coinNumber; i < coins.length; i++) {
             coins[i].setForeground(Color.black);
-            System.out.println("update: " + i);
         }
     }
 
     public void run() {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         Tree tree = new Tree(TreeFactory.buildTree(coinNumber, 10));
-        coinNumber = Math.max(tree.findMove().getValue(), 0);
+        coinNumber = Math.max(tree.findMove(), 0);
         update();
     }
 

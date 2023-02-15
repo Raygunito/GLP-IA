@@ -8,13 +8,17 @@ public class Tree {
     public Tree(PlayerNode root) {
         this.root=root;
     }
-public Node findMove(){
+public int findMove(){
     ArrayList<Node> children=new ArrayList<>();
     children.add(root.getLeftChild());
     children.add(root.getMiddleChild());
     children.add(root.getRightChild());
-    children.sort(Comparator.comparingInt(Node::calculateHeuristic));
-    return children.get(children.size()-1);
+    try {
+        children.sort(Comparator.comparingInt(Node::calculateHeuristic));
+    }catch(NullPointerException npe){
+        return 3;
+    }
+    return children.get(children.size()-1).getValue();
 }
     
 }

@@ -34,7 +34,7 @@ public class PlayerNode implements Node {
     public int calculateHeuristic() {
         int leftCost, middleCost, rightCost;
         if(value==0){
-            return 1;
+            return -1;
         }
         try {
             leftCost = leftChild.calculateHeuristic();

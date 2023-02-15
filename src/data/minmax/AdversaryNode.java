@@ -29,7 +29,7 @@ public class AdversaryNode implements Node {
 
     public int calculateHeuristic() {
         int leftCost, middleCost, rightCost;
-        if (value == 0) {
+        if (value ==0) {
             cost = 1;
             return cost;
         }
