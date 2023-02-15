@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class Tree {
-    private final PlayerNode root;
-    public Tree(PlayerNode root) {
+    private final Node root;
+    public Tree(Node root) {
         this.root=root;
     }
 public int findMove(){
@@ -16,7 +16,7 @@ public int findMove(){
     try {
         children.sort(Comparator.comparingInt(Node::calculateHeuristic));
     }catch(NullPointerException npe){
-        return 3;
+        return -3;
     }
     return children.get(children.size()-1).getValue();
 }

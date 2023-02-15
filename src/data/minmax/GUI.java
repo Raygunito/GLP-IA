@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 public class GUI extends JFrame {
     private int coinNumber;
     private JLabel[] coins;
+    private JPanel coinPanel;
 
     public GUI() {
         super();
@@ -18,7 +19,7 @@ public class GUI extends JFrame {
         coinNumber = 10;
         Container containerPane = getContentPane();
         containerPane.setLayout(new GridLayout(2, 1));
-        JPanel coinPanel = new JPanel();
+        coinPanel = new JPanel();
         coinPanel.setLayout(new FlowLayout());
         JPanel playPanel = new JPanel();
         playPanel.setLayout(new GridLayout(1, 3));
@@ -59,10 +60,12 @@ public class GUI extends JFrame {
         for (int i = coinNumber; i < coins.length; i++) {
             coins[i].setForeground(Color.black);
         }
+        coinPanel.repaint();
+        coinPanel.revalidate();
     }
 
     public void run() {
-        Tree tree = new Tree(TreeFactory.buildTree(coinNumber, 10));
+        Tree tree = new Tree(TreeFactory.buildPlayerNode(coinNumber, 10));
         coinNumber = Math.max(tree.findMove(), 0);
         update();
     }
@@ -78,7 +81,7 @@ public class GUI extends JFrame {
         }
 
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(ActionEvent actionEvent) {
             gui.setCoinNumber(Math.max(gui.getCoinNumber() - coinTaken, 0));
             gui.update();
             gui.run();
