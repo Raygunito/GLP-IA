@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Insets;
 import java.awt.geom.Point2D;
 import java.awt.RadialGradientPaint;
 import java.awt.MultipleGradientPaint.CycleMethod;
@@ -19,14 +18,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class main_menu extends JPanel {
-    private Dimension dim= new Dimension(40,20);
     private JLabel title;
     private JButton astar,minmax,qlearn,quit;
     public main_menu() {
         super();
         setAlignmentX(Component.CENTER_ALIGNMENT);
         init();
-        setButtonSize();
         add(Box.createVerticalStrut(50));
         add(title);
         add(Box.createVerticalStrut(50));
@@ -65,12 +62,6 @@ public class main_menu extends JPanel {
         quit.setAlignmentX(CENTER_ALIGNMENT);
         quit.setFont(new Font("Arial",Font.BOLD,14));
         quit.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black,1),BorderFactory.createEmptyBorder(15, 55, 15, 55)));
-    }
-    private void setButtonSize(){
-        astar.setPreferredSize(dim);
-        minmax.setPreferredSize(dim);
-        qlearn.setPreferredSize(dim);
-        quit.setPreferredSize(dim);
     }
 
     @Override
