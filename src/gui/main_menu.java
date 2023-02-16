@@ -31,8 +31,11 @@ public class main_menu extends JPanel {
         add(title);
         add(Box.createVerticalStrut(50));
         add(astar);
+        add(Box.createVerticalStrut(10));
         add(minmax);
+        add(Box.createVerticalStrut(10));
         add(qlearn);
+        add(Box.createVerticalStrut(10));
         add(quit);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setPreferredSize(new Dimension(GUIConstant.DIM_X,GUIConstant.DIM_Y));
