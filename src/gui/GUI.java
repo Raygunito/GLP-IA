@@ -6,15 +6,22 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 
 public class GUI extends JFrame{
+    private Main_menu menu;
+    private AStarGUI astar;
     public GUI() {
         super("The Cognitive Crew");
         Container c = getContentPane();
-        c.add(new main_menu());
+        // c.add(new Main_menu());
+        c.add(new ControlPanel(""));
         pack();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
+        setResizable(false);
         setLocationRelativeTo(null);
     }
+
+
+
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

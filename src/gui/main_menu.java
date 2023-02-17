@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 import java.awt.RadialGradientPaint;
 import java.awt.MultipleGradientPaint.CycleMethod;
+import java.awt.event.*;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -16,11 +17,15 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-public class main_menu extends JPanel {
+/**
+ * Classe qui permet de créer le menu principal de notre application.
+ */
+public class Main_menu extends JPanel {
+    //TODO ActionListener link with data class
+    //TODO make this panel scalable with the scale factor
     private JLabel title;
     private JButton astar,minmax,qlearn,quit;
-    public main_menu() {
+    public Main_menu() {
         super();
         setAlignmentX(Component.CENTER_ALIGNMENT);
         init();
@@ -41,7 +46,7 @@ public class main_menu extends JPanel {
     private void init(){
         title= new JLabel("The Cognitive Crew");
         title.setAlignmentX(CENTER_ALIGNMENT);
-        title.setFont(new Font("Arial",Font.PLAIN,36));
+        title.setFont(new Font("Arial",Font.BOLD,36));
 
         astar= new JButton("A Star");
         astar.setAlignmentX(CENTER_ALIGNMENT);
@@ -78,5 +83,34 @@ public class main_menu extends JPanel {
                 focus, dist, colors, CycleMethod.NO_CYCLE);
         g2d.setPaint(rgp);
         g2d.fillRect(0, 0, w, h);
+    }
+
+    /** 
+     * Ajoute un actionlistener au bouton AStar.
+     * @param action
+     */
+    public void addActionListenerAStar(ActionListener action){
+        astar.addActionListener(action);
+    }
+    /** 
+     * Ajoute un actionlistener au bouton Minmax.
+     * @param action
+     */
+    public void addActionListenerMinMax(ActionListener action){
+        minmax.addActionListener(action);
+    }
+    /** 
+     * Ajoute un actionlistener au bouton QLearning.
+     * @param action
+     */
+    public void addActionListenerQLearn(ActionListener action){
+        qlearn.addActionListener(action);
+    }
+    /** 
+     * Ajoute un actionlistener au bouton Quit.
+     * @param action
+     */
+    public void addActionListenerQuit(ActionListener action){
+        quit.addActionListener(action);
     }
 }
