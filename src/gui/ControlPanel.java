@@ -1,7 +1,11 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.event.*;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -18,6 +22,7 @@ public class ControlPanel extends JPanel{
     private JLabel option1,option2;
     private JLabel parameterTag;
     private JTextField opt1Field,opt2Field;
+
     public ControlPanel(String algoName) {
         super();
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -46,21 +51,25 @@ public class ControlPanel extends JPanel{
         }
         setPreferredSize(new Dimension(width,height));
     }
+
     private void setupCommon() {
         back.setAlignmentX(CENTER_ALIGNMENT);
         start.setAlignmentX(CENTER_ALIGNMENT);
         stop.setAlignmentX(CENTER_ALIGNMENT);
         restart.setAlignmentX(CENTER_ALIGNMENT);
     }
+
     private void initCommon() {
         commonPanel=new JPanel();
         commonPanel.setLayout(new BoxLayout(commonPanel, BoxLayout.Y_AXIS));
-
+        commonPanel.setAlignmentX(CENTER_ALIGNMENT);
         back = new JButton("Back");
         start = new JButton("Start");
         stop = new JButton("Stop");
         restart = new JButton("Restart");
-
+        
+        commonPanel.setMaximumSize(new Dimension(width,height/2));
+        commonPanel.add(Box.createVerticalStrut(5));
         commonPanel.add(back);
         commonPanel.add(Box.createVerticalGlue());
         commonPanel.add(start);
@@ -72,42 +81,94 @@ public class ControlPanel extends JPanel{
     private void initAStarParameter(){
         aStarParameter = new JPanel();
         aStarParameter.setLayout(new BoxLayout(aStarParameter, BoxLayout.Y_AXIS));
+        aStarParameter.setMaximumSize(new Dimension(width,height/2));
         parameterTag = new JLabel("Parameter :");
-        
-        option1 = new JLabel("Size :");
+        parameterTag.setAlignmentX(CENTER_ALIGNMENT);
+        option1 = new JLabel("Size :",JLabel.CENTER);
         option2 = new JLabel("Speed :");
-
+        
         aStarParameter.add(parameterTag);
-        aStarParameter.add(option1);
-        aStarParameter.add(option2);
+        InitOptionPanel();
+        aStarParameter.add(option1Panel);
+        aStarParameter.add(option2Panel);
+        aStarParameter.add(Box.createVerticalGlue());
     }
+    
     private void initQLearnParameter(){
         qLearnParameter = new JPanel();
         qLearnParameter.setLayout(new BoxLayout(qLearnParameter, BoxLayout.Y_AXIS));
+        qLearnParameter.setMaximumSize(new Dimension(width,height/2));
         parameterTag = new JLabel("Parameter :");
+        parameterTag.setAlignmentX(CENTER_ALIGNMENT);
         option1 = new JLabel("Iteration:");
         option2 = new JLabel("Learning rate:");
-        opt1Field = new JTextField();
-        opt2Field = new JTextField();
-
+        
+        qLearnParameter.add(Box.createVerticalGlue());
         qLearnParameter.add(parameterTag);
-        qLearnParameter.add(option1);
-        qLearnParameter.add(option2);
-        qLearnParameter.add(opt1Field);
-        qLearnParameter.add(opt2Field);
-        
-        
+        InitOptionPanel();
+        qLearnParameter.add(Box.createVerticalGlue());
+        qLearnParameter.add(option1Panel);
+        qLearnParameter.add(option2Panel);   
+        qLearnParameter.add(Box.createVerticalGlue());
     }
+    
     private void initMinMaxParameter(){
         minMaxParameter = new JPanel();
         minMaxParameter.setLayout(new BoxLayout(minMaxParameter, BoxLayout.Y_AXIS));
+        minMaxParameter.setMaximumSize(new Dimension(width,height/2));
         parameterTag = new JLabel("Parameter :");
+        parameterTag.setAlignmentX(CENTER_ALIGNMENT);
         option1 = new JLabel("Coins :");
-        option2 = new JLabel("Depth :");
-
-        minMaxParameter.add(parameterTag);
-        minMaxParameter.add(option1);
-        minMaxParameter.add(option2);
+        option2 = new JLabel("Depth :");   
         
+        minMaxParameter.add(parameterTag);
+        InitOptionPanel();
+        minMaxParameter.add(option1Panel);
+        minMaxParameter.add(option2Panel);   
+        minMaxParameter.add(Box.createVerticalGlue());
     }
+    
+    private void InitOptionPanel(){
+        option1Panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        option2Panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        opt1Field = new JTextField(GUIConstant.SCALING_FACTOR);
+        opt2Field = new JTextField(GUIConstant.SCALING_FACTOR);
+        option1Panel.add(option1);
+        option1Panel.add(opt1Field);
+        option2Panel.add(option2);
+        option2Panel.add(opt2Field);
+    }
+
+    private void placementDebug(){
+        commonPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        option1Panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        opt1Field.setText(String.valueOf(aStarParameter.getWidth()));
+        opt2Field.setText(String.valueOf(aStarParameter.getHeight()));
+        option2Panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        aStarParameter.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        aStarParameter.setPreferredSize(new Dimension(20,40));
+        option1Panel.setAlignmentX(CENTER_ALIGNMENT);
+        option2Panel.setAlignmentX(CENTER_ALIGNMENT);
+        
+        parameterTag.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        parameterTag.setPreferredSize(new Dimension(30,20));
+        option1Panel.setPreferredSize(new Dimension(20,10));
+        option2Panel.setPreferredSize(new Dimension(20,10));
+    }
+
+
+    //Action Listener
+    public void addActionListenerBack(ActionListener al){
+        back.addActionListener(al);
+    }
+    public void addActionListenerStart(ActionListener al){
+        start.addActionListener(al);
+    }
+    public void addActionListenerStop(ActionListener al){
+        stop.addActionListener(al);
+    }
+    public void addActionListenerRestart(ActionListener al){
+        restart.addActionListener(al);
+    }
+
 }
