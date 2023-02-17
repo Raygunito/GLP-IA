@@ -10,4 +10,7 @@ public interface GUIConstant {
     int SCALING_FACTOR=2;
     int DIM_X=SCALING_FACTOR*400;
     int DIM_Y=SCALING_FACTOR*225;
+    String ASTAR="astar";
+    String QLEARN="qlearning";
+    String MINMAX= "minmax";
 }

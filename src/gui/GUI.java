@@ -11,8 +11,8 @@ public class GUI extends JFrame{
     public GUI() {
         super("The Cognitive Crew");
         Container c = getContentPane();
-        // c.add(new Main_menu());
-        c.add(new ControlPanel(""));
+        c.add(new Main_menu());
+        // c.add(new ControlPanel(GUIConstant.QLEARN));
         pack();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
