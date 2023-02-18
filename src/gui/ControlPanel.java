@@ -15,15 +15,15 @@ import javax.swing.JTextField;
 
 public class ControlPanel extends JPanel{
     //TODO scalable factor to take account, prepare parameter for each algorithms
-    private static final int width=GUIConstant.SCALING_FACTOR*50;
-    private static final int height=GUIConstant.SCALING_FACTOR*175;
+    private static final int WIDTH=GUIConstant.SCALING_FACTOR*50;
+    private static final int HEIGHT=GUIConstant.SCALING_FACTOR*175;
     private JPanel commonPanel,aStarParameter,qLearnParameter,minMaxParameter, option1Panel, option2Panel;
     private JButton back,start,stop,restart;
     private JLabel option1,option2;
     private JLabel parameterTag;
     private JTextField opt1Field,opt2Field;
 
-    public ControlPanel(String algoName) {
+    public ControlPanel(String algoName) throws IllegalArgumentException{
         super();
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         initCommon();
@@ -47,9 +47,10 @@ public class ControlPanel extends JPanel{
                 break;
         
             default:
-                break;
+                throw new IllegalArgumentException("Wrong name used to construct ControlPanel, use constants from GUIConstant.");
         }
-        setPreferredSize(new Dimension(width,height));
+        setPreferredSize(new Dimension(WIDTH,HEIGHT));
+        setMaximumSize(new Dimension(WIDTH,HEIGHT));
     }
 
     private void setupCommon() {
@@ -68,7 +69,7 @@ public class ControlPanel extends JPanel{
         stop = new JButton("Stop");
         restart = new JButton("Restart");
         
-        commonPanel.setMaximumSize(new Dimension(width,height/2));
+        commonPanel.setMaximumSize(new Dimension(WIDTH,HEIGHT/2));
         commonPanel.add(Box.createVerticalStrut(5));
         commonPanel.add(back);
         commonPanel.add(Box.createVerticalGlue());
@@ -81,14 +82,16 @@ public class ControlPanel extends JPanel{
     private void initAStarParameter(){
         aStarParameter = new JPanel();
         aStarParameter.setLayout(new BoxLayout(aStarParameter, BoxLayout.Y_AXIS));
-        aStarParameter.setMaximumSize(new Dimension(width,height/2));
+        aStarParameter.setMaximumSize(new Dimension(WIDTH,HEIGHT/2));
         parameterTag = new JLabel("Parameter :");
         parameterTag.setAlignmentX(CENTER_ALIGNMENT);
-        option1 = new JLabel("Size :",JLabel.CENTER);
+        option1 = new JLabel("Size :");
         option2 = new JLabel("Speed :");
         
-        aStarParameter.add(parameterTag);
         InitOptionPanel();
+        aStarParameter.add(Box.createVerticalGlue());
+        aStarParameter.add(parameterTag);
+        aStarParameter.add(Box.createVerticalGlue());
         aStarParameter.add(option1Panel);
         aStarParameter.add(option2Panel);
         aStarParameter.add(Box.createVerticalGlue());
@@ -97,15 +100,15 @@ public class ControlPanel extends JPanel{
     private void initQLearnParameter(){
         qLearnParameter = new JPanel();
         qLearnParameter.setLayout(new BoxLayout(qLearnParameter, BoxLayout.Y_AXIS));
-        qLearnParameter.setMaximumSize(new Dimension(width,height/2));
+        qLearnParameter.setMaximumSize(new Dimension(WIDTH,HEIGHT/2));
         parameterTag = new JLabel("Parameter :");
         parameterTag.setAlignmentX(CENTER_ALIGNMENT);
         option1 = new JLabel("Iteration:");
         option2 = new JLabel("Learning rate:");
         
+        InitOptionPanel();
         qLearnParameter.add(Box.createVerticalGlue());
         qLearnParameter.add(parameterTag);
-        InitOptionPanel();
         qLearnParameter.add(Box.createVerticalGlue());
         qLearnParameter.add(option1Panel);
         qLearnParameter.add(option2Panel);   
@@ -115,14 +118,16 @@ public class ControlPanel extends JPanel{
     private void initMinMaxParameter(){
         minMaxParameter = new JPanel();
         minMaxParameter.setLayout(new BoxLayout(minMaxParameter, BoxLayout.Y_AXIS));
-        minMaxParameter.setMaximumSize(new Dimension(width,height/2));
+        minMaxParameter.setMaximumSize(new Dimension(WIDTH,HEIGHT/2));
         parameterTag = new JLabel("Parameter :");
         parameterTag.setAlignmentX(CENTER_ALIGNMENT);
         option1 = new JLabel("Coins :");
         option2 = new JLabel("Depth :");   
         
-        minMaxParameter.add(parameterTag);
         InitOptionPanel();
+        minMaxParameter.add(Box.createVerticalGlue());
+        minMaxParameter.add(parameterTag);
+        minMaxParameter.add(Box.createVerticalGlue());
         minMaxParameter.add(option1Panel);
         minMaxParameter.add(option2Panel);   
         minMaxParameter.add(Box.createVerticalGlue());
