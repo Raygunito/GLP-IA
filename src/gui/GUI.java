@@ -17,10 +17,21 @@ public class GUI extends JFrame implements Runnable {
         c = getContentPane();
         c.setLayout(new CardLayout());
         firstLaunch();
+        // ActionListener pour le Main Menu
         menu.addActionListenerAStar(new ActionAStar());
         menu.addActionListenerMinMax(new ActionMinMax());
         menu.addActionListenerQLearn(new ActionQLearn());
         menu.addActionListenerQuit(new ActionQuit());
+
+        // ActionListener pour le AStar
+        astar.getCp().addActionListenerBack(new ActionBack());
+        
+        // ActionListener pour le MinMax
+        minmax.getCp().addActionListenerBack(new ActionBack());
+        
+        // ActionListener pour le QLearn
+        qlearn.getCp().addActionListenerBack(new ActionBack());
+
         pack();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
@@ -49,6 +60,20 @@ public class GUI extends JFrame implements Runnable {
         qlearn.setVisible(false);
     }
 
+    class ActionBack implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            minmax.setVisible(false);
+            menu.setVisible(true);
+            astar.setVisible(false);
+            qlearn.setVisible(false);
+            c.revalidate();
+            c.repaint();
+        }
+
+    }
+
     class ActionAStar implements ActionListener {
 
         @Override
@@ -63,6 +88,7 @@ public class GUI extends JFrame implements Runnable {
         }
 
     }
+
     class ActionQLearn implements ActionListener {
 
         @Override

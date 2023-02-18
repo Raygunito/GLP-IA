@@ -47,4 +47,11 @@ public class MinMaxGUI extends JPanel implements Runnable{
         repaint();
         revalidate();
     }
+
+    public ControlPanel getCp() {
+        return cp;
+    }
+    public InformationPanel getIp() {
+        return ip;
+    }
 }
