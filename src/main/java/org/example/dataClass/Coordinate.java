@@ -1,4 +1,4 @@
-package org.example.dataClass;
+package main.java.org.example.dataClass;
 
 public record Coordinate(int coordinateX, int coordinateY) {
 

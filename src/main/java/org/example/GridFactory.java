@@ -1,7 +1,7 @@
-package org.example;
+package main.java.org.example;
 
-import org.example.dataClass.Cell;
-import org.example.dataClass.Grid;
+import main.java.org.example.dataClass.Cell;
+import main.java.org.example.dataClass.Grid;
 
 import java.util.ArrayList;
 import java.util.Random;

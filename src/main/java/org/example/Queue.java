@@ -1,6 +1,6 @@
-package org.example;
+package main.java.org.example;
 
-import org.example.dataClass.Cell;
+import main.java.org.example.dataClass.Cell;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -8,12 +8,13 @@ import java.util.Comparator;
 public class Queue {
     private final ArrayList<Cell> queue;
 
-    public Queue(){
-        queue=new ArrayList<>();
+    public Queue() {
+        queue = new ArrayList<>();
     }
-    public Cell handle(){
+
+    public Cell handle() {
         queue.sort(Comparator.comparingDouble(Cell::getHeuristicCost));
-        Cell cell=queue.get(0);
+        Cell cell = queue.get(0);
         queue.remove(0);
         return cell;
     }

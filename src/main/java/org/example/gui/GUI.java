@@ -1,7 +1,7 @@
-package org.example.gui;
+package main.java.org.example.gui;
 
-import org.example.AStarCore;
-import org.example.dataClass.Cell;
+import main.java.org.example.AStarCore;
+import main.java.org.example.dataClass.Cell;
 
 import javax.swing.*;
 import java.awt.*;

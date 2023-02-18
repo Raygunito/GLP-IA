@@ -1,6 +1,6 @@
-package org.example.dataClass;
+package main.java.org.example.dataClass;
 
-import org.example.CellIsWallException;
+import main.java.org.example.CellIsWallException;
 
 public class Grid {
     private final Cell[][] grid;

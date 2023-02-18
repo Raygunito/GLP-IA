@@ -1,6 +1,4 @@
-package org.example.gui;
-
-import org.example.gui.GUI;
+package main.java.org.example.gui;
 
 public class TestGUI {
     public static void main(String[] args) {

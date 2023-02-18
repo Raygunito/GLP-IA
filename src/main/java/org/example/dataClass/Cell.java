@@ -1,4 +1,4 @@
-package org.example.dataClass;
+package main.java.org.example.dataClass;
 
 import java.util.ArrayList;
 
