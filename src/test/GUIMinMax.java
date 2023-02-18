@@ -1,16 +1,20 @@
-package data.minmax;
+package test;
 
 import javax.swing.*;
+
+import data.minmax.Tree;
+import process.minmax.TreeFactory;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GUI extends JFrame {
+public class GUIMinMax extends JFrame {
     private int coinNumber;
     private JLabel[] coins;
     private JPanel coinPanel;
 
-    public GUI() {
+    public GUIMinMax() {
         super();
         init();
     }
@@ -72,10 +76,10 @@ public class GUI extends JFrame {
 
 
     private class takeCoins implements ActionListener {
-        private GUI gui;
+        private GUIMinMax gui;
         private int coinTaken;
 
-        public takeCoins(GUI gui, int coinTaken) {
+        public takeCoins(GUIMinMax gui, int coinTaken) {
             this.gui = gui;
             this.coinTaken = coinTaken;
         }

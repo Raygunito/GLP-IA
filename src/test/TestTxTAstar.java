@@ -1,7 +1,8 @@
-package process.astar;
+package test;
 
+import process.astar.AStarCore;
 
-public class test {
+public class TestTxTAstar {
 
     public static void main(String[] args){
       AStarCore core=new AStarCore();

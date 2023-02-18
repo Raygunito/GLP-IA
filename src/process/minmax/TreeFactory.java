@@ -1,4 +1,8 @@
-package data.minmax;
+package process.minmax;
+
+import data.minmax.AdversaryNode;
+import data.minmax.Node;
+import data.minmax.PlayerNode;
 
 public class TreeFactory{
     public static Node buildAdversaryNode(int baseValue, int depth){
