@@ -176,4 +176,11 @@ public class ControlPanel extends JPanel{
         restart.addActionListener(al);
     }
 
+    public JTextField getOpt1Field() {
+        return opt1Field;
+    }
+    public JTextField getOpt2Field() {
+        return opt2Field;
+    }
+
 }

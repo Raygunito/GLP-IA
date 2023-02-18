@@ -69,4 +69,12 @@ public class InformationPanel extends JPanel{
         info1.setText("Numéro itération :");
         info2.setText("Death Count :");
     }
+
+    public void setInfoValue1(String value) {
+        infoValue1.setText(value);
+    }
+
+    public void setInfoValue2(String value) {
+        infoValue2.setText(value);
+    }
 }
