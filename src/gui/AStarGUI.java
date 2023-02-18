@@ -25,6 +25,7 @@ public class AStarGUI extends JPanel{
         astarPanel = new JPanel();
         astarPanel.setPreferredSize(new Dimension(1000,530));
         astarPanel.setMaximumSize(new Dimension(1000,530));
+        
         initUpperPanel();
         
         add(upperPanel);
