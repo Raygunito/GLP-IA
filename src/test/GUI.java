@@ -1,4 +1,4 @@
-package process;
+package test;
 
 import data.astar.Cell;
 import process.astar.AStarCore;
