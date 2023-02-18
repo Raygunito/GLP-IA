@@ -1,14 +1,12 @@
 package gui;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
-import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
-public class AStarGUI extends JPanel{
+public class AStarGUI extends JPanel implements Runnable{
     private static final int WIDTH=GUIConstant.SCALING_FACTOR*400;
     private static final int HEIGHT=GUIConstant.SCALING_FACTOR*180;
     private ControlPanel cp;
@@ -25,13 +23,11 @@ public class AStarGUI extends JPanel{
         astarPanel = new JPanel();
         astarPanel.setPreferredSize(new Dimension(1000,530));
         astarPanel.setMaximumSize(new Dimension(1000,530));
-        
+
         initUpperPanel();
         
         add(upperPanel);
         add(ip);
-
-        // placementDebug();
     }
     
     private void initUpperPanel(){
@@ -44,11 +40,17 @@ public class AStarGUI extends JPanel{
         
     }
 
-    private void placementDebug(){
-        cp.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        upperPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        astarPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        ip.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        setBorder(BorderFactory.createLineBorder(Color.BLACK));
+    @Override
+    public void run() {
+        System.out.println("AStarGUI run.");
+        repaint();
+        revalidate();
+    }
+
+    public ControlPanel getCp() {
+        return cp;
+    }
+    public InformationPanel getIp() {
+        return ip;
     }
 }

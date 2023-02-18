@@ -6,30 +6,29 @@ import java.awt.FlowLayout;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
-public class MinMaxGUI extends JPanel implements Runnable{
+public class QLearnGUI extends JPanel implements Runnable{
     private static final int WIDTH=GUIConstant.SCALING_FACTOR*400;
     private static final int HEIGHT=GUIConstant.SCALING_FACTOR*180;
     private ControlPanel cp;
     private InformationPanel ip;
     private JPanel upperPanel;
-    private JPanel minMaxPanel;
-    public MinMaxGUI() {
+    private JPanel qlearnPanel;
+
+    public QLearnGUI() {
         super();
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setPreferredSize(new Dimension(GUIConstant.DIM_X,GUIConstant.DIM_Y));
-        cp = new ControlPanel(GUIConstant.MINMAX);
-        ip = new InformationPanel(GUIConstant.MINMAX);
-        //TODO Remplacer le minMaxPanel avec sa version fonctionnelle
-        minMaxPanel = new JPanel();
-        minMaxPanel.setPreferredSize(new Dimension(1000,530));
-        minMaxPanel.setMaximumSize(new Dimension(1000,530));
-        
+        cp = new ControlPanel(GUIConstant.QLEARN);
+        ip = new InformationPanel(GUIConstant.QLEARN);
+        //TODO Remplacer le qlearnPanel avec sa version fonctionnelle
+        qlearnPanel = new JPanel();
+        qlearnPanel.setPreferredSize(new Dimension(1000,530));
+        qlearnPanel.setMaximumSize(new Dimension(1000,530));
+
         initUpperPanel();
         
         add(upperPanel);
         add(ip);
-
-        // placementDebug();
     }
     
     private void initUpperPanel(){
@@ -38,13 +37,21 @@ public class MinMaxGUI extends JPanel implements Runnable{
         upperPanel.setPreferredSize(new Dimension(WIDTH,HEIGHT));
         upperPanel.setMaximumSize(new Dimension(WIDTH,HEIGHT));
         upperPanel.add(cp);
-        upperPanel.add(minMaxPanel);
+        upperPanel.add(qlearnPanel);
         
     }
+
     @Override
     public void run() {
-        System.out.println("MinMaxGUI run.");
+        System.out.println("QLearnGUI run.");
         repaint();
         revalidate();
+    }
+
+    public ControlPanel getCp() {
+        return cp;
+    }
+    public InformationPanel getIp() {
+        return ip;
     }
 }
