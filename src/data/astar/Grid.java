@@ -1,6 +1,6 @@
-package org.example.dataClass;
+package data.astar;
 
-import org.example.CellIsWallException;
+import process.astar.CellIsWallException;
 
 public class Grid {
     private final Cell[][] grid;

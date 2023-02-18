@@ -1,4 +1,5 @@
-package org.example;
+package process.astar;
+
 
 public class test {
 

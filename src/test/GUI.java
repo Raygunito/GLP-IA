@@ -1,9 +1,10 @@
-package org.example.gui;
+package process;
 
-import org.example.AStarCore;
-import org.example.dataClass.Cell;
+import data.astar.Cell;
+import process.astar.AStarCore;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.util.ArrayList;
 

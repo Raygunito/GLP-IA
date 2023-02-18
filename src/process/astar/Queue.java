@@ -1,9 +1,10 @@
-package org.example;
+package process.astar;
 
-import org.example.dataClass.Cell;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+
+import data.astar.Cell;
 
 public class Queue {
     private final ArrayList<Cell> queue;

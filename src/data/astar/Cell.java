@@ -1,4 +1,4 @@
-package org.example.dataClass;
+package data.astar;
 
 import java.util.ArrayList;
 

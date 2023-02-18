@@ -1,4 +1,4 @@
-package org.example.dataClass;
+package data.astar;
 
 public record Coordinate(int coordinateX, int coordinateY) {
 

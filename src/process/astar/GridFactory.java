@@ -1,10 +1,11 @@
-package org.example;
+package process.astar;
 
-import org.example.dataClass.Cell;
-import org.example.dataClass.Grid;
 
 import java.util.ArrayList;
 import java.util.Random;
+
+import data.astar.Cell;
+import data.astar.Grid;
 
 public class GridFactory {
     private final ArrayList<ArrayList<Cell>> listOfAreas;

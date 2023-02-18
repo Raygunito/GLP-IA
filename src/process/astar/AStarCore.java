@@ -1,9 +1,10 @@
-package org.example;
+package process.astar;
 
-import org.example.dataClass.Cell;
-import org.example.dataClass.Grid;
 
 import java.util.ArrayList;
+
+import data.astar.Cell;
+import data.astar.Grid;
 
 public class AStarCore {
     private Queue openList;
