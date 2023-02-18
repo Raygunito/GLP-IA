@@ -1,13 +1,13 @@
-package org.example;
+package main.java.org.example;
 
-import org.example.dataClass.Cell;
-import org.example.dataClass.Grid;
+import main.java.org.example.dataClass.Cell;
+import main.java.org.example.dataClass.Grid;
 
 import java.util.ArrayList;
 
 public class AStarCore {
-    private Queue openList;
-    private ArrayList<Cell> closedList;
+    private final Queue openList;
+    private final ArrayList<Cell> closedList;
     private final Grid grid;
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_GREEN = "\u001B[32m";
@@ -33,14 +33,15 @@ public class AStarCore {
     }
 
     public void updateOpenList(Cell cell) {
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 4; i++) {
             Cell cellDaughter;
             try {
                 cellDaughter = switch (i) {
                     case 0 -> grid.getUp(cell);
                     case 1 -> grid.getDown(cell);
                     case 2 -> grid.getRight(cell);
-                    default -> grid.getLeft(cell);
+                    case 3 -> grid.getLeft(cell);
+                    default -> throw new IllegalArgumentException();
                 };
                 if (!closedList.contains(cellDaughter) && !openList.getQueue().contains(cellDaughter)) {
                     cellDaughter.setParent(cell);
