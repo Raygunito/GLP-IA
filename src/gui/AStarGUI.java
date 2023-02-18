@@ -23,7 +23,10 @@ public class AStarGUI extends JPanel implements Runnable{
         astarPanel = new JPanel();
         astarPanel.setPreferredSize(new Dimension(1000,530));
         astarPanel.setMaximumSize(new Dimension(1000,530));
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 7986dd8 (working only on GUI)
         initUpperPanel();
         
         add(upperPanel);

@@ -13,7 +13,7 @@ public class GUITask implements Runnable {
     @Override
     public void run() {
         while (true) {
-            gui.update();
+            // gui.update();
         }
     }
 

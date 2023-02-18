@@ -39,6 +39,7 @@ public class GUI extends JFrame implements Runnable {
         setLocationRelativeTo(null);
     }
 
+<<<<<<< HEAD
     @Override
     public void run() {
         c.revalidate();
@@ -123,5 +124,14 @@ public class GUI extends JFrame implements Runnable {
         public void actionPerformed(ActionEvent e) {
             GUI.this.dispose();
         }
+=======
+
+
+    public static void main(String[] args) {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {}
+        new GUI();
+>>>>>>> parent of 7986dd8 (working only on GUI)
     }
 }
