@@ -1,10 +1,12 @@
-package gui;
+package gui.utilsPanel;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import gui.GUIConstant;
 
 public class InformationPanel extends JPanel{
     private static final int WIDTH = GUIConstant.SCALING_FACTOR*400;

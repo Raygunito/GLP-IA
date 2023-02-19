@@ -1,4 +1,4 @@
-package gui;
+package gui.utilsPanel;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -12,6 +12,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import gui.GUIConstant;
 
 public class ControlPanel extends JPanel{
     //TODO scalable factor to take account, prepare parameter for each algorithms

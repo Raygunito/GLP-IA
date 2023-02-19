@@ -14,7 +14,7 @@ public class AStarPanel extends JPanel implements Runnable {
 
     public AStarPanel(){
         super();
-        core=new AStarCore(30);
+        core=new AStarCore(40);
         init();
         setPreferredSize(new Dimension(300,300));
         setMaximumSize(new Dimension(300,300));

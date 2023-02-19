@@ -6,6 +6,9 @@ import java.awt.FlowLayout;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
+import gui.utilsPanel.ControlPanel;
+import gui.utilsPanel.InformationPanel;
+
 public class MinMaxGUI extends JPanel implements Runnable{
     private static final int WIDTH=GUIConstant.SCALING_FACTOR*400;
     private static final int HEIGHT=GUIConstant.SCALING_FACTOR*180;

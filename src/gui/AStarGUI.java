@@ -9,6 +9,8 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import gui.algorithmPanel.AStarPanel;
+import gui.utilsPanel.ControlPanel;
+import gui.utilsPanel.InformationPanel;
 
 public class AStarGUI extends JPanel implements Runnable{
     private static final int WIDTH=GUIConstant.SCALING_FACTOR*400;
@@ -23,10 +25,10 @@ public class AStarGUI extends JPanel implements Runnable{
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setPreferredSize(new Dimension(GUIConstant.DIM_X,GUIConstant.DIM_Y));
         cp = new ControlPanel(GUIConstant.ASTAR);
-        cp.setOpt1Value(30);
+        cp.setOpt1Value(40);
         ip = new InformationPanel(GUIConstant.ASTAR);
         //TODO Remplacer le astarpanel avec sa version fonctionnelle
-        astarPanel = new AStarPanel();
+        astarPanel = new AStarPanel(Integer.valueOf(cp.getOpt1Field().getText()));
         
         initUpperPanel();
         
