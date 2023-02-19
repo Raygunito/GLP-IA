@@ -4,7 +4,7 @@ import javax.swing.UIManager;
 
 import gui.GUI;
 
-public class TestGUI{
+public class Main_GUI{
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
