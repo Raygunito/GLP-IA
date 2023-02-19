@@ -17,15 +17,9 @@ public class CoinDrawStrategy implements PaintStrategy {
     }
 
     @Override
-    public void draw(Graphics2D g, int x, int y, int size, int width, int height, int n) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
     public void draw(Graphics2D g, int x, int y, int size) {
-        // TODO Auto-generated method stub
-
+        g.setColor(Color.YELLOW);
+        g.fillOval(x, y, size, size);
     }
 
 }
