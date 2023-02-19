@@ -1,7 +1,6 @@
 package gui.management;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 public class CoinDrawStrategy implements PaintStrategy {

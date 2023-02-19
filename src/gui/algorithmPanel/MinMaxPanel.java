@@ -49,17 +49,4 @@ public class MinMaxPanel extends JPanel {
         playPanel.add(two);
         playPanel.add(three);
     }
-
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getLookAndFeel());
-        } catch (UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        }
-        JFrame f = new JFrame();
-        f.add(new MinMaxPanel(10, 5));
-        f.pack();
-        f.setVisible(true);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
 }
