@@ -63,15 +63,6 @@ public class GUI extends JFrame implements Runnable {
         qlearn.setVisible(false);
     }
 
-    class ActionStartAStar implements ActionListener{
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            
-        }
-        
-    }
-
     class ActionBack implements ActionListener {
 
         @Override

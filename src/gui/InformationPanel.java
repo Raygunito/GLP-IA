@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 
 public class InformationPanel extends JPanel{
     private static final int WIDTH = GUIConstant.SCALING_FACTOR*400;
-    private static final int HEIGHT = GUIConstant.SCALING_FACTOR*50 ;
+    private static final int HEIGHT = GUIConstant.SCALING_FACTOR*45 ;
     private JPanel info1Panel,info2Panel;
     private JLabel info1,info2,infoValue1,infoValue2;
     public InformationPanel(String algoName) throws IllegalArgumentException{

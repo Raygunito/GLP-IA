@@ -22,6 +22,12 @@ public class AStarCore {
         grid = new GridFactory().BuildGrid();
         openList.getQueue().add(grid.getStartingCell());
     }
+    public AStarCore(int n) {
+        openList = new Queue();
+        closedList = new ArrayList<>();
+        grid = new GridFactory().BuildGrid(n);
+        openList.getQueue().add(grid.getStartingCell());
+    }
 
     public void process() {
         Cell cell = openList.handle();
@@ -60,8 +66,8 @@ public class AStarCore {
 
     public String showPath(Cell cell) {
         String res = "";
-        for (int k = 0; k < grid.getDIM(); k++) {
-            for (int m = 0; m < grid.getDIM(); m++) {
+        for (int k = 0; k < grid.getSize(); k++) {
+            for (int m = 0; m < grid.getSize(); m++) {
                 res += "|" + (closedList.contains(grid.getGrid()[k][m]) ? (cell.getGenealogy().contains(grid.getGrid()[k][m]) ? ANSI_BLUE + "2" + ANSI_RESET : ANSI_RED + "2" + ANSI_RESET) : (grid.getGrid()[k][m].isCanAccess() ? ANSI_GREEN + "0" + ANSI_RESET : 1)) + "|";
             }
             res += "\n";

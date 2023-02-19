@@ -3,24 +3,34 @@ package gui.algorithmPanel;
 import javax.swing.*;
 
 import data.astar.Cell;
+import gui.InformationPanel;
 import process.astar.AStarCore;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-public class AStarPanel extends JPanel {
+public class AStarPanel extends JPanel implements Runnable {
     private AStarCore core;
     private JLabel[][] grid;
     public AStarPanel(){
         super();
+        core=new AStarCore(30);
         init();
+        setPreferredSize(new Dimension(300,300));
+        setMaximumSize(new Dimension(300,300));
+    }
+    public AStarPanel(int n){
+        super();
+        core=new AStarCore(n);
+        init();
+        setPreferredSize(new Dimension(300,300));
+        setMaximumSize(new Dimension(300,300));
     }
     public void init(){
-        core=new AStarCore();
-        this.setLayout(new GridLayout(core.getGrid().getDIM(), core.getGrid().getDIM()));
-        grid = new JLabel[core.getGrid().getDIM()][core.getGrid().getDIM()];
-        for (int i = 0; i < core.getGrid().getDIM(); i++) {
-            for (int j = 0; j < core.getGrid().getDIM(); j++) {
+        this.setLayout(new GridLayout(core.getGrid().getSize(), core.getGrid().getSize()));
+        grid = new JLabel[core.getGrid().getSize()][core.getGrid().getSize()];
+        for (int i = 0; i < core.getGrid().getSize(); i++) {
+            for (int j = 0; j < core.getGrid().getSize(); j++) {
                 grid[i][j] = new JLabel("■");
                 if (core.getGrid().getCell(i, j).isCanAccess()) {
                     grid[i][j].setForeground(Color.GREEN);
@@ -33,10 +43,11 @@ public class AStarPanel extends JPanel {
             }
         }
     }
+
     private void update() {
         ArrayList<Cell> parents = core.getClosedList().get(core.getClosedList().size() - 1).getGenealogy();
-        for (int i = 0; i < core.getGrid().getDIM(); i++) {
-            for (int j = 0; j < core.getGrid().getDIM(); j++) {
+        for (int i = 0; i < core.getGrid().getSize(); i++) {
+            for (int j = 0; j < core.getGrid().getSize(); j++) {
                 grid[i][j].setForeground(core.getClosedList().contains(core.getGrid().getCell(i, j)) ? (parents.contains(core.getGrid().getCell(i, j)) ? Color.blue : Color.RED) : (core.getGrid().getGrid()[i][j].isCanAccess() ? Color.GREEN : Color.BLACK));
             }
         }
@@ -49,4 +60,19 @@ public class AStarPanel extends JPanel {
     public AStarCore getCore() {
         return core;
     }
+    @Override
+    public void run() {
+        String tmpCell,tmpCurrent;
+        while (!getCore().isEnded() && !getCore().getOpenList().getQueue().isEmpty()) {
+            process();
+            try {
+                Thread.sleep(40);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            repaint();
+        }
+    }
+
+    
 }

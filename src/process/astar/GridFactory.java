@@ -23,10 +23,17 @@ public class GridFactory {
         setStartAndEnding(grid);
         return grid;
     }
+    public Grid BuildGrid(int n) {
+        Grid grid = new Grid(n);
+        createCells(grid);
+        createPath(grid);
+        setStartAndEnding(grid);
+        return grid;
+    }
 
     private void createCells(Grid grid) {
-        for (int i = 0; i < grid.getDIM(); i++) {
-            for (int j = 0; j < grid.getDIM(); j++) {
+        for (int i = 0; i < grid.getSize(); i++) {
+            for (int j = 0; j < grid.getSize(); j++) {
                 if (i % 2 == 1 || j % 2 == 1) {
                     grid.getGrid()[i][j] = new Cell(i, j, null, false);
                     if (i % 2 == 0 || j % 2 == 0) {
@@ -104,7 +111,7 @@ public class GridFactory {
         grid.getStartingCell().setCanAccess(true);
         grid.getStartingCell().setCost(0);
         grid.getStartingCell().setHeuristicCost(0);
-        grid.setEndingCell(grid.getCell(grid.getDIM() - 1, grid.getDIM() - 1));
+        grid.setEndingCell(grid.getCell(grid.getSize() - 1, grid.getSize() - 1));
         grid.getEndingCell().setCanAccess(true);
     }
 

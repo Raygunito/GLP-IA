@@ -3,10 +3,12 @@ package gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.*;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+import javax.swing.event.AncestorListener;
 
 import gui.algorithmPanel.AStarPanel;
 
@@ -17,6 +19,7 @@ public class AStarGUI extends JPanel implements Runnable{
     private InformationPanel ip;
     private JPanel upperPanel;
     private AStarPanel astarPanel;
+    private Thread astarThread;
     public AStarGUI() {
         super();
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -25,9 +28,13 @@ public class AStarGUI extends JPanel implements Runnable{
         ip = new InformationPanel(GUIConstant.ASTAR);
         //TODO Remplacer le astarpanel avec sa version fonctionnelle
         astarPanel = new AStarPanel();
-        astarPanel.setPreferredSize(new Dimension(300,300));
-        astarPanel.setMaximumSize(new Dimension(300,300));
+        
         initUpperPanel();
+
+        cp.addActionListenerStart(new ActionStart());
+        cp.addActionListenerRestart(new ActionRestart());
+        cp.addActionListenerStop(new ActionStop());
+        
         // add(astarPanel);
         add(upperPanel);
         add(ip);
@@ -54,20 +61,8 @@ public class AStarGUI extends JPanel implements Runnable{
     @Override
     public void run() {
         System.out.println("AStarGUI run.");
-        while (!astarPanel.getCore().isEnded() && !astarPanel.getCore().getOpenList().getQueue().isEmpty()) {
-            astarPanel.process();
-            String tmpCell = String.valueOf(astarPanel.getCore().getClosedList().size()-1);
-            ip.setInfoValue1(tmpCell);
-            String tmpCurrent = String.valueOf(astarPanel.getCore().getClosedList().get(astarPanel.getCore().getClosedList().size() - 1).getGenealogy().size());
-            ip.setInfoValue2(tmpCurrent);
-            try {
-                Thread.sleep(40);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            repaint();
-        }
         revalidate();
+        repaint();
     }
 
     public ControlPanel getCp() {
@@ -75,5 +70,37 @@ public class AStarGUI extends JPanel implements Runnable{
     }
     public InformationPanel getIp() {
         return ip;
+    }
+
+    class ActionStart implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            astarThread = new Thread(astarPanel);
+            astarThread.start();
+        }
+
+    }
+
+    class ActionRestart implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            upperPanel.remove(1);
+            astarPanel = new AStarPanel(Integer.valueOf(cp.getOpt1Field().getText()));
+            upperPanel.add(astarPanel);
+            upperPanel.revalidate();
+            upperPanel.repaint();
+        }
+        
+    }
+
+    class ActionStop implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            astarThread.interrupt();
+        }
+        
     }
 }

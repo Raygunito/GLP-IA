@@ -8,12 +8,16 @@ public class Grid {
     private static final float HEURISTIC_RATIO = 3;
     private Cell endingCell;
     private Cell startingCell;
+    private int size;
 
+    public Grid(int n){
+        grid = new Cell[n][n];
+        size = n;
+    }
     public Grid() {
-        grid = new Cell[DIM][DIM];
+        this(DIM);
 
     }
-
 
     public Cell getUp(Cell cell) throws CellIsWallException {
         if (!grid[cell.getCoordinate().coordinateX()][cell.getCoordinate().coordinateY() - 1].isCanAccess()) {
@@ -50,8 +54,8 @@ public class Grid {
 
     public String toString() {
         String res = "";
-        for (int i = 0; i < DIM; i++) {
-            for (int j = 0; j < DIM; j++) {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
                 res += "|" + (grid[i][j].isCanAccess() ? 0 : 1) + "|";
             }
             res += "\n";
@@ -82,7 +86,9 @@ public class Grid {
     public Cell getStartingCell() {
         return startingCell;
     }
-
+    public int getSize() {
+        return size;
+    }
     public void setStartingCell(Cell startingCell) {
         this.startingCell = startingCell;
     }
