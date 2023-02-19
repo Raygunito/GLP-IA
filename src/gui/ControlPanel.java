@@ -182,5 +182,10 @@ public class ControlPanel extends JPanel{
     public JTextField getOpt2Field() {
         return opt2Field;
     }
-
+    public void setOpt1Value(int i) {
+        this.opt1Field.setText(String.valueOf(i));
+    }
+    public void setOpt2Value(int i) {
+        this.opt2Field.setText(String.valueOf(i));
+    }
 }

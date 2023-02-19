@@ -4,10 +4,12 @@ import java.awt.Container;
 import java.awt.event.*;
 import java.awt.CardLayout;
 
-import javax.swing.Action;
 import javax.swing.JFrame;
 
 public class GUI extends JFrame implements Runnable {
+    static final double TARGET_FPS = 30.0;
+    static final double FRAME_TIME = 1000000000.0 / TARGET_FPS;
+
     private Main_menu menu;
     private AStarGUI astar;
     private MinMaxGUI minmax;
@@ -44,8 +46,23 @@ public class GUI extends JFrame implements Runnable {
 
     @Override
     public void run() {
-        // c.revalidate();
-        c.repaint();
+        long lastTime = System.nanoTime();
+        double delta = 0;
+        while (true) {
+            long now = System.nanoTime();
+            delta += (now - lastTime) / FRAME_TIME;
+            lastTime = now;
+            if (delta >= 1) {
+                c.revalidate();
+                c.repaint();
+                delta--;
+            }
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void firstLaunch() {
@@ -125,6 +142,7 @@ public class GUI extends JFrame implements Runnable {
         @Override
         public void actionPerformed(ActionEvent e) {
             GUI.this.dispose();
+            System.exit(0);
         }
     }
 }

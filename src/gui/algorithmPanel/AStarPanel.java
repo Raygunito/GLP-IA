@@ -3,7 +3,6 @@ package gui.algorithmPanel;
 import javax.swing.*;
 
 import data.astar.Cell;
-import gui.InformationPanel;
 import process.astar.AStarCore;
 
 import java.awt.*;
@@ -12,6 +11,7 @@ import java.util.ArrayList;
 public class AStarPanel extends JPanel implements Runnable {
     private AStarCore core;
     private JLabel[][] grid;
+
     public AStarPanel(){
         super();
         core=new AStarCore(30);
@@ -26,6 +26,7 @@ public class AStarPanel extends JPanel implements Runnable {
         setPreferredSize(new Dimension(300,300));
         setMaximumSize(new Dimension(300,300));
     }
+
     public void init(){
         this.setLayout(new GridLayout(core.getGrid().getSize(), core.getGrid().getSize()));
         grid = new JLabel[core.getGrid().getSize()][core.getGrid().getSize()];
@@ -52,7 +53,7 @@ public class AStarPanel extends JPanel implements Runnable {
             }
         }
     }
-    public void process() {
+    public synchronized void process() {
         core.process();
         update();
     }
@@ -62,9 +63,9 @@ public class AStarPanel extends JPanel implements Runnable {
     }
     @Override
     public void run() {
-        String tmpCell,tmpCurrent;
-        while (!getCore().isEnded() && !getCore().getOpenList().getQueue().isEmpty()) {
+        while (!core.workFinished()) {
             process();
+            
             try {
                 Thread.sleep(40);
             } catch (InterruptedException e) {
@@ -74,5 +75,7 @@ public class AStarPanel extends JPanel implements Runnable {
         }
     }
 
-    
+    public int getNumberOfCellVisited(){
+        return core.getClosedListSize();
+    }
 }

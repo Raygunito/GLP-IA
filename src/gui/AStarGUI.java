@@ -8,8 +8,6 @@ import java.awt.event.*;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
-import javax.swing.event.AncestorListener;
-
 import gui.algorithmPanel.AStarPanel;
 
 public class AStarGUI extends JPanel implements Runnable{
@@ -25,12 +23,13 @@ public class AStarGUI extends JPanel implements Runnable{
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setPreferredSize(new Dimension(GUIConstant.DIM_X,GUIConstant.DIM_Y));
         cp = new ControlPanel(GUIConstant.ASTAR);
+        cp.setOpt1Value(30);
         ip = new InformationPanel(GUIConstant.ASTAR);
         //TODO Remplacer le astarpanel avec sa version fonctionnelle
         astarPanel = new AStarPanel();
         
         initUpperPanel();
-
+        
         cp.addActionListenerStart(new ActionStart());
         cp.addActionListenerRestart(new ActionRestart());
         cp.addActionListenerStop(new ActionStop());
@@ -64,16 +63,16 @@ public class AStarGUI extends JPanel implements Runnable{
         revalidate();
         repaint();
     }
-
+    
     public ControlPanel getCp() {
         return cp;
     }
     public InformationPanel getIp() {
         return ip;
     }
-
+    
     class ActionStart implements ActionListener{
-
+        
         @Override
         public void actionPerformed(ActionEvent e) {
             astarThread = new Thread(astarPanel);

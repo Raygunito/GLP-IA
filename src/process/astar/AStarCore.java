@@ -22,6 +22,7 @@ public class AStarCore {
         grid = new GridFactory().BuildGrid();
         openList.getQueue().add(grid.getStartingCell());
     }
+
     public AStarCore(int n) {
         openList = new Queue();
         closedList = new ArrayList<>();
@@ -29,16 +30,23 @@ public class AStarCore {
         openList.getQueue().add(grid.getStartingCell());
     }
 
+    /**
+     * Fait une étape de l'algorithme A*.
+     */
     public void process() {
         Cell cell = openList.handle();
         updateOpenList(cell);
         closedList.add(cell);
     }
-
     public boolean isEnded() {
         return closedList.contains(grid.getEndingCell());
     }
-
+    public boolean queueIsEmpty(){
+        return openList.getQueue().isEmpty();
+    }
+    public boolean workFinished(){
+        return isEnded()||queueIsEmpty();
+    }
     public void updateOpenList(Cell cell) {
         for (int i = 0; i < 8; i++) {
             Cell cellDaughter;
@@ -85,5 +93,9 @@ public class AStarCore {
 
     public ArrayList<Cell> getClosedList() {
         return closedList;
+    }
+    
+    public int getClosedListSize(){
+        return closedList.size();
     }
 }
