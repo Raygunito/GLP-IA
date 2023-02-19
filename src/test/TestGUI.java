@@ -14,6 +14,7 @@ public class TestGUI implements Runnable {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
         }
+        // GUI tc2gui = new GUI();
         new Thread(new TestGUI()).start();
     }
 

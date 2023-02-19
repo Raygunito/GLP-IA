@@ -3,6 +3,8 @@ package gui;
 import java.awt.Container;
 import java.awt.event.*;
 import java.awt.CardLayout;
+
+import javax.swing.Action;
 import javax.swing.JFrame;
 
 public class GUI extends JFrame implements Runnable {
@@ -32,6 +34,7 @@ public class GUI extends JFrame implements Runnable {
         // ActionListener pour le QLearn
         qlearn.getCp().addActionListenerBack(new ActionBack());
 
+        
         pack();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setVisible(true);
@@ -39,10 +42,9 @@ public class GUI extends JFrame implements Runnable {
         setLocationRelativeTo(null);
     }
 
-<<<<<<< HEAD
     @Override
     public void run() {
-        c.revalidate();
+        // c.revalidate();
         c.repaint();
     }
 
@@ -51,14 +53,23 @@ public class GUI extends JFrame implements Runnable {
         astar = new AStarGUI();
         minmax = new MinMaxGUI();
         qlearn = new QLearnGUI();
-        c.add(minmax, "minmax");
         c.add(menu, "menu");
+        c.add(minmax, "minmax");
         c.add(astar, "astar");
         c.add(qlearn, "qlearn");
         minmax.setVisible(false);
         menu.setVisible(true);
         astar.setVisible(false);
         qlearn.setVisible(false);
+    }
+
+    class ActionStartAStar implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            
+        }
+        
     }
 
     class ActionBack implements ActionListener {
@@ -83,9 +94,9 @@ public class GUI extends JFrame implements Runnable {
             astarThread.start();
             menu.setVisible(false);
             astar.setVisible(true);
+            ((CardLayout) c.getLayout()).show(c, "astar");
             c.revalidate();
             c.repaint();
-            ((CardLayout) c.getLayout()).show(c, "astar");
         }
 
     }
@@ -124,14 +135,5 @@ public class GUI extends JFrame implements Runnable {
         public void actionPerformed(ActionEvent e) {
             GUI.this.dispose();
         }
-=======
-
-
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {}
-        new GUI();
->>>>>>> parent of 7986dd8 (working only on GUI)
     }
 }

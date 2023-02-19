@@ -57,7 +57,7 @@ public class InformationPanel extends JPanel{
 
     private void initAStar(){
         info1.setText("Case visité :");
-        info2.setText("Noeud visité :");
+        info2.setText("Taille du chemin :");
     }
     
     private void initMinMax(){
