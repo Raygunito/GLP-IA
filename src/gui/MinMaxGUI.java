@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
+import gui.algorithmPanel.MinMaxPanel;
 import gui.utilsPanel.ControlPanel;
 import gui.utilsPanel.InformationPanel;
 
@@ -15,17 +16,19 @@ public class MinMaxGUI extends JPanel implements Runnable{
     private ControlPanel cp;
     private InformationPanel ip;
     private JPanel upperPanel;
-    private JPanel minMaxPanel;
+    private MinMaxPanel minMaxPanel;
     public MinMaxGUI() {
         super();
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setPreferredSize(new Dimension(GUIConstant.DIM_X,GUIConstant.DIM_Y));
         cp = new ControlPanel(GUIConstant.MINMAX);
+        cp.setOpt1Value(10);
+        cp.setOpt2Value(5);
         ip = new InformationPanel(GUIConstant.MINMAX);
         //TODO Remplacer le minMaxPanel avec sa version fonctionnelle
-        minMaxPanel = new JPanel();
-        minMaxPanel.setPreferredSize(new Dimension(1000,530));
-        minMaxPanel.setMaximumSize(new Dimension(1000,530));
+        minMaxPanel = new MinMaxPanel(Integer.valueOf(cp.getOpt1Field().getText()),Integer.valueOf(cp.getOpt2Field().getText()));
+        minMaxPanel.setPreferredSize(new Dimension(300,300));
+        minMaxPanel.setMaximumSize(new Dimension(300,300));
         
         initUpperPanel();
         

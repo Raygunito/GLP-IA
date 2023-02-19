@@ -2,7 +2,7 @@ package test;
 
 import javax.swing.*;
 
-import data.minmax.Tree;
+import process.minmax.Tree;
 import process.minmax.TreeFactory;
 
 import java.awt.*;

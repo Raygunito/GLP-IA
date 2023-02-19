@@ -1,7 +1,7 @@
 package test;
 
 import data.minmax.Node;
-import data.minmax.Tree;
+import process.minmax.Tree;
 import process.minmax.TreeFactory;
 
 public class TestTxTMinmax {

@@ -14,30 +14,30 @@ public abstract class Node {
     public static Node initNode(){
         return null;
     }
-    Node getLeftChild() {
+    public Node getLeftChild() {
         return leftChild;
     }
 
-    Node getMiddleChild() {
+    public Node getMiddleChild() {
         return middleChild;
     }
 
-    Node getRightChild() {
+    public Node getRightChild() {
         return rightChild;
     }
 
-    int getValue() {
+    public int getValue() {
         return value;
     }
 
-    int calculateHeuristic() {
+    public int calculateHeuristic() {
         if (value == 0) {
             return heuristic;
         }
         return returnCost(getChildCost(leftChild), getChildCost(middleChild), getChildCost(rightChild));
     }
 
-    int getChildCost(Node node) {
+    public int getChildCost(Node node) {
         int cost;
         try {
             cost = node.calculateHeuristic();

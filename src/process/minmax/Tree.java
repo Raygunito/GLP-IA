@@ -1,7 +1,9 @@
-package data.minmax;
+package process.minmax;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+
+import data.minmax.Node;
 
 public class Tree {
     private final Node root;
