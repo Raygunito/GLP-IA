@@ -2,20 +2,16 @@ package gui.algorithmPanel;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Color;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import gui.primitivePanel.CoinPanel;
 import process.minmax.MinMaxCore;
-import process.minmax.TreeFactory;
 
 public class MinMaxPanel extends JPanel {
     private MinMaxCore minMaxCore;
@@ -35,25 +31,7 @@ public class MinMaxPanel extends JPanel {
     }
 
     private void initCoinPanel(int coin) {
-        coinNumber = coin;
-        coinPanel = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                Graphics2D g2d = (Graphics2D) g;
-                int width = getWidth();
-                int height = getHeight();
-                int coinSize = Math.min(width / coinNumber, height);
-                int x = (width - coinNumber * coinSize) / 2;
-                int y = (height - coinSize) / 2;
-                g2d.setColor(getBackground());
-                g2d.fillRect(0, 0, width, height);
-                g2d.setColor(Color.YELLOW); // Set the fill color to yellow
-                for (int i = 0; i < coinNumber; i++) {
-                    g2d.fillOval(x + i * coinSize, y, coinSize, coinSize); // Fill the oval with yellow
-                }
-            }
-        };
+        coinPanel = new CoinPanel(coin);
         coinPanel.setPreferredSize(new Dimension(300, 50));
         coinPanel.setBackground(getBackground());
         coinPanel.setForeground(getForeground());
