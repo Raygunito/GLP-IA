@@ -9,12 +9,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GUIMinMax extends JFrame {
+public class TestMinMaxGUI extends JFrame {
     private int coinNumber;
     private JLabel[] coins;
     private JPanel coinPanel;
 
-    public GUIMinMax() {
+    public TestMinMaxGUI() {
         super();
         init();
     }
@@ -76,10 +76,10 @@ public class GUIMinMax extends JFrame {
 
 
     private class takeCoins implements ActionListener {
-        private GUIMinMax gui;
+        private TestMinMaxGUI gui;
         private int coinTaken;
 
-        public takeCoins(GUIMinMax gui, int coinTaken) {
+        public takeCoins(TestMinMaxGUI gui, int coinTaken) {
             this.gui = gui;
             this.coinTaken = coinTaken;
         }

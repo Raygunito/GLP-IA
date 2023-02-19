@@ -8,11 +8,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class GUI extends JFrame {
+public class TestAStarGUI extends JFrame {
     private AStarCore core;
     private JLabel[][] grid;
 
-    public GUI() {
+    public TestAStarGUI() {
         super();
         init();
 
