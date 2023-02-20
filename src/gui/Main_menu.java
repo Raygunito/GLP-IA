@@ -41,36 +41,40 @@ public class Main_menu extends JPanel {
     }
 
     private void init() {
-        Font customFont = null;
+        Font mainTitleFont = null;
+        Font menuFont = null;
         try {
-            customFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/gui/fonts/poppins/Poppins-Bold.ttf")).deriveFont(36f);
+            mainTitleFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/gui/fonts/poppins/Poppins-Bold.ttf")).deriveFont(36f);
+            menuFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/gui/fonts/poppins/Poppins-Bold.ttf")).deriveFont(18f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(customFont);
+            ge.registerFont(mainTitleFont);
+            ge.registerFont(menuFont);
         } catch (IOException | FontFormatException e) {
             e.printStackTrace();
         }
+
         title = new JLabel("The Cognitive Crew");
         title.setAlignmentX(CENTER_ALIGNMENT);
-        title.setFont(customFont);
+        title.setFont(mainTitleFont);
 
         astar = new JButton("A Star");
         astar.setAlignmentX(CENTER_ALIGNMENT);
-        astar.setFont(new Font("Arial", Font.BOLD, 14));
+        astar.setFont(menuFont);
         astar.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black, 1), BorderFactory.createEmptyBorder(15, 48, 15, 48)));
 
         minmax = new JButton("MinMax");
         minmax.setAlignmentX(CENTER_ALIGNMENT);
-        minmax.setFont(new Font("Arial", Font.BOLD, 14));
+        minmax.setFont(menuFont);
         minmax.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black, 1), BorderFactory.createEmptyBorder(15, 42, 15, 42)));
 
         qlearn = new JButton("QLearning");
         qlearn.setAlignmentX(CENTER_ALIGNMENT);
-        qlearn.setFont(new Font("Arial", Font.BOLD, 14));
+        qlearn.setFont(menuFont);
         qlearn.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black, 1), BorderFactory.createEmptyBorder(15, 33, 15, 33)));
 
         quit = new JButton("Quit");
         quit.setAlignmentX(CENTER_ALIGNMENT);
-        quit.setFont(new Font("Arial", Font.BOLD, 14));
+        quit.setFont(menuFont);
         quit.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black, 1), BorderFactory.createEmptyBorder(15, 55, 15, 55)));
     }
 
