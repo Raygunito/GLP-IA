@@ -45,7 +45,7 @@ public class Main_menu extends JPanel {
         Font menuFont = null;
         try {
             mainTitleFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/gui/fonts/poppins/Poppins-Bold.ttf")).deriveFont(36f);
-            menuFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/gui/fonts/poppins/Poppins-Bold.ttf")).deriveFont(18f);
+            menuFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/gui/fonts/poppins/Poppins-Bold.ttf")).deriveFont(22f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(mainTitleFont);
             ge.registerFont(menuFont);
@@ -60,22 +60,22 @@ public class Main_menu extends JPanel {
         astar = new JButton("A Star");
         astar.setAlignmentX(CENTER_ALIGNMENT);
         astar.setFont(menuFont);
-        astar.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black, 1), BorderFactory.createEmptyBorder(15, 48, 15, 48)));
+        astar.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black, 0), BorderFactory.createEmptyBorder(10, 57, 10, 57)));
 
         minmax = new JButton("MinMax");
         minmax.setAlignmentX(CENTER_ALIGNMENT);
         minmax.setFont(menuFont);
-        minmax.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black, 1), BorderFactory.createEmptyBorder(15, 42, 15, 42)));
+        minmax.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black, 0), BorderFactory.createEmptyBorder(10, 47, 10, 47)));
 
         qlearn = new JButton("QLearning");
         qlearn.setAlignmentX(CENTER_ALIGNMENT);
         qlearn.setFont(menuFont);
-        qlearn.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black, 1), BorderFactory.createEmptyBorder(15, 33, 15, 33)));
+        qlearn.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black, 0), BorderFactory.createEmptyBorder(10, 33, 10, 33)));
 
         quit = new JButton("Quit");
         quit.setAlignmentX(CENTER_ALIGNMENT);
         quit.setFont(menuFont);
-        quit.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black, 1), BorderFactory.createEmptyBorder(15, 55, 15, 55)));
+        quit.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black, 0), BorderFactory.createEmptyBorder(10, 68, 10, 68)));
     }
 
     @Override
