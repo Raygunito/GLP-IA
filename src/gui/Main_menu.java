@@ -1,16 +1,12 @@
 package gui;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.geom.Point2D;
-import java.awt.RadialGradientPaint;
 import java.awt.MultipleGradientPaint.CycleMethod;
 import java.awt.event.*;
 import java.awt.geom.RoundRectangle2D;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -44,30 +40,38 @@ public class Main_menu extends JPanel {
         setPreferredSize(new Dimension(GUIConstant.DIM_X,GUIConstant.DIM_Y));
     }
 
-    private void init(){
-        title= new JLabel("The Cognitive Crew");
+    private void init() {
+        Font customFont = null;
+        try {
+            customFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/gui/fonts/poppins/Poppins-Bold.ttf")).deriveFont(36f);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(customFont);
+        } catch (IOException | FontFormatException e) {
+            e.printStackTrace();
+        }
+        title = new JLabel("The Cognitive Crew");
         title.setAlignmentX(CENTER_ALIGNMENT);
-        title.setFont(new Font("Arial",Font.BOLD,36));
+        title.setFont(customFont);
 
-        astar= new JButton("A Star");
+        astar = new JButton("A Star");
         astar.setAlignmentX(CENTER_ALIGNMENT);
-        astar.setFont(new Font("Arial",Font.BOLD,14));
-        astar.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black,1),BorderFactory.createEmptyBorder(15, 48, 15, 48)));
+        astar.setFont(new Font("Arial", Font.BOLD, 14));
+        astar.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black, 1), BorderFactory.createEmptyBorder(15, 48, 15, 48)));
 
         minmax = new JButton("MinMax");
         minmax.setAlignmentX(CENTER_ALIGNMENT);
-        minmax.setFont(new Font("Arial",Font.BOLD,14));
-        minmax.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black,1),BorderFactory.createEmptyBorder(15, 42, 15, 42)));
-        
+        minmax.setFont(new Font("Arial", Font.BOLD, 14));
+        minmax.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black, 1), BorderFactory.createEmptyBorder(15, 42, 15, 42)));
+
         qlearn = new JButton("QLearning");
         qlearn.setAlignmentX(CENTER_ALIGNMENT);
-        qlearn.setFont(new Font("Arial",Font.BOLD,14));
-        qlearn.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black,1),BorderFactory.createEmptyBorder(15, 33, 15, 33)));
-        
+        qlearn.setFont(new Font("Arial", Font.BOLD, 14));
+        qlearn.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black, 1), BorderFactory.createEmptyBorder(15, 33, 15, 33)));
+
         quit = new JButton("Quit");
         quit.setAlignmentX(CENTER_ALIGNMENT);
-        quit.setFont(new Font("Arial",Font.BOLD,14));
-        quit.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black,1),BorderFactory.createEmptyBorder(15, 55, 15, 55)));
+        quit.setFont(new Font("Arial", Font.BOLD, 14));
+        quit.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.black, 1), BorderFactory.createEmptyBorder(15, 55, 15, 55)));
     }
 
     @Override
