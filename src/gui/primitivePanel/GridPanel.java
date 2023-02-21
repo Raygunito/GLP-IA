@@ -1,6 +1,5 @@
 package gui.primitivePanel;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -20,8 +19,8 @@ public class GridPanel extends JPanel {
     public GridPanel(int gridSize, PaintStrategy paintStrategy) {
         this.gridSize = gridSize;
         this.paintStrategy = paintStrategy;
-        setPreferredSize(new Dimension(300, 300));
-        setMaximumSize(new Dimension(300, 300));
+        setPreferredSize(new Dimension(400, 400));
+        setMaximumSize(new Dimension(400, 400));
     }
 
     @Override

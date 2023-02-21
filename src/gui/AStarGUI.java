@@ -28,7 +28,7 @@ public class AStarGUI extends JPanel implements Runnable{
         cp.setOpt1Value(40);
         ip = new InformationPanel(GUIConstant.ASTAR);
         //TODO Remplacer le astarpanel avec sa version fonctionnelle
-        astarPanel = new AStarPanel(Integer.valueOf(cp.getOpt1Field().getText()));
+        astarPanel = new AStarPanel(Integer.valueOf(cp.getOpt1Field().getText()),this.ip);
         
         initUpperPanel();
         

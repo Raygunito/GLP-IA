@@ -3,6 +3,7 @@ package gui.algorithmPanel;
 import javax.swing.*;
 
 import data.astar.Cell;
+import gui.utilsPanel.InformationPanel;
 import process.astar.AStarCore;
 
 import java.awt.*;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 public class AStarPanel extends JPanel implements Runnable {
     private AStarCore core;
     private JLabel[][] grid;
-
+    private InformationPanel ip;
     public AStarPanel(){
         super();
         core=new AStarCore(40);
@@ -22,6 +23,14 @@ public class AStarPanel extends JPanel implements Runnable {
     public AStarPanel(int n){
         super();
         core=new AStarCore(n);
+        init();
+        setPreferredSize(new Dimension(300,300));
+        setMaximumSize(new Dimension(300,300));
+    }
+    public AStarPanel(int n,InformationPanel ip){
+        super();
+        core=new AStarCore(n);
+        this.ip = ip;
         init();
         setPreferredSize(new Dimension(300,300));
         setMaximumSize(new Dimension(300,300));
@@ -52,12 +61,19 @@ public class AStarPanel extends JPanel implements Runnable {
                 grid[i][j].setForeground(core.getClosedList().contains(core.getGrid().getCell(i, j)) ? (parents.contains(core.getGrid().getCell(i, j)) ? Color.blue : Color.RED) : (core.getGrid().getGrid()[i][j].isCanAccess() ? Color.GREEN : Color.BLACK));
             }
         }
+        //TODO Finir l'update de la value en temps réel.
+        if(ip!=null){
+            ip.setInfoValue1(String.valueOf(core.getClosedListSize()));
+            ip.setInfoValue2(String.valueOf(1));
+
+            ip.repaint();
+        }
     }
     public synchronized void process() {
         core.process();
         update();
     }
-
+    
     public AStarCore getCore() {
         return core;
     }
@@ -65,7 +81,6 @@ public class AStarPanel extends JPanel implements Runnable {
     public void run() {
         while (!core.workFinished()) {
             process();
-            
             try {
                 Thread.sleep(40);
             } catch (InterruptedException e) {
