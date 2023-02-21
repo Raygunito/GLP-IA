@@ -1,9 +1,8 @@
 package gui;
 
-import java.awt.*;
+import java.awt.Container;
 import java.awt.event.*;
-import java.io.File;
-import java.io.IOException;
+import java.awt.CardLayout;
 
 import javax.swing.JFrame;
 
@@ -16,20 +15,9 @@ public class GUI extends JFrame implements Runnable {
     private MinMaxGUI minmax;
     private QLearnGUI qlearn;
     private Container c;
-    Font poppins;
-
-
 
     public GUI() {
-
         super("The Cognitive Crew");
-        try {
-            Font customFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/gui/fonts/poppins/Poppins-Bold.ttf")).deriveFont(12f);
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(customFont);
-        } catch (IOException | FontFormatException e) {
-            e.printStackTrace();
-        }
         c = getContentPane();
         c.setLayout(new CardLayout());
         firstLaunch();

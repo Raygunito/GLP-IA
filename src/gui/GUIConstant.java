@@ -7,7 +7,7 @@ public interface GUIConstant {
      * <p>Default value = 3</p>
      * <p>Small screen = 2</p>
      */
-    int SCALING_FACTOR=4;
+    int SCALING_FACTOR=2;
 
     //--------------------------------------------------------//
     int DIM_X=SCALING_FACTOR*400;
