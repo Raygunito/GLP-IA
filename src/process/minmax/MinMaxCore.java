@@ -4,7 +4,7 @@ public class MinMaxCore {
     private Tree tree;
     private int coin;
     private int difficulty;
-    private boolean playerTurn;
+    private boolean playerTurn = false;
     public MinMaxCore(int baseCoin, int difficulty) {
         this.coin = baseCoin;
         this.difficulty = difficulty;
@@ -22,6 +22,12 @@ public class MinMaxCore {
         playerTurn=false;
     }
 
+
+
+    
+    public boolean isPlayerTurn(){
+        return playerTurn;
+    }
     
     public int getCoin() {
         return coin;
@@ -30,4 +36,7 @@ public class MinMaxCore {
     public void setCoin(int coin) {
         this.coin = coin;
     }
+
+
+
 }

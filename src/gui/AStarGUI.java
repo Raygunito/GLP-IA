@@ -27,7 +27,7 @@ public class AStarGUI extends JPanel implements Runnable {
         setPreferredSize(new Dimension(GUIConstant.DIM_X, GUIConstant.DIM_Y));
         cp = new ControlPanel(GUIConstant.ASTAR);
         cp.setOpt1Value(40);
-        cp.setOpt2Value(1);
+        cp.setOpt2Value(3);
         ip = new InformationPanel(GUIConstant.ASTAR);
         // TODO Remplacer le astarpanel avec sa version fonctionnelle
         astarPanel = new AStarPanel(Integer.valueOf(cp.getOpt1Field().getText()),
@@ -36,7 +36,7 @@ public class AStarGUI extends JPanel implements Runnable {
         initUpperPanel();
 
         cp.addActionListenerStart(new ActionStart());
-        cp.addActionListenerRestart(new ActionRestart(this.ip));
+        cp.addActionListenerRestart(new ActionRestart());
         cp.addActionListenerStop(new ActionStop());
 
         // add(astarPanel);
@@ -78,7 +78,6 @@ public class AStarGUI extends JPanel implements Runnable {
     }
 
     class ActionStart implements ActionListener {
-
         @Override
         public void actionPerformed(ActionEvent e) {
             astarThread.start();
@@ -87,17 +86,13 @@ public class AStarGUI extends JPanel implements Runnable {
     }
 
     class ActionRestart implements ActionListener {
-        private InformationPanel ip;
-
-        public ActionRestart(InformationPanel ip) {
-            this.ip = ip;
-        }
-
         @Override
         public void actionPerformed(ActionEvent e) {
+            astarPanel.togglePaused();
+            astarThread.interrupt();
             upperPanel.remove(1);
             astarPanel = new AStarPanel(Integer.valueOf(cp.getOpt1Field().getText()),
-                    Integer.valueOf(cp.getOpt2Field().getText()), ip);
+                    Integer.valueOf(cp.getOpt2Field().getText()),AStarGUI.this.ip);
             astarThread = new Thread(astarPanel);
             upperPanel.add(astarPanel);
             upperPanel.revalidate();

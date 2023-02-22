@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.*;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -17,6 +18,7 @@ public class MinMaxGUI extends JPanel implements Runnable{
     private InformationPanel ip;
     private JPanel upperPanel;
     private MinMaxPanel minMaxPanel;
+    private Thread minMaxThread;
     public MinMaxGUI() {
         super();
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -31,7 +33,9 @@ public class MinMaxGUI extends JPanel implements Runnable{
         minMaxPanel.setMaximumSize(new Dimension(300,300));
         
         initUpperPanel();
-        
+        cp.addActionListenerStart(new ActionStart());
+        cp.addActionListenerRestart(new ActionRestart());
+        cp.addActionListenerStop(new ActionStop());
         add(upperPanel);
         add(ip);
 
@@ -52,6 +56,47 @@ public class MinMaxGUI extends JPanel implements Runnable{
         System.out.println("MinMaxGUI run.");
         repaint();
         revalidate();
+    }
+
+
+    class ActionStart implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            minMaxThread.start();
+        }
+
+    }
+
+    class ActionRestart implements ActionListener {
+        private InformationPanel ip;
+        public ActionRestart() {
+        
+        }
+        public ActionRestart(InformationPanel ip) {
+            this.ip = ip;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            upperPanel.remove(1);
+            minMaxPanel = new MinMaxPanel(Integer.valueOf(cp.getOpt1Field().getText()),
+                    Integer.valueOf(cp.getOpt2Field().getText()));
+            minMaxThread = new Thread(minMaxPanel);
+            upperPanel.add(minMaxPanel);
+            upperPanel.revalidate();
+            upperPanel.repaint();
+            ip.resetValue();
+        }
+
+    }
+
+    class ActionStop implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            minMaxPanel.togglePaused();
+        }
     }
 
     public ControlPanel getCp() {

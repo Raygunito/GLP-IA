@@ -10,7 +10,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class AStarPanel extends JPanel implements Runnable {
-    private volatile boolean paused = true;
+    private volatile boolean paused = false;
     private AStarCore core;
     private JLabel[][] grid;
     private InformationPanel ip;
@@ -88,10 +88,10 @@ public class AStarPanel extends JPanel implements Runnable {
     @Override
     public void run() {
         while (!core.workFinished()) {
-            if (paused){
+            if (!paused){
                 process();
                 try {
-                    Thread.sleep(100-(speed*10));
+                    Thread.sleep(150-(speed*10));
                 } catch (InterruptedException e) {
                     return;
                 }

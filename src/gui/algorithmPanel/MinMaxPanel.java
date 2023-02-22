@@ -5,19 +5,16 @@ import java.awt.FlowLayout;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-
 import gui.primitivePanel.CoinPanel;
 import process.minmax.MinMaxCore;
 
-public class MinMaxPanel extends JPanel {
+public class MinMaxPanel extends JPanel implements Runnable{
     private MinMaxCore minMaxCore;
     private JButton one, two, three;
     private JPanel playPanel, coinPanel;
     private int coinNumber;
+    private boolean paused = false;
 
     public MinMaxPanel(int coin, int difficulty) {
         super();
@@ -48,5 +45,19 @@ public class MinMaxPanel extends JPanel {
         playPanel.add(one);
         playPanel.add(two);
         playPanel.add(three);
+    }
+
+    public void update(){
+        
+    }
+
+    @Override
+    public void run() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    public void togglePaused(){
+        paused = !paused;
     }
 }
