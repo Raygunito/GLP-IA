@@ -178,6 +178,8 @@ public class ControlPanel extends JPanel{
         restart.addActionListener(al);
     }
 
+
+    //GETTER SETTER
     public JTextField getOpt1Field() {
         return opt1Field;
     }
@@ -189,5 +191,8 @@ public class ControlPanel extends JPanel{
     }
     public void setOpt2Value(int i) {
         this.opt2Field.setText(String.valueOf(i));
+    }
+    public JButton getStop() {
+        return stop;
     }
 }

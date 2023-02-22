@@ -98,4 +98,8 @@ public class AStarCore {
     public int getClosedListSize(){
         return closedList.size();
     }
+
+    public int getCurrentPathSize(){
+        return closedList.get(closedList.size() - 1).getGenealogy().size();
+    }
 }

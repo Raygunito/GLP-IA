@@ -75,8 +75,13 @@ public class InformationPanel extends JPanel{
     public void setInfoValue1(String value) {
         infoValue1.setText(value);
     }
-
+    
     public void setInfoValue2(String value) {
         infoValue2.setText(value);
+    }
+    
+    public void resetValue(){
+        infoValue1.setText("0");
+        infoValue2.setText("0");
     }
 }
