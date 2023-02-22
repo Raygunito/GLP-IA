@@ -34,6 +34,14 @@ public abstract class Node {
         if (value == 0) {
             return heuristic;
         }
+        if(isLeaf()){
+            if (value%4==0){
+                return heuristic;
+            }
+            else{
+                return 0;
+            }
+        }
         return returnCost(getChildCost(leftChild), getChildCost(middleChild), getChildCost(rightChild));
     }
 
@@ -46,6 +54,8 @@ public abstract class Node {
         }
         return cost;
     }
-
+    public boolean isLeaf(){
+        return leftChild==null && middleChild==null && rightChild ==null;
+    }
     public abstract int returnCost(int leftCost, int middleCost, int rightCost);
 }
