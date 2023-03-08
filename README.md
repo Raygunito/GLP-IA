@@ -1,3 +1,4 @@
 # GLP-IA (TC²)
-## Trois frères : voici leur histoire
+## Trois programmeurs, trois frères : voici leur histoire
+<p>Le début de leur histoire est tourmentée</p>
 Projet GLP L2 info, 2022-2023
