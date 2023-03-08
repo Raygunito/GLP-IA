@@ -91,7 +91,7 @@ public class AStarPanel extends JPanel implements Runnable {
             if (!paused){
                 process();
                 try {
-                    Thread.sleep(150-(speed*10));
+                    Thread.sleep(800-(speed*10));
                 } catch (InterruptedException e) {
                     return;
                 }

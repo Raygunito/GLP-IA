@@ -15,6 +15,7 @@ public class GUI extends JFrame implements Runnable {
     private MinMaxGUI minmax;
     private QLearnGUI qlearn;
     private Container c;
+    private Thread astarThread,qlearnThread,minmaxThread;
 
     public GUI() {
         super("The Cognitive Crew");
@@ -64,7 +65,7 @@ public class GUI extends JFrame implements Runnable {
             }
         }
     }
-
+    
     private void firstLaunch() {
         menu = new Main_menu();
         astar = new AStarGUI();
@@ -78,6 +79,12 @@ public class GUI extends JFrame implements Runnable {
         menu.setVisible(true);
         astar.setVisible(false);
         qlearn.setVisible(false);
+        qlearnThread = new Thread(qlearn);
+        astarThread = new Thread(astar);
+        minmaxThread = new Thread(minmax);
+        astarThread.start();
+        qlearnThread.start();
+        minmaxThread.start();
     }
 
     class ActionBack implements ActionListener {
@@ -98,8 +105,6 @@ public class GUI extends JFrame implements Runnable {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            Thread astarThread = new Thread(astar);
-            astarThread.start();
             menu.setVisible(false);
             astar.setVisible(true);
             ((CardLayout) c.getLayout()).show(c, "astar");
@@ -113,8 +118,6 @@ public class GUI extends JFrame implements Runnable {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            Thread qlearnThread = new Thread(qlearn);
-            qlearnThread.start();
             menu.setVisible(false);
             qlearn.setVisible(true);
             c.revalidate();
@@ -127,8 +130,6 @@ public class GUI extends JFrame implements Runnable {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            Thread minmaxThread = new Thread(minmax);
-            minmaxThread.start();
             menu.setVisible(false);
             minmax.setVisible(true);
             c.revalidate();
