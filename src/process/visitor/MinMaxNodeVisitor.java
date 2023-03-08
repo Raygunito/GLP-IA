@@ -1,5 +1,5 @@
 package process.visitor;
 
-public class NodeVisitor {
+public class MinMaxNodeVisitor {
     private int count;
 }
