@@ -140,9 +140,9 @@ public class AStarPanel extends JPanel implements Runnable {
         return paused;
     }
 
-    public void test() {
-        ChartPanel chartPanel = new ChartPanel(core.chartManager.getHeightEvolutionChart());
-        chartPanel.setPreferredSize(new Dimension(300,150));
-        this.ip.add(chartPanel);
-    }
+    // public void test() {
+    //     ChartPanel chartPanel = new ChartPanel(core.chartManager.getHeightEvolutionChart());
+    //     chartPanel.setPreferredSize(new Dimension(300,150));
+    //     this.ip.add(chartPanel);
+    // }
 }
