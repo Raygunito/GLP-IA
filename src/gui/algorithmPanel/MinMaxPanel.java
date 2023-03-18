@@ -2,7 +2,9 @@ package gui.algorithmPanel;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Color;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -41,7 +43,9 @@ public class MinMaxPanel extends JPanel implements Runnable{
         one = new JButton("1");
         two = new JButton("2");
         three = new JButton("3");
-
+        one.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(),BorderFactory.createEmptyBorder(15, 42, 15, 42)));
+        two.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(),BorderFactory.createEmptyBorder(15, 42, 15, 42)));
+        three.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(),BorderFactory.createEmptyBorder(15, 42, 15, 42)));
         playPanel.add(one);
         playPanel.add(two);
         playPanel.add(three);

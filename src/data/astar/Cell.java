@@ -2,17 +2,21 @@ package data.astar;
 
 import java.util.ArrayList;
 
+import data.elements.Element;
+
 public class Cell {
     private final Coordinate coordinate;
     private Cell parent;
     private boolean canAccess;
     private double heuristicCost;
     private int cost;
+    private Element element;
 
     public Cell(int x, int y, Cell parent, boolean canAccess) {
         coordinate = new Coordinate(x, y);
         this.parent = parent;
         this.canAccess = canAccess;
+        this.element = null;
     }
 
     public Coordinate getCoordinate() {
@@ -49,6 +53,14 @@ public class Cell {
 
     public void setCost(int cost) {
         this.cost = cost;
+    }
+
+    public Element getElement() {
+        return element;
+    }
+
+    public void setElement(Element element) {
+        this.element = element;
     }
 
     public void calculateCost() {

@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import data.astar.Cell;
+import data.astar.Coordinate;
 import data.astar.Grid;
+import data.elements.Tile;
+import data.elements.Wall;
 
 public class GridFactory {
     private final ArrayList<ArrayList<Cell>> listOfAreas;
@@ -36,11 +39,13 @@ public class GridFactory {
             for (int j = 0; j < grid.getSize(); j++) {
                 if (i % 2 == 1 || j % 2 == 1) {
                     grid.getGrid()[i][j] = new Cell(i, j, null, false);
+                    grid.getCell(i, j).setElement(new Wall(new Coordinate(i, j)));
                     if (i % 2 == 0 || j % 2 == 0) {
                         walls.add(grid.getGrid()[i][j]);
                     }
                 } else {
                     grid.getGrid()[i][j] = new Cell(i, j, null, true);
+                    grid.getCell(i, j).setElement(new Tile(new Coordinate(i, j)));
                     listOfAreas.add(new ArrayList<>());
                     listOfAreas.get(listOfAreas.size() - 1).add(grid.getGrid()[i][j]);
                 }
@@ -73,11 +78,13 @@ public class GridFactory {
                     area.addAll(JoiningArea);
                     listOfAreas.remove(JoiningArea);
                     wall.setCanAccess(true);
+                    wall.setElement(new Tile(wall.getCoordinate()));
                     break;
                 }
             } catch (CellIsWallException ignored) {
             } catch (IndexOutOfBoundsException ioobe) {
                 wall.setCanAccess(true);
+                wall.setElement(new Tile(wall.getCoordinate()));
                 walls.remove(wall);
             }
         }
@@ -91,11 +98,13 @@ public class GridFactory {
                     area.addAll(joiningArea);
                     listOfAreas.remove(joiningArea);
                     wall.setCanAccess(true);
+                    wall.setElement(new Tile(wall.getCoordinate()));
                     break;
                 }
             } catch (CellIsWallException ignored) {
             } catch (IndexOutOfBoundsException ioobe) {
                 wall.setCanAccess(true);
+                wall.setElement(new Tile(wall.getCoordinate()));
                 walls.remove(wall);
             }
         }

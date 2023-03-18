@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.event.*;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import gui.algorithmPanel.AStarPanel;
@@ -25,6 +26,7 @@ public class AStarGUI extends JPanel implements Runnable {
         super();
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setPreferredSize(new Dimension(GUIConstant.DIM_X, GUIConstant.DIM_Y));
+        setMaximumSize(new Dimension(GUIConstant.DIM_X, GUIConstant.DIM_Y));
         cp = new ControlPanel(GUIConstant.ASTAR);
         cp.setOpt1Value(40);
         cp.setOpt2Value(3);
@@ -50,6 +52,7 @@ public class AStarGUI extends JPanel implements Runnable {
         setBorder(BorderFactory.createLineBorder(Color.black));
         astarPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         ip.setBorder(BorderFactory.createLineBorder(Color.black));
+        upperPanel.setBorder(BorderFactory.createLineBorder(Color.black));
     }
 
     private void initUpperPanel() {
@@ -58,8 +61,8 @@ public class AStarGUI extends JPanel implements Runnable {
         upperPanel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         upperPanel.setMaximumSize(new Dimension(WIDTH, HEIGHT));
         upperPanel.add(cp);
+        upperPanel.add(Box.createHorizontalStrut(GUIConstant.SCALING_FACTOR*50));
         upperPanel.add(astarPanel);
-
     }
 
     @Override
@@ -90,7 +93,7 @@ public class AStarGUI extends JPanel implements Runnable {
         public void actionPerformed(ActionEvent e) {
             astarPanel.togglePaused();
             astarThread.interrupt();
-            upperPanel.remove(1);
+            upperPanel.remove(2);
             astarPanel = new AStarPanel(Integer.valueOf(cp.getOpt1Field().getText()),
                     Integer.valueOf(cp.getOpt2Field().getText()),AStarGUI.this.ip);
             astarThread = new Thread(astarPanel);

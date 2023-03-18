@@ -18,7 +18,6 @@ public class CoinPanel extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
-
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         int width = getWidth();
@@ -27,5 +26,6 @@ public class CoinPanel extends JPanel {
         int x = (width - coinNumber * coinSize) / 2;
         int y = (height - coinSize) / 2;
         paintStrategy.draw(g2d, x, y, coinSize, width, height, coinSize, getBackground());
+        
     }
 }
