@@ -2,6 +2,8 @@ package gui.algorithmPanel;
 
 import javax.swing.*;
 
+import org.jfree.chart.ChartPanel;
+
 import data.astar.Cell;
 import data.astar.Grid;
 import data.elements.Tile;
@@ -70,6 +72,7 @@ public class AStarPanel extends JPanel implements Runnable {
         // }
         gridpanel = new GridPanel(core.getGrid());
         this.add(gridpanel);
+        this.setBorder(BorderFactory.createLineBorder(Color.black));
     }
 
     private void update() {
@@ -122,6 +125,7 @@ public class AStarPanel extends JPanel implements Runnable {
                 repaint();
             }
         }
+        // test();
     }
 
     public int getNumberOfCellVisited() {
@@ -134,5 +138,11 @@ public class AStarPanel extends JPanel implements Runnable {
 
     public boolean isPaused() {
         return paused;
+    }
+
+    public void test() {
+        ChartPanel chartPanel = new ChartPanel(core.chartManager.getHeightEvolutionChart());
+        chartPanel.setPreferredSize(new Dimension(300,150));
+        this.ip.add(chartPanel);
     }
 }
