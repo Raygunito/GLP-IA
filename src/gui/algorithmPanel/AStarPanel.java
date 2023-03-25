@@ -18,6 +18,10 @@ import process.astar.AStarCore;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * AStarPanel is a JPanel class used to render and control the AStar algorithm.
+ * It implements the Runnable interface, allowing it to run as a thread.
+ */
 public class AStarPanel extends JPanel implements Runnable {
     private static final int WIDTH = GUIConstant.SCALING_FACTOR * 175;
     private static final int HEIGHT = GUIConstant.SCALING_FACTOR * 175;
@@ -28,6 +32,9 @@ public class AStarPanel extends JPanel implements Runnable {
     private InformationPanel ip;
     private int speed;
 
+    /**
+     * Creates an AStarPanel with a default size of 40x40.
+     */
     public AStarPanel() {
         super();
         core = new AStarCore(40);
@@ -36,6 +43,13 @@ public class AStarPanel extends JPanel implements Runnable {
         setMaximumSize(new Dimension(WIDTH, HEIGHT));
     }
 
+    /**
+     * Creates an AStarPanel with a size of nxn, a speed of speed, and an
+     * InformationPanel of ip.
+     * @param n
+     * @param speed
+     * @param ip
+     */
     public AStarPanel(int n, int speed, InformationPanel ip) {
         super();
         core = new AStarCore(n);
@@ -45,7 +59,11 @@ public class AStarPanel extends JPanel implements Runnable {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setMaximumSize(new Dimension(WIDTH, HEIGHT));
     }
-
+    /**
+     * Creates an AStarPanel with a size of nxn, a speed of speed.
+     * @param n
+     * @param speed
+     */
     public AStarPanel(int n, int speed) {
         super();
         core = new AStarCore(n);
@@ -53,7 +71,9 @@ public class AStarPanel extends JPanel implements Runnable {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setMaximumSize(new Dimension(WIDTH, HEIGHT));
     }
-
+    /**
+     * Initializes the AStarPanel
+     */
     public void init() {
         // this.setLayout(new GridLayout(core.getGrid().getSize(),
         // core.getGrid().getSize()));
@@ -75,6 +95,9 @@ public class AStarPanel extends JPanel implements Runnable {
         this.setBorder(BorderFactory.createLineBorder(Color.black));
     }
 
+    /**
+     * Updates the AStarPanel with the current state of the grid.
+     */
     private void update() {
         ArrayList<Cell> parents = core.getClosedList().get(core.getClosedList().size() - 1).getGenealogy();
         for (int i = 0; i < core.getGrid().getSize(); i++) {
@@ -101,7 +124,9 @@ public class AStarPanel extends JPanel implements Runnable {
             ip.repaint();
         }
     }
-
+    /**
+     * Processes the current state of the grid.
+     */
     public synchronized void process() {
         core.process();
         update();
@@ -131,18 +156,24 @@ public class AStarPanel extends JPanel implements Runnable {
     public int getNumberOfCellVisited() {
         return core.getClosedListSize();
     }
-
+    /**
+     * Toggles the paused state of the AStarPanel.
+     */
     public void togglePaused() {
         paused = !paused;
     }
-
+    /**
+     * Checks the paused state of the AStarPanel.
+     * @return boolean true if paused false otherwise
+     */
     public boolean isPaused() {
         return paused;
     }
 
     // public void test() {
-    //     ChartPanel chartPanel = new ChartPanel(core.chartManager.getHeightEvolutionChart());
-    //     chartPanel.setPreferredSize(new Dimension(300,150));
-    //     this.ip.add(chartPanel);
+    // ChartPanel chartPanel = new
+    // ChartPanel(core.chartManager.getHeightEvolutionChart());
+    // chartPanel.setPreferredSize(new Dimension(300,150));
+    // this.ip.add(chartPanel);
     // }
 }
