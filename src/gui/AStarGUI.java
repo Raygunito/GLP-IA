@@ -100,6 +100,9 @@ public class AStarGUI extends JPanel implements Runnable {
             upperPanel.add(astarPanel);
             upperPanel.revalidate();
             upperPanel.repaint();
+            if (ip.getComponentCount()==3) {
+                ip.remove(2);
+            }
             ip.resetValue();
         }
 

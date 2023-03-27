@@ -2,12 +2,15 @@ package gui.algorithmPanel;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+import gui.GUIConstant;
 import gui.primitivePanel.CoinPanel;
 import gui.utilsPanel.InformationPanel;
 import process.minmax.MinMaxCore;
@@ -46,6 +49,12 @@ public class MinMaxPanel extends JPanel implements Runnable {
         one = new JButton("1");
         two = new JButton("2");
         three = new JButton("3");
+
+        Font fontSize = new Font("Segoe UI",Font.PLAIN, GUIConstant.SCALING_FACTOR*6);
+        one.setFont(fontSize);
+        two.setFont(fontSize);
+        three.setFont(fontSize);
+
         one.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(),
                 BorderFactory.createEmptyBorder(15, 42, 15, 42)));
         two.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(),
@@ -55,6 +64,10 @@ public class MinMaxPanel extends JPanel implements Runnable {
         playPanel.add(one);
         playPanel.add(two);
         playPanel.add(three);
+        
+        one.setEnabled(false);
+        two.setEnabled(false);
+        three.setEnabled(false);
     }
 
     private void initActionListener() {
@@ -67,6 +80,9 @@ public class MinMaxPanel extends JPanel implements Runnable {
     @Override
     public void run() {
         // TODO Auto-generated method stub
+        one.setEnabled(true);
+        two.setEnabled(true);
+        three.setEnabled(true);
         while (!minMaxCore.isEnded()) {
             if (!paused && !minMaxCore.isPlayerTurn()) {
                 minMaxCore.process();
@@ -80,6 +96,9 @@ public class MinMaxPanel extends JPanel implements Runnable {
 
     public void togglePaused() {
         paused = !paused;
+        one.setEnabled(!paused);
+        two.setEnabled(!paused);
+        three.setEnabled(!paused);
     }
 
     class takeCoin implements ActionListener {

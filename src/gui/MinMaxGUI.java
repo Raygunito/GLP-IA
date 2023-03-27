@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.*;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
@@ -49,6 +50,7 @@ public class MinMaxGUI extends JPanel implements Runnable{
         upperPanel.setPreferredSize(new Dimension(WIDTH,HEIGHT));
         upperPanel.setMaximumSize(new Dimension(WIDTH,HEIGHT));
         upperPanel.add(cp);
+        upperPanel.add(Box.createHorizontalStrut(GUIConstant.SCALING_FACTOR*50));
         upperPanel.add(minMaxPanel);
         
     }
@@ -65,15 +67,14 @@ public class MinMaxGUI extends JPanel implements Runnable{
         @Override
         public void actionPerformed(ActionEvent e) {
             minMaxThread.start();
-            System.out.println("started thread minmax");
         }
-
     }
 
     class ActionRestart implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            upperPanel.remove(1);
+            minMaxThread.interrupt();
+            upperPanel.remove(2);
             minMaxPanel = new MinMaxPanel(Integer.valueOf(cp.getOpt1Field().getText()),
                     Integer.valueOf(cp.getOpt2Field().getText()),MinMaxGUI.this.ip);
             minMaxThread = new Thread(minMaxPanel);

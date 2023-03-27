@@ -27,7 +27,6 @@ public class AStarPanel extends JPanel implements Runnable {
     private static final int HEIGHT = GUIConstant.SCALING_FACTOR * 175;
     private volatile boolean paused = false;
     private AStarCore core;
-    // private JLabel[][] grid;
     private GridPanel gridpanel;
     private InformationPanel ip;
     private int speed;
@@ -117,10 +116,6 @@ public class AStarPanel extends JPanel implements Runnable {
         update();
     }
 
-    public AStarCore getCore() {
-        return core;
-    }
-
     @Override
     public void run() {
         while (!core.workFinished()) {
@@ -135,7 +130,7 @@ public class AStarPanel extends JPanel implements Runnable {
                 repaint();
             }
         }
-        // test();
+        test();
     }
 
     public int getNumberOfCellVisited() {
@@ -155,10 +150,10 @@ public class AStarPanel extends JPanel implements Runnable {
         return paused;
     }
 
-    // public void test() {
-    // ChartPanel chartPanel = new
-    // ChartPanel(core.chartManager.getHeightEvolutionChart());
-    // chartPanel.setPreferredSize(new Dimension(300,150));
-    // this.ip.add(chartPanel);
-    // }
+    public void test() {
+    ChartPanel chartPanel = new
+    ChartPanel(core.chartManager.getHeightEvolutionChart());
+    chartPanel.setPreferredSize(new Dimension(300,150));
+    this.ip.add(chartPanel);
+    }
 }

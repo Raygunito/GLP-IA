@@ -3,6 +3,7 @@ package gui.utilsPanel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.*;
 
 import javax.swing.BorderFactory;
@@ -70,6 +71,12 @@ public class ControlPanel extends JPanel{
         start = new JButton("Start");
         stop = new JButton("Stop");
         restart = new JButton("Restart");
+
+        Font fontSize = new Font("Segoe UI", Font.PLAIN, GUIConstant.SCALING_FACTOR*6);
+        back.setFont(fontSize);
+        start.setFont(fontSize);
+        stop.setFont(fontSize);
+        restart.setFont(fontSize);
         
         commonPanel.setMaximumSize(new Dimension(WIDTH,HEIGHT/2));
         commonPanel.add(Box.createVerticalStrut(5));
