@@ -20,12 +20,15 @@ public class CoinPanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
+        int spacing = 5;
         int width = getWidth();
         int height = getHeight();
         int coinSize = Math.min(width / coinNumber, height);
         int x = (width - coinNumber * coinSize) / 2;
         int y = (height - coinSize) / 2;
-        paintStrategy.draw(g2d, x, y, coinSize, width, height, coinSize, getBackground());
+        for (int i = 0; i < coinNumber; i++) {
+            paintStrategy.draw(g2d, x+i*(coinSize+spacing), y, coinSize);
+        }
         
     }
 }

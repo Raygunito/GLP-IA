@@ -75,21 +75,6 @@ public class AStarPanel extends JPanel implements Runnable {
      * Initializes the AStarPanel
      */
     public void init() {
-        // this.setLayout(new GridLayout(core.getGrid().getSize(),
-        // core.getGrid().getSize()));
-        // grid = new JLabel[core.getGrid().getSize()][core.getGrid().getSize()];
-        // for (int i = 0; i < core.getGrid().getSize(); i++) {
-        // for (int j = 0; j < core.getGrid().getSize(); j++) {
-        // grid[i][j] = new JLabel("■");
-        // if (core.getGrid().getCell(i, j).isCanAccess()) {
-        // grid[i][j].setForeground(Color.GREEN);
-
-        // } else {
-        // grid[i][j].setForeground(Color.BLACK);
-        // }
-        // this.add(grid[i][j]);
-        // }
-        // }
         gridpanel = new GridPanel(core.getGrid());
         this.add(gridpanel);
         this.setBorder(BorderFactory.createLineBorder(Color.black));

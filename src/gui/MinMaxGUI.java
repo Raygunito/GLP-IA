@@ -21,6 +21,7 @@ public class MinMaxGUI extends JPanel implements Runnable{
     private Thread minMaxThread;
     public MinMaxGUI() {
         super();
+        minMaxThread = new Thread(minMaxPanel);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setPreferredSize(new Dimension(GUIConstant.DIM_X,GUIConstant.DIM_Y));
         cp = new ControlPanel(GUIConstant.MINMAX);
@@ -28,7 +29,7 @@ public class MinMaxGUI extends JPanel implements Runnable{
         cp.setOpt2Value(5);
         ip = new InformationPanel(GUIConstant.MINMAX);
         //TODO Remplacer le minMaxPanel avec sa version fonctionnelle
-        minMaxPanel = new MinMaxPanel(Integer.valueOf(cp.getOpt1Field().getText()),Integer.valueOf(cp.getOpt2Field().getText()));
+        minMaxPanel = new MinMaxPanel(Integer.valueOf(cp.getOpt1Field().getText()),Integer.valueOf(cp.getOpt2Field().getText()),MinMaxGUI.this.ip);
         minMaxPanel.setPreferredSize(new Dimension(300,300));
         minMaxPanel.setMaximumSize(new Dimension(300,300));
         
@@ -69,19 +70,11 @@ public class MinMaxGUI extends JPanel implements Runnable{
     }
 
     class ActionRestart implements ActionListener {
-        private InformationPanel ip;
-        public ActionRestart() {
-        
-        }
-        public ActionRestart(InformationPanel ip) {
-            this.ip = ip;
-        }
-
         @Override
         public void actionPerformed(ActionEvent e) {
             upperPanel.remove(1);
             minMaxPanel = new MinMaxPanel(Integer.valueOf(cp.getOpt1Field().getText()),
-                    Integer.valueOf(cp.getOpt2Field().getText()));
+                    Integer.valueOf(cp.getOpt2Field().getText()),MinMaxGUI.this.ip);
             minMaxThread = new Thread(minMaxPanel);
             upperPanel.add(minMaxPanel);
             upperPanel.revalidate();
