@@ -14,9 +14,11 @@ public class MinMaxCore {
     }
 
     public void process() {
-        tree = new Tree(TreeFactory.buildPlayerNode(coin, difficulty));
-        coin = Math.max(tree.findMove(), 0);
-        playerTurn = true;
+        if (!playerTurn) {
+            tree = new Tree(TreeFactory.buildPlayerNode(coin, difficulty));
+            coin = Math.max(tree.findMove(), 0);
+            playerTurn = true;
+        }
     }
 
     public void playerMove(int coin) {

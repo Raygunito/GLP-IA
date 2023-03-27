@@ -21,7 +21,6 @@ public class MinMaxGUI extends JPanel implements Runnable{
     private Thread minMaxThread;
     public MinMaxGUI() {
         super();
-        minMaxThread = new Thread(minMaxPanel);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setPreferredSize(new Dimension(GUIConstant.DIM_X,GUIConstant.DIM_Y));
         cp = new ControlPanel(GUIConstant.MINMAX);
@@ -32,6 +31,7 @@ public class MinMaxGUI extends JPanel implements Runnable{
         minMaxPanel = new MinMaxPanel(Integer.valueOf(cp.getOpt1Field().getText()),Integer.valueOf(cp.getOpt2Field().getText()),MinMaxGUI.this.ip);
         minMaxPanel.setPreferredSize(new Dimension(300,300));
         minMaxPanel.setMaximumSize(new Dimension(300,300));
+        minMaxThread = new Thread(minMaxPanel);
         
         initUpperPanel();
         cp.addActionListenerStart(new ActionStart());
@@ -65,6 +65,7 @@ public class MinMaxGUI extends JPanel implements Runnable{
         @Override
         public void actionPerformed(ActionEvent e) {
             minMaxThread.start();
+            System.out.println("started thread minmax");
         }
 
     }

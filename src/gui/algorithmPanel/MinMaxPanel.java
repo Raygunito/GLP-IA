@@ -4,8 +4,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.Color;
-
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -19,7 +17,6 @@ public class MinMaxPanel extends JPanel implements Runnable {
     private JButton one, two, three;
     private JPanel playPanel;
     private CoinPanel coinPanel;
-    // private int coinNumber;
     private InformationPanel ip;
     private boolean paused = false;
 
@@ -71,12 +68,13 @@ public class MinMaxPanel extends JPanel implements Runnable {
     public void run() {
         // TODO Auto-generated method stub
         while (!minMaxCore.isEnded()) {
-            if (!paused) {
+            if (!paused && !minMaxCore.isPlayerTurn()) {
                 minMaxCore.process();
-                togglePaused();
+                coinPanel.setCoinNumber(minMaxCore.getCoin());
+                coinPanel.repaint();
+                revalidate();
+                repaint();
             }
-            revalidate();
-            repaint();
         }
     }
 
@@ -95,10 +93,9 @@ public class MinMaxPanel extends JPanel implements Runnable {
         public void actionPerformed(ActionEvent e) {
             MinMaxPanel instance = MinMaxPanel.this;
             int currentCoin = instance.minMaxCore.getCoin();
-            instance.minMaxCore.setCoin(currentCoin - fixedAmount);
-            instance.minMaxCore.process();
-            instance.initCoinPanel(instance.minMaxCore.getCoin());
-            instance.coinPanel.repaint();
+            instance.minMaxCore.playerMove(currentCoin - fixedAmount);
+            coinPanel.setCoinNumber(currentCoin - fixedAmount);
+            System.out.println("j'ai pris " + fixedAmount + " coins.");
         }
     }
 }
