@@ -4,7 +4,7 @@ import process.astar.CellIsWallException;
 
 public class Grid {
     private final Cell[][] grid;
-    private static final int DIM = 30;
+    private static final int DIM = 10;
     private static final float HEURISTIC_RATIO = 3;
     private Cell endingCell;
     private Cell startingCell;
