@@ -67,7 +67,9 @@ public class MinMaxPanel extends JPanel implements Runnable {
         three.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(),
                 BorderFactory.createEmptyBorder(15, 42, 15, 42)));
         playPanel.add(one);
+        playPanel.add(Box.createHorizontalStrut(GUIConstant.SCALING_FACTOR*25));
         playPanel.add(two);
+        playPanel.add(Box.createHorizontalStrut(GUIConstant.SCALING_FACTOR*25));
         playPanel.add(three);
 
         one.setEnabled(false);
