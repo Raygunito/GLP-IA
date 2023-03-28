@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import gui.GUIConstant;
@@ -92,13 +93,18 @@ public class MinMaxPanel extends JPanel implements Runnable {
                 repaint();
             }
         }
+        if (!minMaxCore.isPlayerTurn()) {
+            JOptionPane.showMessageDialog(this, "You win !");
+        }else{
+            JOptionPane.showMessageDialog(this, "You lose !");
+        }
     }
 
     public void togglePaused() {
+        one.setEnabled(paused);
+        two.setEnabled(paused);
+        three.setEnabled(paused);
         paused = !paused;
-        one.setEnabled(!paused);
-        two.setEnabled(!paused);
-        three.setEnabled(!paused);
     }
 
     class takeCoin implements ActionListener {

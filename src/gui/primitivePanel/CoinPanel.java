@@ -11,6 +11,7 @@ import gui.management.PaintStrategy;
 public class CoinPanel extends JPanel {
     private PaintStrategy paintStrategy;
     private int coinNumber;
+
     public CoinPanel(int coin) {
         coinNumber = coin;
         paintStrategy = new CoinDrawStrategy();
@@ -27,7 +28,7 @@ public class CoinPanel extends JPanel {
         // int x = (width - coinNumber * coinSize) / 2;
         // int y = (height - coinSize) / 2;
         // for (int i = 0; i < coinNumber; i++) {
-        //     paintStrategy.draw(g2d, x+i*(coinSize+spacing), y, coinSize);
+        // paintStrategy.draw(g2d, x+i*(coinSize+spacing), y, coinSize);
         // }
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
@@ -37,8 +38,8 @@ public class CoinPanel extends JPanel {
 
         int coinWidth = coinNumber * coinSize;
         int totalSpacing = width - coinWidth;
-        int spacing = totalSpacing / (coinNumber - 1);
-        int extraSpacing = totalSpacing % (coinNumber - 1);
+        int spacing = totalSpacing / ((coinNumber - 1) + 2);
+        int extraSpacing = totalSpacing % ((coinNumber - 1) + 2);
 
         int x = (extraSpacing / 2) + ((width - coinWidth - totalSpacing) / 2);
 
@@ -48,6 +49,7 @@ public class CoinPanel extends JPanel {
             paintStrategy.draw(g2d, x + i * (coinSize + spacing), y, coinSize);
         }
     }
+
     public void setCoinNumber(int coinNumber) {
         this.coinNumber = coinNumber;
     }
