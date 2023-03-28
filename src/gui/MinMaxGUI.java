@@ -1,9 +1,11 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.*;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -30,8 +32,6 @@ public class MinMaxGUI extends JPanel implements Runnable{
         ip = new InformationPanel(GUIConstant.MINMAX);
         //TODO Remplacer le minMaxPanel avec sa version fonctionnelle
         minMaxPanel = new MinMaxPanel(Integer.valueOf(cp.getOpt1Field().getText()),Integer.valueOf(cp.getOpt2Field().getText()),MinMaxGUI.this.ip);
-        minMaxPanel.setPreferredSize(new Dimension(300,300));
-        minMaxPanel.setMaximumSize(new Dimension(300,300));
         minMaxThread = new Thread(minMaxPanel);
         
         initUpperPanel();
@@ -44,13 +44,21 @@ public class MinMaxGUI extends JPanel implements Runnable{
         // placementDebug();
     }
     
+    private void placementDebug() {
+        cp.setBorder(BorderFactory.createLineBorder(Color.black));
+        setBorder(BorderFactory.createLineBorder(Color.black));
+        minMaxPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+        ip.setBorder(BorderFactory.createLineBorder(Color.black));
+        upperPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+    }
+
     private void initUpperPanel(){
         upperPanel = new JPanel();
         upperPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         upperPanel.setPreferredSize(new Dimension(WIDTH,HEIGHT));
         upperPanel.setMaximumSize(new Dimension(WIDTH,HEIGHT));
         upperPanel.add(cp);
-        upperPanel.add(Box.createHorizontalStrut(GUIConstant.SCALING_FACTOR*50));
+        upperPanel.add(Box.createHorizontalStrut(GUIConstant.SCALING_FACTOR*80));
         upperPanel.add(minMaxPanel);
         
     }

@@ -63,7 +63,7 @@ public class InformationPanel extends JPanel{
     }
     
     private void initMinMax(){
-        info1.setText("Case visité :");
+        info1.setText("Pièce(s) prise par le bot :");
         info2.setText("Noeud visité :");
         
     }
