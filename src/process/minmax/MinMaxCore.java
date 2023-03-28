@@ -13,7 +13,7 @@ public class MinMaxCore {
         this.tree = new Tree(TreeFactory.buildPlayerNode(baseCoin, difficulty));
     }
 
-    public void process() {
+    public synchronized void process() {
         if (!playerTurn) {
             tree = new Tree(TreeFactory.buildPlayerNode(coin, difficulty));
             coin = Math.max(tree.findMove(), 0);
@@ -28,6 +28,10 @@ public class MinMaxCore {
 
     public boolean isEnded() {
         return (coin <= 0) ? true : false;
+    }
+    
+    public void setPlayerTurn(boolean playerTurn) {
+        this.playerTurn = playerTurn;
     }
 
     public boolean isPlayerTurn() {

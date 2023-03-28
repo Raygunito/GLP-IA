@@ -5,6 +5,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
+
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -90,17 +92,18 @@ public class MinMaxPanel extends JPanel implements Runnable {
         one.setEnabled(true);
         two.setEnabled(true);
         three.setEnabled(true);
+        if (new Random().nextInt(2)==0){minMaxCore.setPlayerTurn(true);}
         while (!minMaxCore.isEnded()) {
             if (!paused && !minMaxCore.isPlayerTurn()) {
                 int diff = minMaxCore.getCoin();
                 minMaxCore.process();
                 ip.setInfoValue1(String.valueOf(diff - minMaxCore.getCoin()));
                 coinPanel.setCoinNumber(minMaxCore.getCoin());
-                coinPanel.repaint();
-                revalidate();
-                repaint();
             }
         }
+        try {
+            Thread.sleep(100);
+        } catch (Exception e) {}
         if (!minMaxCore.isPlayerTurn()) {
             JOptionPane.showMessageDialog(this, "You win !");
         } else {
