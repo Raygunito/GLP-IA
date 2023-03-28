@@ -3,7 +3,6 @@ package data.elements;
 import java.awt.Color;
 
 import data.astar.Coordinate;
-import process.visitor.AStarNodeVisitor;
 import process.visitor.ElementVisitor;
 
 public class Wall implements Element{

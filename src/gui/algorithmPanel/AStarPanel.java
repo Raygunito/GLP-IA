@@ -5,7 +5,6 @@ import javax.swing.*;
 import org.jfree.chart.ChartPanel;
 
 import data.astar.Cell;
-import data.astar.Grid;
 import data.elements.Tile;
 import data.elements.Trail;
 import data.elements.UselessTile;
