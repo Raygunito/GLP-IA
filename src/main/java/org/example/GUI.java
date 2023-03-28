@@ -21,15 +21,15 @@ public class GUI extends JFrame {
         Container contentPane = getContentPane();
         contentPane.setLayout(new GridLayout(0, 2));
         table = new JPanel(new GridLayout(9, 4));
-        tableLabel = new JLabel[3][3][4];
-        map = new JPanel(new GridLayout(3, 3));
-        mapLabel = new JLabel[3][3];
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        tableLabel = new JLabel[QLearningConstant.DIMENSION][QLearningConstant.DIMENSION][4];
+        map = new JPanel(new GridLayout(QLearningConstant.DIMENSION, QLearningConstant.DIMENSION));
+        mapLabel = new JLabel[QLearningConstant.DIMENSION][QLearningConstant.DIMENSION];
+        for (int i = 0; i < QLearningConstant.DIMENSION; i++) {
+            for (int j = 0; j < QLearningConstant.DIMENSION; j++) {
                 mapLabel[i][j] = new JLabel("■");
-                if (qLearningCore.getGrid().getGrid()[i][j].getReward() == 1) {
+                if (qLearningCore.getGrid().getGrid()[i][j].reward() == 1) {
                     mapLabel[i][j].setForeground(Color.green);
-                } else if (qLearningCore.getGrid().getGrid()[i][j].getReward() == -1) {
+                } else if (qLearningCore.getGrid().getGrid()[i][j].reward() == -1) {
                     mapLabel[i][j].setForeground(Color.red);
                 } else if (i == 0 && j == 0) {
                     mapLabel[i][j].setForeground(Color.blue);
@@ -54,15 +54,16 @@ public class GUI extends JFrame {
         ArrayList<Integer>nombreEssai=new ArrayList<>();
         for (int i = 0; i < 100; i++) {
             try {
-                Thread.sleep(2000);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
             int a=0;
             Cell cell = qLearningCore.getGrid().getGrid()[0][0];
-            while (cell != qLearningCore.getGrid().getGrid()[2][2]) {
+            update(cell);
+            while (cell != qLearningCore.getGrid().getEndingCell()){
                 try {
-                    Thread.sleep(200);
+                    Thread.sleep(50);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -76,16 +77,15 @@ public class GUI extends JFrame {
         }
         int i=0;
     }
-
     private void update(Cell cell) {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < QLearningConstant.DIMENSION; i++) {
+            for (int j = 0; j < QLearningConstant.DIMENSION; j++) {
                  if (qLearningCore.getGrid().getGrid()[i][j] == cell) {
                     mapLabel[i][j].setForeground(Color.blue);
                 }
-                else if (qLearningCore.getGrid().getGrid()[i][j].getReward() == 1) {
+                else if (qLearningCore.getGrid().getGrid()[i][j].reward() == 1) {
                     mapLabel[i][j].setForeground(Color.green);
-                } else if (qLearningCore.getGrid().getGrid()[i][j].getReward() == -1) {
+                } else if (qLearningCore.getGrid().getGrid()[i][j].reward() == -1) {
                     mapLabel[i][j].setForeground(Color.red);
                 } else {
                     mapLabel[i][j].setForeground(Color.white);

@@ -10,8 +10,8 @@ public class Grid {
         grid = new Cell[QLearningConstant.DIMENSION][QLearningConstant.DIMENSION];
         for (int i = 0; i < QLearningConstant.DIMENSION; i++) {
             for (int j = 0; j < QLearningConstant.DIMENSION; j++) {
-                if (i == QLearningConstant.DIMENSION - 1 && j == QLearningConstant.DIMENSION - 1) grid[i][j] = new Cell(new Coordinate(i, j), 1);
-                else if (i == QLearningConstant.DIMENSION - 2 && j == QLearningConstant.DIMENSION - 2) grid[i][j] = new Cell(new Coordinate(i, j), -1);
+                if (i == QLearningConstant.DIMENSION-1 && j == QLearningConstant.DIMENSION-1) grid[i][j] = new Cell(new Coordinate(i, j), 1);
+                else if (((QLearningConstant.DIMENSION/3==i && !(j<2))||(i==2*QLearningConstant.DIMENSION/3&&(j<QLearningConstant.DIMENSION-2)) &&i!=QLearningConstant.DIMENSION-1)) grid[i][j] = new Cell(new Coordinate(i, j), -1);
                 else grid[i][j] = new Cell(new Coordinate(i, j), 0);
             }
         }
@@ -35,5 +35,9 @@ public class Grid {
 
     public Cell getEndingCell() {
         return endingCell;
+    }
+
+    public Cell[][] getGrid() {
+        return grid;
     }
 }
