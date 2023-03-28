@@ -1,7 +1,11 @@
 package main.java.org.example;
 
 import javax.swing.*;
+
+import org.w3c.dom.Text;
+
 import java.awt.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class GUI extends JFrame {
@@ -92,9 +96,8 @@ public class GUI extends JFrame {
                 }
                 for (int k = 0; k < 4; k++) {
                     double num=qLearningCore.getqTable().getQTable()[i][j].getQValue()[k];
-                    double numnum=num%0.1;
-                    double nuan=num-numnum;
-                    tableLabel[i][j][k].setText(Double.toString(num-num%0.1));
+                    DecimalFormat df = new DecimalFormat("0.0");
+                    tableLabel[i][j][k].setText(df.format(num));
                 }
             }
         }
