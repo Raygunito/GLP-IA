@@ -96,13 +96,14 @@ public class TestQLearnGUI extends JFrame implements ActionListener {
                                 g.setColor(Color.WHITE);
                             }
 
-                            g.fillRect(j * CELL_SIZE, i * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+                            g.fillRect(i * CELL_SIZE, j * CELL_SIZE, CELL_SIZE, CELL_SIZE);
                         }
                     }
                     ArrayList<Cell> path = qLearn.bestPath();
                     for (Cell cell : path) {
                         g.setColor(Color.cyan);
-                        g.fillRect(cell.getCoordinate().coordinateX()* CELL_SIZE, cell.getCoordinate().coordinateY() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+                        g.drawRect(cell.getCoordinate().coordinateX() * CELL_SIZE,
+                                cell.getCoordinate().coordinateY() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
                     }
                 }
             };

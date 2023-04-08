@@ -7,6 +7,7 @@ import data.elements.Hole;
 import data.qlearn.*;
 
 public class QLearnCore {
+    private static final float MALUS_VALUE = -10f;
     private Grid grid;
     private QTable qTable;
     private int nbIte;
@@ -38,7 +39,7 @@ public class QLearnCore {
                     if ((float) Math.random() < 0.2) {
                         Cell tmp = grid.getCell(i, j);
                         tmp.setElement(new Hole(tmp.getCoordinate()));
-                        tmp.setqValue(-10f);
+                        tmp.setqValue(MALUS_VALUE);
                     }
                 }
             }
@@ -65,8 +66,8 @@ public class QLearnCore {
                 }
             } else {
                 nextCell = grid.getRandomNeighbors(currentCell);
+                maxVal = qTable.getQtab(nextCell.getCoordinate().coordinateX(), nextCell.getCoordinate().coordinateY());
             }
-            maxVal = nextCell.getqValue();
             float reward = nextCell.getqValue();
             currentCell.setqValue(qLearnFormula(currentCell.getqValue(), reward, maxVal, discountFactor));
             stepCount++;
@@ -78,7 +79,11 @@ public class QLearnCore {
     }
 
     private float qLearnFormula(float currentVal, float reward, float maxQValue, float discountFactor) {
-        return currentVal + learningRate * (reward + discountFactor * maxQValue - currentVal);
+        float newQValue = currentVal + learningRate * (reward + discountFactor * maxQValue - currentVal);
+        if (reward == MALUS_VALUE) {
+            newQValue -= learningRate * (reward + discountFactor * maxQValue - currentVal);
+        }
+        return newQValue;
     }
 
     public QTable getqTable() {
@@ -110,20 +115,4 @@ public class QLearnCore {
         bestPath.add(currentCell);
         return bestPath;
     }
-
-    public static void main(String[] args) {
-        int gridSize = 10;
-        int nbIteration = 500;
-        float learningRate = 0.2f;
-        float explorationRate = 0.5f;
-        float discountFactor = 0.8f;
-        QLearnCore qLearn = new QLearnCore(gridSize, nbIteration, learningRate, explorationRate, discountFactor);
-
-        for (int i = 0; i < nbIteration; i++) {
-            qLearn.doOneIteration();
-        }
-
-        System.out.println(qLearn.getqTable().printTable());
-    }
-
 }
