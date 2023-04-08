@@ -1,4 +1,4 @@
-package data.astar;
+package data.utils;
 
 /**
  * The Coordinate class is a public record that takes two int parameters:

@@ -3,6 +3,7 @@ package data.astar;
 import java.util.ArrayList;
 
 import data.elements.Element;
+import data.utils.Coordinate;
 
 public class Cell {
     private final Coordinate coordinate;

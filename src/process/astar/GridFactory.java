@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import data.astar.Cell;
-import data.astar.Coordinate;
 import data.astar.Grid;
 import data.elements.Tile;
 import data.elements.Wall;
+import data.utils.Coordinate;
 
 public class GridFactory {
     private final ArrayList<ArrayList<Cell>> listOfAreas;

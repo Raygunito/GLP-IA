@@ -2,7 +2,7 @@ package data.elements;
 
 import java.awt.Color;
 
-import data.astar.Coordinate;
+import data.utils.Coordinate;
 import process.visitor.ElementVisitor;
 
 public class Wall implements Element{
