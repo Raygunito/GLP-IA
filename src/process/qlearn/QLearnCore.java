@@ -185,11 +185,11 @@ public class QLearnCore {
     }
 
     public static void main(String[] args) {
-        int gridSize = 5;
-        int nbIteration = 200;
-        float learningRate = 0.1f;
-        float explorationRate = 0.6f;
-        float discountFactor = 0.6f;
+        int gridSize = 15;
+        int nbIteration = 300;
+        float learningRate = 0.2f;
+        float explorationRate = 0.5f;
+        float discountFactor = 0.8f;
 
         QLearnCore qLearn = new QLearnCore(gridSize, nbIteration, learningRate, explorationRate, discountFactor);
 

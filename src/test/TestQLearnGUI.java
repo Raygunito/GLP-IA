@@ -22,8 +22,8 @@ public class TestQLearnGUI extends JFrame implements ActionListener {
     public TestQLearnGUI() {
         super("Q-Learning GUI");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(500, 500);
-
+        this.setSize(600, 600);
+        this.setLocationRelativeTo(null);
         // Initialize components
         mainPanel = new JPanel();
         mainPanel.setLayout(new GridLayout(6, 2));
@@ -32,7 +32,7 @@ public class TestQLearnGUI extends JFrame implements ActionListener {
         learningRateLabel = new JLabel("Learning Rate:");
         explorationRateLabel = new JLabel("Exploration Rate:");
         discountFactorLabel = new JLabel("Discount Factor:");
-        gridSizeField = new JTextField("10");
+        gridSizeField = new JTextField("15");
         nbIterationField = new JTextField("500");
         learningRateField = new JTextField("0.2");
         explorationRateField = new JTextField("0.5");
@@ -111,7 +111,7 @@ public class TestQLearnGUI extends JFrame implements ActionListener {
             JFrame jf = new JFrame("Map");
             jf.add(panel);
             jf.pack();
-            jf.setSize(new Dimension(500, 500));
+            jf.setSize(new Dimension(650, 650));
             jf.setLocationRelativeTo(null);
             jf.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             jf.setVisible(true);
