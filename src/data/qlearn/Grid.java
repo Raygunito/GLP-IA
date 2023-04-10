@@ -16,16 +16,18 @@ public class Grid {
         initCellValue();
     }
 
-    private void initCellValue(){
+    private void initCellValue() {
         for (int i = 0; i < cellGrid.length; i++) {
             for (int j = 0; j < cellGrid.length; j++) {
-                cellGrid[i][j] = new Cell(i, j,null);
+                cellGrid[i][j] = new Cell(i, j);
             }
         }
-        endingCell = new Cell(size-1, size-1, null);
-        endingCell.setqValue(200);
-        cellGrid[size-1][size-1] = endingCell;
-        startingCell = new Cell(0, 0, null);
+        endingCell = new Cell(size - 1, size - 1);
+        startingCell = new Cell(0, 0);
+        for (int i = 0; i < 4; i++) {
+            endingCell.setqValue(200, i);
+        }
+        cellGrid[size - 1][size - 1] = endingCell;
         cellGrid[0][0] = startingCell;
 
     }
@@ -65,48 +67,90 @@ public class Grid {
         return cellGrid[x][y];
     }
 
-    public ArrayList<Cell> getNeighbors(Cell cell){
+    public ArrayList<Cell> getNeighbors(Cell cell) {
         ArrayList<Cell> alCell = new ArrayList<Cell>();
-        try {
-            alCell.add(getDown(cell));
-        } catch (GridBorderException e) {
-            // e.printStackTrace();
-        } 
         try {
             alCell.add(getUp(cell));
         } catch (GridBorderException e) {
             // e.printStackTrace();
-        } 
-        try {
-            alCell.add(getLeft(cell));
-        } catch (GridBorderException e) {
-            // e.printStackTrace();
-        } 
+        }
         try {
             alCell.add(getRight(cell));
         } catch (GridBorderException e) {
             // e.printStackTrace();
-        } 
+        }
+        try {
+            alCell.add(getDown(cell));
+        } catch (GridBorderException e) {
+            // e.printStackTrace();
+        }
+        try {
+            alCell.add(getLeft(cell));
+        } catch (GridBorderException e) {
+            // e.printStackTrace();
+        }
         return alCell;
     }
 
-    public Cell getRandomNeighbors(Cell cell){
+    public Cell getRandomNeighbors(Cell cell) {
         ArrayList<Cell> alCell = getNeighbors(cell);
         int index = new Random().nextInt(alCell.size());
         return alCell.get(index);
     }
 
-    public Cell getCell(int x, int y){
+    public Cell getCell(int x, int y) {
         return cellGrid[x][y];
     }
-    public float[][] generateArrayQValue(){
-        float[][] tab = new float[size][size];
+
+    public Cell getCellFromDirection(Cell currentCell, Direction dir) {
+        Cell tmp = null;
+        switch (dir) {
+            case UP:
+                try {
+                    tmp = getUp(currentCell);
+                } catch (Exception e) {
+                }
+                break;
+            case DOWN:
+                try {
+                    tmp = getDown(currentCell);
+                } catch (Exception e) {
+                }
+                break;
+            case LEFT:
+                try {
+                    tmp = getLeft(currentCell);
+                } catch (Exception e) {
+                }
+                break;
+            default:
+                try {
+                    tmp = getRight(currentCell);
+                } catch (Exception e) {
+                }
+                break;
+        }
+        return tmp;
+    }
+
+    public float[][][] generateArrayQValue() {
+        float[][][] tab = new float[size][size][4];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                tab[i][j] = cellGrid[i][j].getqValue();
+                for (int k = 0; k < 4; k++)
+                    tab[i][j][k] = cellGrid[i][j].getqValue()[k];
             }
         }
         return tab;
+    }
+    public void updateQValueFromQTable(QTable qTable){
+        for (int i = 0; i < qTable.getSize(); i++) {
+            for (int j = 0; j < qTable.getSize(); j++) {
+                for (int k = 0; k < 4; k++) {
+                    cellGrid[i][j].setqValue(qTable.getQValue(i, j, k), k); 
+                }
+            }
+        }
     }
     public void setEndingCell(Cell endingCell) {
         this.endingCell = endingCell;

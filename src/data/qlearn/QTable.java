@@ -3,29 +3,42 @@ package data.qlearn;
 import java.text.DecimalFormat;
 
 public class QTable {
-    private float[][] qtab;
+    private float[][][] qtab;
+    private int size;
 
     public QTable(Grid grid) {
         qtab = grid.generateArrayQValue();
+        size = grid.getSize();
     }
 
-    public void updateAllValue(float[][] table) {
+    public void updateAllValues(float[][][] table) {
         qtab = table;
     }
 
-    public float getQtab(int x, int y) {
-        return qtab[x][y];
+    public void setQValue(int x, int y, Direction dir, float value) {
+        qtab[x][y][dir.getValue()] = value;
     }
 
+    public float getQValue(int x, int y, int action) {
+        return qtab[x][y][action];
+    }
+    public int getSize() {
+        return size;
+    }
     public String printTable() {
-        String res = "";
+        String res = "\tUP\tDOWN\tLEFT\tRIGHT\n";
         DecimalFormat df = new DecimalFormat("0.00");
         for (int i = 0; i < qtab.length; i++) {
             for (int j = 0; j < qtab.length; j++) {
-                res += "[" + i + "," + j + "] : " + df.format(qtab[i][j]);
+                res += "[" + i + "," + j + "]\t";
+                for (int k = 0; k < qtab[i][j].length; k++) {
+                    res += df.format(qtab[i][j][k]) + "\t";
+                }
+                res += "\n";
             }
-            res+= "\n";
+            res += "\n";
         }
         return res;
     }
+
 }
