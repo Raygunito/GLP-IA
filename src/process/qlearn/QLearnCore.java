@@ -12,6 +12,10 @@ public class QLearnCore {
     private QTable qTable;
     private int nbIte;
     private float learningRate, explorationRate, discountFactor;
+    
+    //DINGUERIE ICI
+    public ArrayList<Cell> path;
+
 
     public QLearnCore(int gridSize, int nbIteration, float learningRate, float explorationRate, float discountFactor) {
         this.grid = new Grid(gridSize);
@@ -39,7 +43,7 @@ public class QLearnCore {
                         && i != grid.getStartingCell().getCoordinate().coordinateX())
                         && (j != grid.getEndingCell().getCoordinate().coordinateY()
                                 && j != grid.getEndingCell().getCoordinate().coordinateY())) {
-                    if ((float) Math.random() < 0.15f) {
+                    if ((float) Math.random() < 0.35f) {
                         Cell tmp = grid.getCell(i, j);
                         tmp.setElement(new Hole(tmp.getCoordinate()));
                         for (int k = 0; k < 4; k++) {
@@ -54,8 +58,10 @@ public class QLearnCore {
     }
 
     public void doOneIteration() {
-        ArrayList<Cell> path = new ArrayList<Cell>();
-        Cell currentCell = grid.getStartingCell();
+        path = new ArrayList<Cell>();
+        int xRand = new Random().nextInt(grid.getSize()-1);
+        int yRand = new Random().nextInt(grid.getSize()-1);
+        Cell currentCell = grid.getCell(xRand, yRand);
         path.add(currentCell);
         int stepCount = 0;
         while (!currentCell.equals(grid.getEndingCell()) && stepCount < ((grid.getSize() * grid.getSize()) * 2)) {
@@ -65,9 +71,13 @@ public class QLearnCore {
             Direction direction = findDirection(currentCell, nextCell);
 
             float nextCellMaxQValue = nextCell.getqValue()[nextCell.bestDirection()];
+            
             float reward = nextCell.getqValueFromDirection(Direction.getDirectionFromValue(nextCell.bestDirection()))
                     * 0.5f;
-
+            if (nextCell.equals(grid.getEndingCell())) {
+                reward = 200;
+            }
+            reward = (currentCell.getElement() instanceof Hole) ? -10 : reward; 
             float newQValue = qLearnFormula(currentCell.getqValueFromDirection(direction), reward, nextCellMaxQValue,
                     discountFactor);
             currentCell.setqValue(newQValue, direction.getValue());
@@ -164,6 +174,10 @@ public class QLearnCore {
         return grid;
     }
 
+    public int getNbIte() {
+        return nbIte;
+    }
+
     /**
      * Le chemin est donné sous forme d'arrayList
      * 
@@ -185,7 +199,7 @@ public class QLearnCore {
     }
 
     public static void main(String[] args) {
-        int gridSize = 15;
+        int gridSize = 5;
         int nbIteration = 300;
         float learningRate = 0.2f;
         float explorationRate = 0.5f;
