@@ -14,8 +14,18 @@ public class Grid {
         cellGrid = new Cell[n][n];
         size = n;
         initCellValue();
+        initBorderValue();
     }
-
+    private void initBorderValue(){
+        for (int i = 0; i < cellGrid.length; i++) {
+            cellGrid[i][0].setqValue(-999,Direction.UP.getValue());
+            cellGrid[i][size-1].setqValue(-999, Direction.DOWN.getValue());
+        }
+        for (int i = 0; i < cellGrid.length; i++) {
+            cellGrid[0][i].setqValue(-999,Direction.LEFT.getValue());
+            cellGrid[size-1][i].setqValue(-999, Direction.RIGHT.getValue());    
+        }
+    }
     private void initCellValue() {
         for (int i = 0; i < cellGrid.length; i++) {
             for (int j = 0; j < cellGrid.length; j++) {
