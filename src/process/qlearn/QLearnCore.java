@@ -1,21 +1,26 @@
 package process.qlearn;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Random;
 
+import org.apache.log4j.Logger;
+
 import data.elements.Hole;
 import data.qlearn.*;
+import log.LoggerUtility;
 
 public class QLearnCore {
-    private static final float MALUS_VALUE = -100f;
     private Grid grid;
     private QTable qTable;
     private int nbIte;
     private float learningRate, explorationRate, discountFactor;
-    
-    //DINGUERIE ICI
-    public ArrayList<Cell> path;
+    private static Logger logger = LoggerUtility.getLogger(QLearnCore.class, "text");
 
+    // DINGUERIE ICI
+    public ArrayList<Cell> path;
+    public int success = 0;
 
     public QLearnCore(int gridSize, int nbIteration, float learningRate, float explorationRate, float discountFactor) {
         this.grid = new Grid(gridSize);
@@ -47,9 +52,9 @@ public class QLearnCore {
                         Cell tmp = grid.getCell(i, j);
                         tmp.setElement(new Hole(tmp.getCoordinate()));
                         for (int k = 0; k < 4; k++) {
-                            tmp.setqValue(MALUS_VALUE, k);
+                            tmp.setqValue(Grid.MALUS_VALUE, k);
                         }
-                        System.out.println(tmp.toString()+"est un trou");
+                        logger.debug(tmp.toString() + "est un trou");
                     }
                 }
             }
@@ -59,8 +64,8 @@ public class QLearnCore {
 
     public void doOneIteration() {
         path = new ArrayList<Cell>();
-        int xRand = new Random().nextInt(grid.getSize()-1);
-        int yRand = new Random().nextInt(grid.getSize()-1);
+        int xRand = new Random().nextInt(grid.getSize() - 1);
+        int yRand = new Random().nextInt(grid.getSize() - 1);
         Cell currentCell = grid.getCell(xRand, yRand);
         path.add(currentCell);
         int stepCount = 0;
@@ -71,13 +76,13 @@ public class QLearnCore {
             Direction direction = findDirection(currentCell, nextCell);
 
             float nextCellMaxQValue = nextCell.getqValue()[nextCell.bestDirection()];
-            
-            float reward = nextCell.getqValueFromDirection(Direction.getDirectionFromValue(nextCell.bestDirection()))
-                    * 0.5f;
+
+            float reward =   nextCell.getqValueFromDirection(Direction.getDirectionFromValue(nextCell.bestDirection()))
+                    * 0.8f;
             if (nextCell.equals(grid.getEndingCell())) {
-                reward = 200;
+                reward = Grid.ENDING_VALUE;
             }
-            reward = (currentCell.getElement() instanceof Hole) ? -10 : reward; 
+            reward = (currentCell.getElement() instanceof Hole) ? -10 : reward;
             float newQValue = qLearnFormula(currentCell.getqValueFromDirection(direction), reward, nextCellMaxQValue,
                     discountFactor);
             currentCell.setqValue(newQValue, direction.getValue());
@@ -88,13 +93,7 @@ public class QLearnCore {
             currentCell = nextCell;
             stepCount++;
         }
-        // for (Cell cell : path) {
-        //     System.out.print(cell.toString() + "->");
-        // }
-        // System.out.println("END");
-        // grid.updateQValueFromQTable(qTable);
         qTable.updateAllValues(grid.generateArrayQValue());
-        // nbIte--;
         learningRate = learningRate * 0.99f;
         explorationRate = explorationRate * 0.99f;
     }
@@ -195,39 +194,54 @@ public class QLearnCore {
             currentCell = nextCell;
             i++;
         }
+        if (grid.getEndingCell().equals(currentCell)) {
+            success++;
+        }
+        if (!bestPath.contains(grid.getEndingCell())) {
+            logger.warn("Attention l'agent n'a pas résolu l'environnement.");
+        }
+        String res = "";
+        for (Cell cell : bestPath) {
+            res = res + cell.toString() + "->";
+        }
+        res = res + "END";
+        logger.trace(res);
         return bestPath;
     }
 
     public static void main(String[] args) {
-        int gridSize = 5;
-        int nbIteration = 300;
+        int gridSize = 10;
+        int nbIteration = 100;
         float learningRate = 0.2f;
         float explorationRate = 0.5f;
         float discountFactor = 0.8f;
-
         QLearnCore qLearn = new QLearnCore(gridSize, nbIteration, learningRate, explorationRate, discountFactor);
-
         // Run the iterations
         for (int i = 0; i < nbIteration; i++) {
             System.out.println("Iteration numéro : " + i);
             qLearn.doOneIteration();
         }
-        System.out.println(qLearn.getqTable().printTable());
+        logger.info("\n" + qLearn.getqTable().printTable());
+        qLearn.bestPath();
 
-        for (int i = 0; i < qLearn.getGrid().getSize(); i++) {
-            for (int j = 0; j < qLearn.getGrid().getSize(); j++) {
-                if (qLearn.getGrid().getCell(i, j).getElement() instanceof Hole){
-                    System.out.println("["+i+","+j+"] est un trou.");
-                }
-            }
-        }
+        // System.out.println("Grid size = 4");
+        // for (int i = 0; i < 30; i++) {
+        // Instant start = Instant.now();
+        // int counter = 0;
+        // for (int n = 1; n < 500; n++) {
+        // qLearn = new QLearnCore(4, n, learningRate, explorationRate,
+        // discountFactor);
+        // for (int k = 0; k < n; k++) {
+        // qLearn.doOneIteration();
+        // }
+        // qLearn.bestPath();
+        // counter = counter + qLearn.success;
+        // }
+        // Instant end = Instant.now();
+        // float valueRate = Float.valueOf(counter)/5;
+        // System.out.println(Duration.between(start, end).toMillis() + " ms\t Success
+        // Rate : " + valueRate);
 
-        System.out.println("je vais afficher le best path");
-        ArrayList<Cell> bestPath = qLearn.bestPath();
-        System.out.println("Best Path:");
-        for (Cell cell : bestPath) {
-            System.out.print(cell.toString() + " -> ");
-        }
-        System.out.println("END");
+        // }
     }
 }

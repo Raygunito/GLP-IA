@@ -6,6 +6,10 @@ import java.util.Random;
 import process.qlearn.GridBorderException;
 
 public class Grid {
+    public static final float MALUS_VALUE = -100f;
+    public static final float ENDING_VALUE = 300f;
+    public static final float WALL_VALUE = -999f;
+
     private final Cell[][] cellGrid;
     private Cell endingCell, startingCell;
     private int size;
@@ -18,12 +22,12 @@ public class Grid {
     }
     private void initBorderValue(){
         for (int i = 0; i < cellGrid.length; i++) {
-            cellGrid[i][0].setqValue(-999,Direction.UP.getValue());
-            cellGrid[i][size-1].setqValue(-999, Direction.DOWN.getValue());
+            cellGrid[i][0].setqValue(WALL_VALUE,Direction.UP.getValue());
+            cellGrid[i][size-1].setqValue(WALL_VALUE, Direction.DOWN.getValue());
         }
         for (int i = 0; i < cellGrid.length; i++) {
-            cellGrid[0][i].setqValue(-999,Direction.LEFT.getValue());
-            cellGrid[size-1][i].setqValue(-999, Direction.RIGHT.getValue());    
+            cellGrid[0][i].setqValue(WALL_VALUE,Direction.LEFT.getValue());
+            cellGrid[size-1][i].setqValue(WALL_VALUE, Direction.RIGHT.getValue());    
         }
     }
     private void initCellValue() {
@@ -35,7 +39,7 @@ public class Grid {
         endingCell = new Cell(size - 1, size - 1);
         startingCell = new Cell(0, 0);
         for (int i = 0; i < 4; i++) {
-            endingCell.setqValue(200, i);
+            endingCell.setqValue(ENDING_VALUE, i);
         }
         cellGrid[size - 1][size - 1] = endingCell;
         cellGrid[0][0] = startingCell;
