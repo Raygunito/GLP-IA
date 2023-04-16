@@ -1,6 +1,5 @@
 package process.astar;
 
-
 import java.util.ArrayList;
 
 import data.astar.Cell;
@@ -16,7 +15,6 @@ public class AStarCore {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLUE = "\u001B[34m";
     public ChartManager chartManager = new ChartManager();
-
 
     public AStarCore() {
         openList = new Queue();
@@ -40,15 +38,19 @@ public class AStarCore {
         updateOpenList(cell);
         closedList.add(cell);
     }
+
     public boolean isEnded() {
         return closedList.contains(grid.getEndingCell());
     }
-    public boolean queueIsEmpty(){
+
+    public boolean queueIsEmpty() {
         return openList.getQueue().isEmpty();
     }
-    public boolean workFinished(){
-        return isEnded()||queueIsEmpty();
+
+    public boolean workFinished() {
+        return isEnded() || queueIsEmpty();
     }
+
     public void updateOpenList(Cell cell) {
         for (int i = 0; i < 4; i++) {
             Cell cellDaughter;
@@ -72,14 +74,17 @@ public class AStarCore {
     public void updateCosts(Cell cell) {
         cell.calculateCost();
         grid.calculateHeuristicCost(cell);
-        chartManager.registerHeightByStep((int)cell.getCost());
+        chartManager.registerHeightByStep((int) cell.getCost());
     }
 
     public String showPath(Cell cell) {
         String res = "";
         for (int k = 0; k < grid.getSize(); k++) {
             for (int m = 0; m < grid.getSize(); m++) {
-                res += "|" + (closedList.contains(grid.getGrid()[k][m]) ? (cell.getGenealogy().contains(grid.getGrid()[k][m]) ? ANSI_BLUE + "2" + ANSI_RESET : ANSI_RED + "2" + ANSI_RESET) : (grid.getGrid()[k][m].isCanAccess() ? ANSI_GREEN + "0" + ANSI_RESET : 1)) + "|";
+                res += "|" + (closedList.contains(grid.getGrid()[k][m])
+                        ? (cell.getGenealogy().contains(grid.getGrid()[k][m]) ? ANSI_BLUE + "2" + ANSI_RESET
+                                : ANSI_RED + "2" + ANSI_RESET)
+                        : (grid.getGrid()[k][m].isCanAccess() ? ANSI_GREEN + "0" + ANSI_RESET : 1)) + "|";
             }
             res += "\n";
         }
@@ -97,12 +102,12 @@ public class AStarCore {
     public ArrayList<Cell> getClosedList() {
         return closedList;
     }
-    
-    public int getClosedListSize(){
+
+    public int getClosedListSize() {
         return closedList.size();
     }
 
-    public int getCurrentPathSize(){
+    public int getCurrentPathSize() {
         return closedList.get(closedList.size() - 1).getGenealogy().size();
     }
 }

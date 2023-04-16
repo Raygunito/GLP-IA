@@ -202,4 +202,12 @@ public class ControlPanel extends JPanel{
     public JButton getStop() {
         return stop;
     }
+
+    public JButton getStart() {
+        return start;
+    }
+
+    public JButton getRestart() {
+        return restart;
+    }
 }
