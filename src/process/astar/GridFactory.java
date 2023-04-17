@@ -9,16 +9,26 @@ import data.astar.Coordinate;
 import data.astar.Grid;
 import data.elements.Tile;
 import data.elements.Wall;
+import log.LoggerUtility;
+import org.apache.log4j.Logger;
 
 public class GridFactory {
     private final ArrayList<ArrayList<Cell>> listOfAreas;
     private final ArrayList<Cell> walls;
+    private static Logger logger = LoggerUtility.getLogger(GridFactory.class, "text");
 
+    /**
+     * initialise la grille
+     */
     public GridFactory() {
         listOfAreas = new ArrayList<>();
         walls = new ArrayList<>();
     }
 
+    /**
+     *Créer une grille de 10*10
+     * @return grid
+     */
     public Grid BuildGrid() {
         Grid grid = new Grid();
         createCells(grid);
@@ -34,6 +44,10 @@ public class GridFactory {
         return grid;
     }
 
+    /**
+     *
+     * @param grid
+     */
     private void createCells(Grid grid) {
         for (int i = 0; i < grid.getSize(); i++) {
             for (int j = 0; j < grid.getSize(); j++) {

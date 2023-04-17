@@ -13,6 +13,9 @@ public class MinMaxCore {
         this.tree = new Tree(TreeFactory.buildPlayerNode(baseCoin, difficulty));
     }
 
+    /**
+     * Si ce n'est pas au tour du robot, il prépare son coup
+     */
     public synchronized void process() {
         if (!playerTurn) {
             tree = new Tree(TreeFactory.buildPlayerNode(coin, difficulty));

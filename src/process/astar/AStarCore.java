@@ -5,7 +5,10 @@ import java.util.ArrayList;
 
 import data.astar.Cell;
 import data.astar.Grid;
+import gui.algorithmPanel.AStarPanel;
 import gui.instrument.ChartManager;
+import log.LoggerUtility;
+import org.apache.log4j.Logger;
 
 public class AStarCore {
     private Queue openList;
@@ -16,7 +19,7 @@ public class AStarCore {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLUE = "\u001B[34m";
     public ChartManager chartManager = new ChartManager();
-
+    private static Logger logger = LoggerUtility.getLogger(AStarCore.class, "text");
 
     public AStarCore() {
         openList = new Queue();
@@ -49,6 +52,12 @@ public class AStarCore {
     public boolean workFinished(){
         return isEnded()||queueIsEmpty();
     }
+
+
+    /**
+     *Mets à jour les valeurs des cellules filles
+     * @param cell
+     */
     public void updateOpenList(Cell cell) {
         for (int i = 0; i < 4; i++) {
             Cell cellDaughter;
@@ -65,16 +74,27 @@ public class AStarCore {
                     openList.getQueue().add(cellDaughter);
                 }
             } catch (CellIsWallException | IndexOutOfBoundsException ignored) {
+                logger.warn("Did not succeed in updating the open list");
             }
+            logger.debug("list has been updated");
         }
     }
 
+    /**
+     * Met à jour le cout heuristic de la cellule
+     * @param cell
+     */
     public void updateCosts(Cell cell) {
         cell.calculateCost();
         grid.calculateHeuristicCost(cell);
         chartManager.registerHeightByStep((int)cell.getCost());
     }
 
+    /**
+     * Permet une fois le labyrinthe résolu de montrer le chemin le plus optimal
+     * @param cell
+     * @return res
+     */
     public String showPath(Cell cell) {
         String res = "";
         for (int k = 0; k < grid.getSize(); k++) {
@@ -83,6 +103,7 @@ public class AStarCore {
             }
             res += "\n";
         }
+        logger.info("Path has been successfully shown");
         return res;
     }
 

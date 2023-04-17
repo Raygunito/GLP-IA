@@ -103,4 +103,5 @@ public class ChartManager {
 		return ChartFactory.createXYLineChart("", "Tile visited", "Heuristic", dataset, PlotOrientation.VERTICAL, true, true, false);
 	}
 
+
 }
