@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-import data.astar.Cell;
 import data.elements.Element;
 
 public class SquareDrawStrategy implements PaintStrategy {

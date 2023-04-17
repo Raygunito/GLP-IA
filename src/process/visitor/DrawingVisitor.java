@@ -2,6 +2,7 @@ package process.visitor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
+import data.elements.BestPath;
 import data.elements.Hole;
 import data.elements.Tile;
 import data.elements.Trail;
@@ -58,6 +59,13 @@ public class DrawingVisitor implements ElementVisitor<Void> {
     public Void visit(UselessTile uselessTile) {
         paintStrategy.setColor(graphics, uselessTile);
         paintStrategy.draw((Graphics2D) graphics, uselessTile.getCoordinate().coordinateX()*cellSize, uselessTile.getCoordinate().coordinateY()*cellSize, cellSize);
+        return null;
+    }
+    
+    @Override
+    public Void visit(BestPath bestPath) {
+        paintStrategy.setColor(graphics, bestPath);
+        paintStrategy.draw((Graphics2D) graphics, bestPath.getCoordinate().coordinateX()*cellSize, bestPath.getCoordinate().coordinateY()*cellSize, cellSize);
         return null;
     }
     

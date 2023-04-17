@@ -1,5 +1,6 @@
 package process.visitor;
 
+import data.elements.BestPath;
 import data.elements.Hole;
 import data.elements.Tile;
 import data.elements.Trail;
@@ -26,6 +27,12 @@ public class AStarNodeVisitor implements ElementVisitor<Void>{
         return null;
     }
 
+
+    @Override
+    public Void visit(BestPath bestPath) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
     @Override
     public Void visit(Hole hole) {

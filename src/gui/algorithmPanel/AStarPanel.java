@@ -2,9 +2,10 @@ package gui.algorithmPanel;
 
 import javax.swing.*;
 
+import org.apache.log4j.Logger;
 import org.jfree.chart.ChartPanel;
 
-import data.astar.Cell;
+import data.astar.ACell;
 import data.elements.Tile;
 import data.elements.Trail;
 import data.elements.UselessTile;
@@ -12,6 +13,7 @@ import data.elements.Wall;
 import gui.GUIConstant;
 import gui.primitivePanel.GridPanel;
 import gui.utilsPanel.InformationPanel;
+import log.LoggerUtility;
 import process.astar.AStarCore;
 
 import java.awt.*;
@@ -28,7 +30,8 @@ public class AStarPanel extends JPanel implements Runnable {
     private AStarCore core;
     private GridPanel gridpanel;
     private InformationPanel ip;
-    private int speed;
+    private volatile int speed;
+    private static Logger logger = LoggerUtility.getLogger(AStarPanel.class, "text");
 
     /**
      * Creates an AStarPanel with a default size of 40x40.
@@ -44,6 +47,7 @@ public class AStarPanel extends JPanel implements Runnable {
     /**
      * Creates an AStarPanel with a size of nxn, a speed of speed, and an
      * InformationPanel of ip.
+     * 
      * @param n
      * @param speed
      * @param ip
@@ -57,8 +61,10 @@ public class AStarPanel extends JPanel implements Runnable {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setMaximumSize(new Dimension(WIDTH, HEIGHT));
     }
+
     /**
      * Creates an AStarPanel with a size of nxn, a speed of speed.
+     * 
      * @param n
      * @param speed
      */
@@ -69,6 +75,7 @@ public class AStarPanel extends JPanel implements Runnable {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setMaximumSize(new Dimension(WIDTH, HEIGHT));
     }
+
     /**
      * Initializes the AStarPanel
      */
@@ -82,10 +89,10 @@ public class AStarPanel extends JPanel implements Runnable {
      * Updates the AStarPanel with the current state of the grid.
      */
     private void update() {
-        ArrayList<Cell> parents = core.getClosedList().get(core.getClosedList().size() - 1).getGenealogy();
+        ArrayList<ACell> parents = core.getClosedList().get(core.getClosedList().size() - 1).getGenealogy();
         for (int i = 0; i < core.getGrid().getSize(); i++) {
             for (int j = 0; j < core.getGrid().getSize(); j++) {
-                Cell cell = core.getGrid().getCell(i, j);
+                ACell cell = core.getGrid().getCell(i, j);
                 if (core.getClosedList().contains(core.getGrid().getCell(i, j))) {
                     if (parents.contains(core.getGrid().getCell(i, j))) {
                         cell.setElement(new Trail(cell.getCoordinate()));
@@ -107,6 +114,7 @@ public class AStarPanel extends JPanel implements Runnable {
             ip.repaint();
         }
     }
+
     /**
      * Processes the current state of the grid.
      */
@@ -121,7 +129,7 @@ public class AStarPanel extends JPanel implements Runnable {
             if (!paused) {
                 process();
                 try {
-                    Thread.sleep(800 - (speed * 10));
+                    Thread.sleep(600 - (speed * 60));
                 } catch (InterruptedException e) {
                     return;
                 }
@@ -135,24 +143,34 @@ public class AStarPanel extends JPanel implements Runnable {
     public int getNumberOfCellVisited() {
         return core.getClosedListSize();
     }
+
     /**
      * Toggles the paused state of the AStarPanel.
      */
     public void togglePaused() {
         paused = !paused;
     }
+
     /**
      * Checks the paused state of the AStarPanel.
+     * 
      * @return boolean true if paused false otherwise
      */
     public boolean isPaused() {
         return paused;
     }
 
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
     public void test() {
-    ChartPanel chartPanel = new
-    ChartPanel(core.chartManager.getHeightEvolutionChart());
-    chartPanel.setPreferredSize(new Dimension(300,150));
-    this.ip.add(chartPanel);
+        ChartPanel chartPanel = new ChartPanel(core.chartManager.getHeightEvolutionChart());
+        chartPanel.setPreferredSize(new Dimension(300, 150));
+        this.ip.add(chartPanel);
     }
 }

@@ -2,14 +2,14 @@ package process.astar;
 
 import java.util.ArrayList;
 
-import data.astar.Cell;
-import data.astar.Grid;
+import data.astar.ACell;
+import data.astar.AGrid;
 import gui.instrument.ChartManager;
 
 public class AStarCore {
     private Queue openList;
-    private ArrayList<Cell> closedList;
-    private final Grid grid;
+    private ArrayList<ACell> closedList;
+    private AGrid grid;
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_GREEN = "\u001B[32m";
     public static final String ANSI_RESET = "\u001B[0m";
@@ -26,7 +26,7 @@ public class AStarCore {
     public AStarCore(int n) {
         openList = new Queue();
         closedList = new ArrayList<>();
-        grid = new GridFactory().BuildGrid(n);
+        grid = (AGrid) new GridFactory().BuildGrid(n);
         openList.getQueue().add(grid.getStartingCell());
     }
 
@@ -34,7 +34,7 @@ public class AStarCore {
      * Fait une étape de l'algorithme A*.
      */
     public void process() {
-        Cell cell = openList.handle();
+        ACell cell = openList.handle();
         updateOpenList(cell);
         closedList.add(cell);
     }
@@ -51,9 +51,9 @@ public class AStarCore {
         return isEnded() || queueIsEmpty();
     }
 
-    public void updateOpenList(Cell cell) {
+    public void updateOpenList(ACell cell) {
         for (int i = 0; i < 4; i++) {
-            Cell cellDaughter;
+            ACell cellDaughter;
             try {
                 cellDaughter = switch (i) {
                     case 0 -> grid.getUp(cell);
@@ -71,13 +71,13 @@ public class AStarCore {
         }
     }
 
-    public void updateCosts(Cell cell) {
+    public void updateCosts(ACell cell) {
         cell.calculateCost();
         grid.calculateHeuristicCost(cell);
         chartManager.registerHeightByStep((int) cell.getCost());
     }
 
-    public String showPath(Cell cell) {
+    public String showPath(ACell cell) {
         String res = "";
         for (int k = 0; k < grid.getSize(); k++) {
             for (int m = 0; m < grid.getSize(); m++) {
@@ -95,11 +95,11 @@ public class AStarCore {
         return openList;
     }
 
-    public Grid getGrid() {
+    public AGrid getGrid() {
         return grid;
     }
 
-    public ArrayList<Cell> getClosedList() {
+    public ArrayList<ACell> getClosedList() {
         return closedList;
     }
 

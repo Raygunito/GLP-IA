@@ -2,6 +2,8 @@ package data.elements;
 
 import java.awt.Color;
 
+import org.w3c.dom.css.RGBColor;
+
 import data.utils.Coordinate;
 import process.visitor.ElementVisitor;
 
@@ -17,7 +19,7 @@ public class Hole implements Element{
 
     @Override
     public Color getColor() {
-        return Color.BLACK;
+        return Color.decode("#910c03");
     }
     
     public Coordinate getCoordinate() {

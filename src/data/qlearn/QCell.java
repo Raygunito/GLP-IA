@@ -1,13 +1,11 @@
 package data.qlearn;
 
 import data.utils.Coordinate;
-
+import data.abstracts.AbstractCell;
 import data.elements.Element;
 import data.elements.Tile;
 
-public class Cell {
-    private final Coordinate coordinate;
-    private Element element;
+public class QCell extends AbstractCell{
     private float[] qValue;
 
     /**
@@ -15,9 +13,8 @@ public class Cell {
      * @param x The x coordinate of the cell.
      * @param y The y coordinate of the cell.
      */
-    public Cell(int x, int y) {
-        coordinate = new Coordinate(x, y);
-        this.element = new Tile(coordinate);
+    public QCell(int x, int y) {
+        super(new Coordinate(x, y), new Tile(new Coordinate(x, y)));
         this.qValue = new float[4];
     }
 
@@ -27,15 +24,15 @@ public class Cell {
      * @return Coordinate of the cell
      */
     public Coordinate getCoordinate() {
-        return coordinate;
+        return super.getCoordinate();
     }
 
     public Element getElement() {
-        return element;
+        return super.getElement();
     }
 
     public void setElement(Element element) {
-        this.element = element;
+        super.setElement(element);
     }
 
     public float[] getqValue() {
@@ -67,14 +64,14 @@ public class Cell {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Cell cell = (Cell) o;
-        return (this.coordinate.coordinateX() == cell.getCoordinate().coordinateX())
-                && (this.coordinate.coordinateY() == cell.getCoordinate().coordinateY());
+        QCell cell = (QCell) o;
+        return (super.getCoordinate().coordinateX() == cell.getCoordinate().coordinateX())
+                && (super.getCoordinate().coordinateY() == cell.getCoordinate().coordinateY());
     }
 
     @Override
     public String toString() {
-        return "[" + coordinate.coordinateX() + "," + coordinate.coordinateY() + "]";
+        return "[" + super.getCoordinate().coordinateX() + "," + super.getCoordinate().coordinateY() + "]";
     }
 
 }

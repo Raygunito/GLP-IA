@@ -6,8 +6,10 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
-import data.astar.Grid;
+import data.abstracts.AbstractGrid;
+import data.astar.AGrid;
 import data.elements.Element;
+import data.qlearn.QGrid;
 import gui.GUIConstant;
 import gui.management.SquareDrawStrategy;
 import process.visitor.DrawingVisitor;
@@ -17,9 +19,9 @@ import process.visitor.DrawingVisitor;
 public class GridPanel extends JPanel {
     private static final int WIDTH = GUIConstant.SCALING_FACTOR * 170;
     private static final int HEIGHT = GUIConstant.SCALING_FACTOR * 170;
-    private Grid grid;
+    private AbstractGrid grid;
 
-    public GridPanel(Grid grid) {
+    public GridPanel(AbstractGrid grid) {
         this.grid = grid;
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setMaximumSize(new Dimension(WIDTH, HEIGHT));
@@ -41,7 +43,10 @@ public class GridPanel extends JPanel {
             }
         }
     }
-    public void setGrid(Grid grid) {
+    public void setGrid(AGrid grid) {
+        this.grid = grid;
+    }
+    public void setGrid(QGrid grid){
         this.grid = grid;
     }
 }

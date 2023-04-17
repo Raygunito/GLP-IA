@@ -2,7 +2,7 @@ package gui.management;
 
 import java.awt.Graphics2D;
 import java.awt.Graphics;
-import data.astar.Cell;
+import data.astar.ACell;
 import data.elements.Element;
 
 import java.awt.Color;

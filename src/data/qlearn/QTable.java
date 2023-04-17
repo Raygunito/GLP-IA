@@ -6,7 +6,7 @@ public class QTable {
     private float[][][] qtab;
     private int size;
 
-    public QTable(Grid grid) {
+    public QTable(QGrid grid) {
         qtab = grid.generateArrayQValue();
         size = grid.getSize();
     }

@@ -12,7 +12,6 @@ public class Wall implements Element{
     }
     @Override
     public <E> E accept(ElementVisitor<E> visitor) {
-        // TODO Auto-generated method stub
         return visitor.visit(this);
     }
     @Override

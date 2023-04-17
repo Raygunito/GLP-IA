@@ -4,22 +4,22 @@ package process.astar;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-import data.astar.Cell;
+import data.astar.ACell;
 
 public class Queue {
-    private final ArrayList<Cell> queue;
+    private final ArrayList<ACell> queue;
 
     public Queue(){
         queue=new ArrayList<>();
     }
-    public Cell handle(){
-        queue.sort(Comparator.comparingDouble(Cell::getHeuristicCost));
-        Cell cell=queue.get(0);
+    public ACell handle(){
+        queue.sort(Comparator.comparingDouble(ACell::getHeuristicCost));
+        ACell cell=queue.get(0);
         queue.remove(0);
         return cell;
     }
 
-    public ArrayList<Cell> getQueue() {
+    public ArrayList<ACell> getQueue() {
         return queue;
     }
 }

@@ -3,86 +3,86 @@ package data.qlearn;
 import java.util.ArrayList;
 import java.util.Random;
 
+import data.abstracts.AbstractGrid;
 import process.qlearn.GridBorderException;
 
-public class Grid {
+public class QGrid extends AbstractGrid {
     public static final float MALUS_VALUE = -100f;
     public static final float ENDING_VALUE = 300f;
     public static final float WALL_VALUE = -999f;
 
-    private final Cell[][] cellGrid;
-    private Cell endingCell, startingCell;
-    private int size;
-
-    public Grid(int n) {
-        cellGrid = new Cell[n][n];
-        size = n;
+    public QGrid(int n) {
+        super(n);
         initCellValue();
         initBorderValue();
     }
+
     private void initBorderValue(){
-        for (int i = 0; i < cellGrid.length; i++) {
-            cellGrid[i][0].setqValue(WALL_VALUE,Direction.UP.getValue());
-            cellGrid[i][size-1].setqValue(WALL_VALUE, Direction.DOWN.getValue());
+        int size = super.getSize();
+        for (int i = 0; i < size; i++) {
+            ((QCell)super.getGrid()[i][0]).setqValue(WALL_VALUE,Direction.UP.getValue());
+            ((QCell)super.getGrid()[i][size-1]).setqValue(WALL_VALUE, Direction.DOWN.getValue());
         }
-        for (int i = 0; i < cellGrid.length; i++) {
-            cellGrid[0][i].setqValue(WALL_VALUE,Direction.LEFT.getValue());
-            cellGrid[size-1][i].setqValue(WALL_VALUE, Direction.RIGHT.getValue());    
+        for (int i = 0; i < size ; i++) {
+            ((QCell)super.getGrid()[0][i]).setqValue(WALL_VALUE,Direction.LEFT.getValue());
+            ((QCell)super.getGrid()[size-1][i]).setqValue(WALL_VALUE, Direction.RIGHT.getValue());    
         }
     }
     private void initCellValue() {
-        for (int i = 0; i < cellGrid.length; i++) {
-            for (int j = 0; j < cellGrid.length; j++) {
-                cellGrid[i][j] = new Cell(i, j);
+        int size = super.getSize();
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                super.getGrid()[i][j] = new QCell(i, j);
             }
         }
-        endingCell = new Cell(size - 1, size - 1);
-        startingCell = new Cell(0, 0);
+        QCell endingCell = new QCell(size - 1, size - 1);
+        QCell startingCell = new QCell(0, 0);
         for (int i = 0; i < 4; i++) {
             endingCell.setqValue(ENDING_VALUE, i);
         }
-        cellGrid[size - 1][size - 1] = endingCell;
-        cellGrid[0][0] = startingCell;
-
+        super.getGrid()[size - 1][size - 1] = endingCell;
+        super.setEndingAbstractCell(endingCell);
+        super.getGrid()[0][0] = startingCell;
+        super.setStartingAbstractCell(startingCell);
     }
 
-    public Cell getUp(Cell cell) throws GridBorderException {
+    public QCell getUp(QCell cell) throws GridBorderException {
         int x = cell.getCoordinate().coordinateX();
         int y = cell.getCoordinate().coordinateY() - 1;
         return getCellfromPosition(cell, x, y);
 
     }
 
-    public Cell getDown(Cell cell) throws GridBorderException {
+    public QCell getDown(QCell cell) throws GridBorderException {
         int x = cell.getCoordinate().coordinateX();
         int y = cell.getCoordinate().coordinateY() + 1;
         return getCellfromPosition(cell, x, y);
 
     }
 
-    public Cell getLeft(Cell cell) throws GridBorderException {
+    public QCell getLeft(QCell cell) throws GridBorderException {
         int x = cell.getCoordinate().coordinateX() - 1;
         int y = cell.getCoordinate().coordinateY();
         return getCellfromPosition(cell, x, y);
 
     }
 
-    public Cell getRight(Cell cell) throws GridBorderException {
+    public QCell getRight(QCell cell) throws GridBorderException {
         int x = cell.getCoordinate().coordinateX() + 1;
         int y = cell.getCoordinate().coordinateY();
         return getCellfromPosition(cell, x, y);
 
     }
 
-    private Cell getCellfromPosition(Cell cell, int x, int y) throws GridBorderException {
-        if (x < 0 || x >= this.size || y < 0 || y >= this.size) {
+    private QCell getCellfromPosition(QCell cell, int x, int y) throws GridBorderException {
+        if (x < 0 || x >= super.getSize() || y < 0 || y >= super.getSize()) {
             throw new GridBorderException();
         }
-        return cellGrid[x][y];
+        return (QCell) super.getCell(x, y);
     }
 
-    public ArrayList<Cell> getNeighbors(Cell cell) {
-        ArrayList<Cell> alCell = new ArrayList<Cell>();
+    public ArrayList<QCell> getNeighbors(QCell cell) {
+        ArrayList<QCell> alCell = new ArrayList<QCell>();
         try {
             alCell.add(getUp(cell));
         } catch (GridBorderException e) {
@@ -106,18 +106,18 @@ public class Grid {
         return alCell;
     }
 
-    public Cell getRandomNeighbors(Cell cell) {
-        ArrayList<Cell> alCell = getNeighbors(cell);
+    public QCell getRandomNeighbors(QCell cell) {
+        ArrayList<QCell> alCell = getNeighbors(cell);
         int index = new Random().nextInt(alCell.size());
         return alCell.get(index);
     }
 
-    public Cell getCell(int x, int y) {
-        return cellGrid[x][y];
+    public QCell getCell(int x, int y) {
+        return (QCell) super.getCell(x, y);
     }
 
-    public Cell getCellFromDirection(Cell currentCell, Direction dir) {
-        Cell tmp = null;
+    public QCell getCellFromDirection(QCell currentCell, Direction dir) {
+        QCell tmp = null;
         switch (dir) {
             case UP:
                 try {
@@ -148,11 +148,12 @@ public class Grid {
     }
 
     public float[][][] generateArrayQValue() {
+        int size = super.getSize();
         float[][][] tab = new float[size][size][4];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 for (int k = 0; k < 4; k++)
-                    tab[i][j][k] = cellGrid[i][j].getqValue()[k];
+                    tab[i][j][k] =((QCell)super.getCell(i, j)).getqValue()[k];
             }
         }
         return tab;
@@ -161,28 +162,28 @@ public class Grid {
         for (int i = 0; i < qTable.getSize(); i++) {
             for (int j = 0; j < qTable.getSize(); j++) {
                 for (int k = 0; k < 4; k++) {
-                    cellGrid[i][j].setqValue(qTable.getQValue(i, j, k), k); 
+                    ((QCell)super.getCell(i, j)).setqValue(qTable.getQValue(i, j, k), k); 
                 }
             }
         }
     }
-    public void setEndingCell(Cell endingCell) {
-        this.endingCell = endingCell;
+    public void setEndingCell(QCell endingCell) {
+        super.setEndingAbstractCell(endingCell);
     }
 
-    public void setStartingCell(Cell startingCell) {
-        this.startingCell = startingCell;
+    public void setStartingCell(QCell startingCell) {
+        super.setStartingAbstractCell(startingCell);
     }
 
     public int getSize() {
-        return size;
+        return super.getSize();
     }
 
-    public Cell getEndingCell() {
-        return endingCell;
+    public QCell getEndingCell() {
+        return (QCell) super.getEndingAbstractCell();
     }
 
-    public Cell getStartingCell() {
-        return startingCell;
+    public QCell getStartingCell() {
+        return (QCell) super.getStartingAbstractCell();
     }
 }

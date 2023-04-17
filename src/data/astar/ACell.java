@@ -2,16 +2,16 @@ package data.astar;
 
 import java.util.ArrayList;
 
+import data.abstracts.AbstractCell;
 import data.elements.Element;
+import data.elements.Tile;
 import data.utils.Coordinate;
 
-public class Cell {
-    private final Coordinate coordinate;
-    private Cell parent;
+public class ACell extends AbstractCell{
+    private ACell parent;
     private boolean canAccess;
     private double heuristicCost;
     private int cost;
-    private Element element;
     
     /**
      * 
@@ -20,18 +20,17 @@ public class Cell {
      * @param parent The parent cell of the cell.
      * @param canAccess A boolean representing whether or not the cell can be accessed.
      */
-    public Cell(int x, int y, Cell parent, boolean canAccess) {
-        coordinate = new Coordinate(x, y);
+    public ACell(int x, int y, ACell parent, boolean canAccess) {
+        super(new Coordinate(x, y), new Tile(new Coordinate(x, y)));
         this.parent = parent;
         this.canAccess = canAccess;
-        this.element = null;
     }
     /**
      * Returns the coordinate of the cell.
      * @return Coordinate of the cell
      */
     public Coordinate getCoordinate() {
-        return coordinate;
+        return super.getCoordinate();
     }
     /**
      * Returns the heuristic cost of the cell.
@@ -65,11 +64,11 @@ public class Cell {
      * Returns the parent cell of the cell.
      * @return Cell of the parent
      */
-    public Cell getParent() {
+    public ACell getParent() {
         return parent;
     }
 
-    public void setParent(Cell parent) {
+    public void setParent(ACell parent) {
         this.parent = parent;
     }
 
@@ -82,11 +81,11 @@ public class Cell {
     }
 
     public Element getElement() {
-        return element;
+        return super.getElement();
     }
 
     public void setElement(Element element) {
-        this.element = element;
+        super.setElement(element);
     }
 
     public void calculateCost() {
@@ -96,14 +95,19 @@ public class Cell {
      * Returns an ArrayList of cells representing the genealogy of the cell.
      * @return Arraylist of all the cell that composed the path
      */
-    public ArrayList<Cell> getGenealogy() {
-        ArrayList<Cell> genealogy = new ArrayList<>();
-        Cell parent = this;
+    public ArrayList<ACell> getGenealogy() {
+        ArrayList<ACell> genealogy = new ArrayList<>();
+        ACell parent = this;
         genealogy.add(this);
         while (parent.getParent() != null) {
             parent = parent.getParent();
             genealogy.add(parent);
         }
         return genealogy;
+    }
+
+    @Override
+    public String toString() {
+        return "["+super.getCoordinate().coordinateX()+","+super.getCoordinate().coordinateY()+"]";
     }
 }

@@ -12,12 +12,11 @@ public class Tile implements Element{
     }
     @Override
     public <E> E accept(ElementVisitor<E> visitor) {
-        // TODO Auto-generated method stub
         return visitor.visit(this);
     }
     @Override
     public Color getColor() {
-        return Color.GRAY;
+        return Color.LIGHT_GRAY;
     }
 
     public Coordinate getCoordinate() {

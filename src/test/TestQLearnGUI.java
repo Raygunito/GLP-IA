@@ -3,7 +3,7 @@ package test;
 import javax.swing.*;
 
 import data.elements.Hole;
-import data.qlearn.Cell;
+import data.qlearn.QCell;
 import process.qlearn.QLearnCore;
 
 import java.awt.*;
@@ -120,7 +120,7 @@ public class TestQLearnGUI extends JFrame {
 
                 for (int i = 0; i < qLearn.getGrid().getSize(); i++) {
                     for (int j = 0; j < qLearn.getGrid().getSize(); j++) {
-                        Cell cell = qLearn.getGrid().getCell(i, j);
+                        QCell cell = qLearn.getGrid().getCell(i, j);
 
                         if (cell.getElement() instanceof Hole) {
                             g.setColor(Color.RED);
@@ -135,8 +135,8 @@ public class TestQLearnGUI extends JFrame {
                         g.fillRect(30 + i * CELL_SIZE, 50 + j * CELL_SIZE, CELL_SIZE, CELL_SIZE);
                     }
                 }
-                ArrayList<Cell> path = qLearn.path;
-                for (Cell cell : path) {
+                ArrayList<QCell> path = qLearn.path;
+                for (QCell cell : path) {
                     g.setColor(Color.cyan);
                     g.drawRect(30 + cell.getCoordinate().coordinateX() * CELL_SIZE,
                             50 + cell.getCoordinate().coordinateY() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
@@ -150,7 +150,7 @@ public class TestQLearnGUI extends JFrame {
 
                 for (int i = 0; i < qLearn.getGrid().getSize(); i++) {
                     for (int j = 0; j < qLearn.getGrid().getSize(); j++) {
-                        Cell cell = qLearn.getGrid().getCell(i, j);
+                        QCell cell = qLearn.getGrid().getCell(i, j);
 
                         if (cell.getElement() instanceof Hole) {
                             g.setColor(Color.RED);
@@ -165,8 +165,8 @@ public class TestQLearnGUI extends JFrame {
                         g.fillRect(30 + i * CELL_SIZE, 50 + j * CELL_SIZE, CELL_SIZE, CELL_SIZE);
                     }
                 }
-                ArrayList<Cell> path = qLearn.bestPath();
-                for (Cell cell : path) {
+                ArrayList<QCell> path = qLearn.bestPath();
+                for (QCell cell : path) {
                     g.setColor(Color.cyan);
                     g.drawRect(30 + cell.getCoordinate().coordinateX() * CELL_SIZE,
                             50 + cell.getCoordinate().coordinateY() * CELL_SIZE, CELL_SIZE, CELL_SIZE);

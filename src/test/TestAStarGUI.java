@@ -1,6 +1,6 @@
 package test;
 
-import data.astar.Cell;
+import data.astar.ACell;
 import process.astar.AStarCore;
 
 import javax.swing.*;
@@ -43,7 +43,7 @@ public class TestAStarGUI extends JFrame {
     }
 
     private void update() {
-        ArrayList<Cell> parents = core.getClosedList().get(core.getClosedList().size() - 1).getGenealogy();
+        ArrayList<ACell> parents = core.getClosedList().get(core.getClosedList().size() - 1).getGenealogy();
         for (int i = 0; i < core.getGrid().getDIM(); i++) {
             for (int j = 0; j < core.getGrid().getDIM(); j++) {
                 grid[i][j].setForeground(core.getClosedList().contains(core.getGrid().getCell(i, j)) ? (parents.contains(core.getGrid().getCell(i, j)) ? Color.blue : Color.RED) : (core.getGrid().getGrid()[i][j].isCanAccess() ? Color.GREEN : Color.BLACK));

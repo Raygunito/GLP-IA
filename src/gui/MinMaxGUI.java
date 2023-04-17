@@ -10,9 +10,12 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
+import org.apache.log4j.Logger;
+
 import gui.algorithmPanel.MinMaxPanel;
 import gui.utilsPanel.ControlPanel;
 import gui.utilsPanel.InformationPanel;
+import log.LoggerUtility;
 
 public class MinMaxGUI extends JPanel implements Runnable{
     private static final int WIDTH=GUIConstant.SCALING_FACTOR*400;
@@ -22,6 +25,8 @@ public class MinMaxGUI extends JPanel implements Runnable{
     private JPanel upperPanel;
     private MinMaxPanel minMaxPanel;
     private Thread minMaxThread;
+    private static Logger logger = LoggerUtility.getLogger(MinMaxGUI.class, "text");
+
     public MinMaxGUI() {
         super();
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -64,9 +69,21 @@ public class MinMaxGUI extends JPanel implements Runnable{
     }
     @Override
     public void run() {
-        System.out.println("MinMaxGUI run.");
+        logger.info("MinMaxGUI ready for run.");
         repaint();
         revalidate();
+    }
+
+    public void resetButton(){
+        cp.getStart().setEnabled(true);
+        cp.getRestart().setEnabled(true);
+        cp.getStop().setEnabled(true);
+        cp.getStop().setText("Stop");
+    }
+
+    public void resetTextfield(){
+        cp.getOpt1Field().setEditable(true);
+        cp.getOpt2Field().setEditable(true);
     }
 
 

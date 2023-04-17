@@ -8,10 +8,15 @@ import java.awt.event.*;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import org.apache.log4j.Logger;
+
 import gui.algorithmPanel.AStarPanel;
 import gui.utilsPanel.ControlPanel;
 import gui.utilsPanel.InformationPanel;
+import log.LoggerUtility;
 
 public class AStarGUI extends JPanel implements Runnable {
     private static final int WIDTH = GUIConstant.SCALING_FACTOR * 400;
@@ -21,6 +26,7 @@ public class AStarGUI extends JPanel implements Runnable {
     private JPanel upperPanel;
     private AStarPanel astarPanel;
     private Thread astarThread;
+    private static Logger logger = LoggerUtility.getLogger(AStarGUI.class, "text");
 
     public AStarGUI() {
         super();
@@ -41,7 +47,8 @@ public class AStarGUI extends JPanel implements Runnable {
         cp.addActionListenerRestart(new ActionRestart());
         cp.addActionListenerStop(new ActionStop());
 
-        // add(astarPanel);
+        cp.getStop().setEnabled(false);
+
         add(upperPanel);
         add(ip);
         // placementDebug();
@@ -67,7 +74,7 @@ public class AStarGUI extends JPanel implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("AStarGUI run.");
+        logger.info("AStarGUI ready for run.");
         revalidate();
         repaint();
     }
@@ -80,10 +87,28 @@ public class AStarGUI extends JPanel implements Runnable {
         return ip;
     }
 
+    public void resetButton(){
+        cp.getStart().setEnabled(true);
+        cp.getRestart().setEnabled(true);
+        cp.getStop().setEnabled(false);
+        cp.getStop().setText("Stop");
+    }
+
+    public void resetTextfield(){
+        cp.getOpt1Field().setEditable(true);
+        cp.getOpt2Field().setEditable(true);
+    }
+
     class ActionStart implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            astarThread.start();
+            if (!astarPanel.isPaused()) {
+                astarThread.start();
+                cp.getStart().setEnabled(false);
+                cp.getStop().setEnabled(true);
+                cp.getOpt1Field().setEditable(false);
+                cp.getOpt2Field().setEditable(false);
+            }
         }
 
     }
@@ -104,6 +129,8 @@ public class AStarGUI extends JPanel implements Runnable {
                 ip.remove(2);
             }
             ip.resetValue();
+            resetButton();
+            resetTextfield();
         }
 
     }
@@ -113,6 +140,20 @@ public class AStarGUI extends JPanel implements Runnable {
         @Override
         public void actionPerformed(ActionEvent e) {
             astarPanel.togglePaused();
+            String input = cp.getOpt2Field().getText();
+            if (input.matches("\\d+")){
+                astarPanel.setSpeed(Integer.valueOf(cp.getOpt2Field().getText()));
+            }else{
+                cp.setOpt2Value(astarPanel.getSpeed());
+                JOptionPane.showMessageDialog(astarPanel, "Warning ! Speed value is not a number, previous value inserted.", "Not numeric !", JOptionPane.INFORMATION_MESSAGE);
+            }
+            if (astarPanel.isPaused()){
+                cp.getStop().setText("Resume");
+                cp.getOpt2Field().setEditable(true);
+            }else{
+                cp.getStop().setText("Stop");
+                cp.getOpt2Field().setEditable(false);
+            }
         }
     }
 }
