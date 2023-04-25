@@ -91,7 +91,13 @@ public class MinMaxGUI extends JPanel implements Runnable{
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            minMaxThread.start();
+            if (!minMaxPanel.isPaused()) {
+                minMaxThread.start();
+                cp.getStart().setEnabled(false);
+                cp.getStop().setEnabled(true);
+                cp.getOpt1Field().setEditable(false);
+                cp.getOpt2Field().setEditable(false);
+            }
         }
     }
 
@@ -107,6 +113,8 @@ public class MinMaxGUI extends JPanel implements Runnable{
             upperPanel.revalidate();
             upperPanel.repaint();
             ip.resetValue();
+            resetButton();
+            resetTextfield();
         }
 
     }
@@ -116,6 +124,11 @@ public class MinMaxGUI extends JPanel implements Runnable{
         @Override
         public void actionPerformed(ActionEvent e) {
             minMaxPanel.togglePaused();
+            if (minMaxPanel.isPaused()){
+                cp.getStop().setText("Resume");
+            }else{
+                cp.getStop().setText("Stop");
+            }
         }
     }
 

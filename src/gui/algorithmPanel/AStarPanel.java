@@ -82,7 +82,6 @@ public class AStarPanel extends JPanel implements Runnable {
     public void init() {
         gridpanel = new GridPanel(core.getGrid());
         this.add(gridpanel);
-        this.setBorder(BorderFactory.createLineBorder(Color.black));
     }
 
     /**

@@ -27,7 +27,7 @@ public class MinMaxPanel extends JPanel implements Runnable {
     private JPanel playPanel;
     private CoinPanel coinPanel;
     private InformationPanel ip;
-    private boolean paused = false;
+    private volatile boolean paused = false;
 
     public MinMaxPanel(int coin, int difficulty, InformationPanel ip) {
         super();
@@ -134,5 +134,13 @@ public class MinMaxPanel extends JPanel implements Runnable {
             coinPanel.setCoinNumber(currentCoin - fixedAmount);
             System.out.println("j'ai pris " + fixedAmount + " coins.");
         }
+    }
+
+    public boolean isPaused() {
+        return paused;
+    }
+
+    public void setPaused(boolean paused) {
+        this.paused = paused;
     }
 }
