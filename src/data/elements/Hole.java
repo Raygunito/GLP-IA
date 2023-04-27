@@ -2,8 +2,6 @@ package data.elements;
 
 import java.awt.Color;
 
-import org.w3c.dom.css.RGBColor;
-
 import data.utils.Coordinate;
 import process.visitor.ElementVisitor;
 

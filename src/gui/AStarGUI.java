@@ -145,6 +145,7 @@ public class AStarGUI extends JPanel implements Runnable {
                 astarPanel.setSpeed(Integer.valueOf(cp.getOpt2Field().getText()));
             }else{
                 cp.setOpt2Value(astarPanel.getSpeed());
+                logger.warn("User input invalid for speed : " + input);
                 JOptionPane.showMessageDialog(astarPanel, "Warning ! Speed value is not a number, previous value inserted.", "Not numeric !", JOptionPane.INFORMATION_MESSAGE);
             }
             if (astarPanel.isPaused()){
