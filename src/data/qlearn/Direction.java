@@ -1,5 +1,9 @@
 package data.qlearn;
 
+
+/**
+ * This enum makes up for all the direction used by QLearn (can be extended to AStar)
+ */
 public enum Direction {
     UP(0),
     DOWN(1),

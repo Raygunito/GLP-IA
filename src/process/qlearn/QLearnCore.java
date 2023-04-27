@@ -23,11 +23,20 @@ public class QLearnCore {
     public ArrayList<QCell> path;
     public int success = 0;
 
+    /**
+     * Constructs an instance of the QLearnCore class with the specified parameters.
+     * 
+     * @param gridSize        The size of the grid.
+     * @param nbIteration     The number of iterations for the agent to learn.
+     * @param learningRate    The learning rate.
+     * @param explorationRate The exploration rate.
+     * @param discountFactor  The discount factor.
+     */
     public QLearnCore(int gridSize, int nbIteration, float learningRate, float explorationRate, float discountFactor) {
         this.grid = new QGrid(gridSize);
         this.qTable = new QTable(grid);
         this.nbIte = nbIteration;
-        this.nbTot= nbIteration;
+        this.nbTot = nbIteration;
         this.learningRate = learningRate;
         this.explorationRate = explorationRate;
         // Negative value not allowed
@@ -41,7 +50,14 @@ public class QLearnCore {
     }
 
     /**
-     * On génère des trous de manière aléatoire
+     * We generate random hole, but there is always one path available (full Right
+     * then full Down)
+     * <p>
+     * The function iterates over all cells in the grid except for the starting cell
+     * and the ending cell, and randomly assigns a hole to each cell with a certain
+     * probability. The probability is a value of <b>0.35f</b>. The
+     * coordinates of the generated holes are logged to the logger with the TRACE
+     * level.
      */
     private void generateHole() {
         String res = "";
@@ -58,9 +74,22 @@ public class QLearnCore {
             }
             res = res + "\n";
         }
-        logger.trace(res+ "sont des trous");
+        logger.trace(res + "sont des trous");
     }
 
+    /**
+     * Performs one iteration of the Q-learning algorithm for the grid world.
+     * <p>
+     * In one iteration, the function randomly chooses a starting cell, and then
+     * repeatedly selects the next cell based on the current cell and the Epsilon
+     * greedy policy until either the agent reaches the ending cell or the maximum
+     * number of steps is reached. The Q-learning formula is used to update the
+     * Q-values of the state-action pairs encountered during the iteration. The
+     * learning rate and exploration rate are also updated after each iteration.
+     * <p>
+     * We limited the amount of movement at 2n^2 which should be enough for the
+     * agent to move freely.
+     */
     public void doOneIteration() {
         path = new ArrayList<QCell>();
         int xRand = new Random().nextInt(grid.getSize() - 1);
@@ -100,7 +129,7 @@ public class QLearnCore {
      * d'exploration)
      * 
      * @param currentCell
-     * @return
+     * @return QCell of the next cell
      */
     private QCell selectNextCell(QCell currentCell) {
         QCell tmp = null;
@@ -120,6 +149,16 @@ public class QLearnCore {
         return tmp;
     }
 
+    /**
+     * 
+     * Returns the direction from one cell to another on the grid.
+     * 
+     * @param currentCell The starting cell.
+     * @param nextCell    The destination cell.
+     * @return The direction from currentCell to nextCell, one of UP, DOWN, LEFT, or
+     *         RIGHT.
+     * @see Direction
+     */
     private Direction findDirection(QCell currentCell, QCell nextCell) {
         try {
             if (grid.getUp(currentCell).equals(nextCell)) {
@@ -145,17 +184,24 @@ public class QLearnCore {
             }
         } catch (GridBorderException e) {
         }
+        logger.error("Direction not found between " + currentCell.toString() + " and " + nextCell.toString());
         return null;
     }
 
     /**
-     * Formule pour calculer la nouvelle valeur de Q(S,a)
      * 
-     * @param currentVal
-     * @param reward
-     * @param maxQValue
-     * @param discountFactor
-     * @return
+     * Computes the new Q-value using the Q-learning formula.
+     * <p>
+     * The Q-learning formula computes the new Q-value for a state-action pair
+     * using the current Q-value, the reward obtained, the maximum Q-value of
+     * the next state, and the discount factor. The learning rate is also
+     * taken into account.
+     * 
+     * @param currentVal     the current Q-value for the state-action pair.
+     * @param reward         the reward obtained by taking the action in the state.
+     * @param maxQValue      the maximum Q-value of the next state.
+     * @param discountFactor the discount factor used to weigh future rewards.
+     * @return the new Q-value computed using the Q-learning formula.
      */
     private float qLearnFormula(float currentVal, float reward, float maxQValue, float discountFactor) {
         float newQValue = (1 - learningRate) * currentVal + learningRate * (reward + (discountFactor * maxQValue));
@@ -178,19 +224,25 @@ public class QLearnCore {
         return path;
     }
 
-    public int getSize(){
+    public int getSize() {
         return grid.getSize();
     }
+
     public int getNbTot() {
         return nbTot;
     }
+
     // public boolean workFinished(){
-    //     return ;
+    // return ;
     // }
     /**
-     * Le chemin est donné sous forme d'arrayList
+     * Returns the best path as an ArrayList of QCells.
+     * The path is computed using the Q-learning algorithm and is represented
+     * as an ArrayList of QCells starting from the grid's starting cell and
+     * ending at the grid's ending cell.
      * 
-     * @return
+     * @return an ArrayList of QCells representing the best path from the
+     *         starting cell to the ending cell.
      */
     public ArrayList<QCell> bestPath() {
         QCell currentCell = grid.getStartingCell();

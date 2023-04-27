@@ -6,6 +6,10 @@ import data.astar.ACell;
 import data.astar.AGrid;
 import gui.instrument.ChartManager;
 
+/**
+ * The AStarCore class implements the core functionality of the A* algorithm.
+ * It uses a queue as the open list, and an ArrayList to store the closed list.
+ */
 public class AStarCore {
     private Queue openList;
     private ArrayList<ACell> closedList;
@@ -16,6 +20,12 @@ public class AStarCore {
     public static final String ANSI_BLUE = "\u001B[34m";
     public ChartManager chartManager = new ChartManager();
 
+    /**
+     * The default constructor for the AStarCore class.
+     * It initializes the open list queue and closed list ArrayList, and creates a
+     * new grid with the GridFactory.
+     * It adds the starting cell to the open list queue.
+     */
     public AStarCore() {
         openList = new Queue();
         closedList = new ArrayList<>();
@@ -23,6 +33,14 @@ public class AStarCore {
         openList.getQueue().add(grid.getStartingCell());
     }
 
+    /**
+     * The constructor for the AStarCore class with a specified grid size.
+     * It initializes the open list queue and closed list ArrayList, and creates a
+     * new grid with the GridFactory with the given size.
+     * It adds the starting cell to the open list queue.
+     * 
+     * @param n the size of the grid
+     */
     public AStarCore(int n) {
         openList = new Queue();
         closedList = new ArrayList<>();
@@ -31,7 +49,9 @@ public class AStarCore {
     }
 
     /**
-     * Fait une étape de l'algorithme A*.
+     * Performs one step of the A* algorithm by handling a cell from the open list
+     * queue,
+     * updating the open list with its daughters, and adding it to the closed list.
      */
     public void process() {
         ACell cell = openList.handle();
@@ -39,18 +59,43 @@ public class AStarCore {
         closedList.add(cell);
     }
 
+    /**
+     * Checks if the algorithm has ended by verifying if the closed list contains
+     * the ending cell.
+     * 
+     * @return true if the ending cell is in the closed list, false otherwise
+     */
     public boolean isEnded() {
         return closedList.contains(grid.getEndingCell());
     }
 
+    /**
+     * Checks if the open list queue is empty.
+     * 
+     * @return true if the open list queue is empty, false otherwise
+     */
     public boolean queueIsEmpty() {
         return openList.getQueue().isEmpty();
     }
 
+    /**
+     * Checks if the algorithm has finished, i.e. if it has ended or if the open
+     * list queue is empty.
+     * 
+     * @return true if the algorithm has ended or the open list queue is empty,
+     *         false otherwise
+     */
     public boolean workFinished() {
         return isEnded() || queueIsEmpty();
     }
 
+    /**
+     * 
+     * Updates the open list with the daughter cells of the given cell, if they are
+     * not in the closed or open lists.
+     * 
+     * @param cell the cell to update from
+     */
     public void updateOpenList(ACell cell) {
         for (int i = 0; i < 4; i++) {
             ACell cellDaughter;
@@ -71,12 +116,23 @@ public class AStarCore {
         }
     }
 
+    /**
+     * Updates the costs (cost and heuristic cost) of the given cell.
+     *
+     * @param cell the cell to update the costs of
+     */
     public void updateCosts(ACell cell) {
         cell.calculateCost();
         grid.calculateHeuristicCost(cell);
-        chartManager.registerHeightByStep((int) cell.getCost());
+        chartManager.registerHeuristicByStep((int) cell.getCost());
     }
 
+    /**
+     * Displays the path found by the algorithm.
+     *
+     * @param cell the ending cell of the path
+     * @return a string representing the grid with the path highlighted
+     */
     public String showPath(ACell cell) {
         String res = "";
         for (int k = 0; k < grid.getSize(); k++) {

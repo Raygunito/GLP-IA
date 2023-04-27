@@ -50,8 +50,8 @@ public class ChartManager {
 	 * 
 	 * @param height current tree height
 	 */
-	public void registerHeightByStep(int height) {
-		heights.add(height);
+	public void registerHeuristicByStep(int cost) {
+		heights.add(cost);
 	}
 
 	/**

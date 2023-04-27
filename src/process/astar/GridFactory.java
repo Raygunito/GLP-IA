@@ -1,6 +1,5 @@
 package process.astar;
 
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -9,17 +8,42 @@ import data.astar.ACell;
 import data.astar.AGrid;
 import data.elements.Tile;
 import data.elements.Wall;
-import data.utils.Coordinate;
 
+/**
+ * The GridFactory class is responsible for creating a grid for the A*
+ * algorithm. It creates the cells for the grid,
+ * randomly creates paths through the grid, sets the start and end points of the
+ * grid, and returns the completed grid.
+ * <p>
+ * This class contains methods for creating cells, creating paths, setting start
+ * and ending points, and finding areas
+ * within the grid.
+ */
 public class GridFactory {
+    /**
+     * List of areas of cells within the grid that are accessible to each other.
+     */
     private final ArrayList<ArrayList<ACell>> listOfAreas;
+    /**
+     * List of walls within the grid.
+     */
     private final ArrayList<ACell> walls;
 
+    /**
+     * Constructs a new GridFactory object with empty lists for listOfAreas and
+     * walls.
+     */
     public GridFactory() {
         listOfAreas = new ArrayList<>();
         walls = new ArrayList<>();
     }
 
+    /**
+     * Creates a new AGrid object with a size of 10 and returns it after setting its
+     * cells, paths, start and ending points.
+     *
+     * @return A new AGrid object with a size of 10.
+     */
     public AGrid BuildGrid() {
         AGrid grid = new AGrid();
         createCells(grid);
@@ -27,6 +51,14 @@ public class GridFactory {
         setStartAndEnding(grid);
         return grid;
     }
+
+    /**
+     * Creates a new AGrid object with the specified size and returns it after
+     * setting its cells, paths, start and ending points.
+     *
+     * @param n The size of the grid to be created.
+     * @return A new AGrid object with the specified size.
+     */
     public AbstractGrid BuildGrid(int n) {
         AGrid grid = new AGrid(n);
         createCells(grid);
@@ -35,6 +67,11 @@ public class GridFactory {
         return grid;
     }
 
+    /**
+     * Creates the cells for the grid and adds them to the provided AGrid object.
+     *
+     * @param grid The AGrid object to which the cells will be added.
+     */
     private void createCells(AGrid grid) {
         for (int i = 0; i < grid.getSize(); i++) {
             for (int j = 0; j < grid.getSize(); j++) {
@@ -56,6 +93,11 @@ public class GridFactory {
         }
     }
 
+    /**
+     * Randomly creates paths through the grid by removing walls between areas.
+     *
+     * @param grid The AGrid object through which the paths will be created.
+     */
     private void createPath(AGrid grid) {
         Random random = new Random();
         while (!walls.isEmpty()) {
@@ -63,6 +105,13 @@ public class GridFactory {
         }
     }
 
+    /**
+     * Removes a wall from the walls list and joins two areas if they are not
+     * already joined.
+     *
+     * @param grid   The AGrid object through which the paths will be created.
+     * @param random An integer representing the index of the wall to be removed.
+     */
     private void dig(AGrid grid, int random) {
         ACell wall = walls.get(random);
         if (wall.getCoordinate().coordinateX() % 2 == 1) {
@@ -73,6 +122,12 @@ public class GridFactory {
         walls.remove(wall);
     }
 
+    /**
+     * Joins two areas by removing a wall vertically.
+     *
+     * @param grid The AGrid object through which the paths will be created.
+     * @param wall The wall to be removed.
+     */
     private void digVertically(AGrid grid, ACell wall) {
         for (ArrayList<ACell> area : listOfAreas) {
             try {
@@ -93,6 +148,12 @@ public class GridFactory {
         }
     }
 
+    /**
+     * Joins two areas by removing a wall horizontally.
+     *
+     * @param grid The AGrid object through which the paths will be created.
+     * @param wall The wall to be removed.
+     */
     private void digHorizontally(AGrid grid, ACell wall) {
         for (ArrayList<ACell> area : listOfAreas) {
             try {
@@ -113,11 +174,30 @@ public class GridFactory {
         }
     }
 
+    /**
+     * Determines if cell1 and cell2 are in the same area.
+     *
+     * @param cell1 The first cell to be compared.
+     * @param cell2 The second cell to be compared.
+     * @param area  The area in which cell1 and cell2 will be checked for.
+     */
     private boolean areNotBothInArea(ACell cell1, ACell cell2, ArrayList<ACell> area) {
         return area.contains(cell1) && !area.contains(cell2);
 
-    }   
+    }
 
+    /**
+     * 
+     * Sets the starting and ending cells of a given grid.
+     * <p>
+     * The starting cell is set to the cell at (0,0) position, and its "canAccess",
+     * "cost" and "heuristicCost" attributes are set to true, 0 and 0 respectively.
+     * <p>
+     * The ending cell is set to the cell at (size-1,size-1) position, and its
+     * "canAccess" attribute is set to true.
+     * 
+     * @param grid The grid object whose starting and ending cells are to be set.
+     */
     private void setStartAndEnding(AGrid grid) {
         grid.setStartingCell(grid.getCell(0, 0));
         grid.getStartingCell().setCanAccess(true);
