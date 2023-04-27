@@ -45,7 +45,7 @@ public class AStarPanel extends JPanel implements Runnable {
     }
 
     /**
-     * Creates an AStarPanel with a size of nxn, a speed of speed, and an
+     * Creates an AStarPanel with a size of n*n, a speed of speed, and an
      * InformationPanel of ip.
      * 
      * @param n
@@ -166,7 +166,9 @@ public class AStarPanel extends JPanel implements Runnable {
     public int getSpeed() {
         return speed;
     }
-
+    /**
+     * Generate the chart of Heuristic evolution of the AStar algorithm
+     */
     public void test() {
         ChartPanel chartPanel = new ChartPanel(core.chartManager.getHeuristicEvolutionChart());
         chartPanel.setPreferredSize(new Dimension(300, 150));
