@@ -20,6 +20,11 @@ public enum Direction {
         return value;
     }
 
+    /**
+     * Return the opposite direction
+     * @param dir the direction whose opposite direction is to be returned.
+     * @return the opposite direction of the given direction.
+     */
     public static Direction getOpposiDirection(Direction dir) {
         switch (dir) {
             case UP:

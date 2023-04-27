@@ -17,6 +17,9 @@ public class QGrid extends AbstractGrid {
         initBorderValue();
     }
 
+    /**
+     * Initializes the walls (borders) of the grid
+     */
     private void initBorderValue(){
         int size = super.getSize();
         for (int i = 0; i < size; i++) {
@@ -28,6 +31,11 @@ public class QGrid extends AbstractGrid {
             ((QCell)super.getGrid()[size-1][i]).setqValue(WALL_VALUE, Direction.RIGHT.getValue());    
         }
     }
+
+    /**
+     *Initializes the values of all the cells in the grid and sets the starting and ending cells.
+     * Starting cell is always set to the upper left hand corner and the ending cell to the bottom right hand corner.
+     */
     private void initCellValue() {
         int size = super.getSize();
         for (int i = 0; i < size; i++) {
@@ -46,11 +54,16 @@ public class QGrid extends AbstractGrid {
         super.setStartingAbstractCell(startingCell);
     }
 
+    /**
+     * the four functions below are returning the corresponding cell. and throw an error if there is no cell.
+     * @param cell
+     * @return the corresponding cell
+     * @throws GridBorderException if the cell is a wall
+     */
     public QCell getUp(QCell cell) throws GridBorderException {
         int x = cell.getCoordinate().coordinateX();
         int y = cell.getCoordinate().coordinateY() - 1;
         return getCellfromPosition(cell, x, y);
-
     }
 
     public QCell getDown(QCell cell) throws GridBorderException {
@@ -74,6 +87,14 @@ public class QGrid extends AbstractGrid {
 
     }
 
+    /**
+     * Gives you the cell according to its position
+     * @param cell the cell that you want
+     * @param x
+     * @param y
+     * @return the cell corresponding to the position
+     * @throws GridBorderException
+     */
     private QCell getCellfromPosition(QCell cell, int x, int y) throws GridBorderException {
         if (x < 0 || x >= super.getSize() || y < 0 || y >= super.getSize()) {
             throw new GridBorderException();
@@ -81,6 +102,11 @@ public class QGrid extends AbstractGrid {
         return (QCell) super.getCell(x, y);
     }
 
+    /**
+     * returns all the neighbours of a given cell.
+     * @param cell
+     * @return an array list containing the said cells
+     */
     public ArrayList<QCell> getNeighbors(QCell cell) {
         ArrayList<QCell> alCell = new ArrayList<QCell>();
         try {
@@ -147,6 +173,10 @@ public class QGrid extends AbstractGrid {
         return tmp;
     }
 
+    /**
+     * This method generates a three-dimensional array of Q-values for specified coordinates.
+     * @return a float[][][] array containing the Q-values for each cell and action in the grid.
+     */
     public float[][][] generateArrayQValue() {
         int size = super.getSize();
         float[][][] tab = new float[size][size][4];
@@ -158,6 +188,11 @@ public class QGrid extends AbstractGrid {
         }
         return tab;
     }
+
+    /**
+     * This method updates the Q-values of the cells in the grid based on the values in the provided QTable.
+     * @param qTable a QTable object containing the Q-values to update the cells with.
+     */
     public void updateQValueFromQTable(QTable qTable){
         for (int i = 0; i < qTable.getSize(); i++) {
             for (int j = 0; j < qTable.getSize(); j++) {

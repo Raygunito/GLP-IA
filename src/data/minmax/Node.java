@@ -30,6 +30,10 @@ public abstract class Node {
         return value;
     }
 
+    /**
+     *Calculates the heuristic value for this node. We want to know if the value is a multiple of 4 in the case of it being a leaf cause if it's the case we know that the program will win.
+     * @return the heuristic value for this node
+     */
     public int calculateHeuristic() {
         if (value == 0) {
             return heuristic;
@@ -45,6 +49,11 @@ public abstract class Node {
         return returnCost(getChildCost(leftChild), getChildCost(middleChild), getChildCost(rightChild));
     }
 
+    /**
+     *Returns the cost of a given child node
+     * @param node the child node whose cost is to be calculated
+     * @return an integer representing the estimated cost from the iven node to the goal node.
+     */
     public int getChildCost(Node node) {
         int cost;
         try {

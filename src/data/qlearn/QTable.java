@@ -2,7 +2,8 @@ package data.qlearn;
 
 import java.text.DecimalFormat;
 
-public class QTable {
+public class
+QTable {
     private float[][][] qtab;
     private int size;
 
@@ -25,6 +26,11 @@ public class QTable {
     public int getSize() {
         return size;
     }
+
+    /**
+     * This just prints the q-table in a text format
+     * @return the whole 3-dimensional table in a string format
+     */
     public String printTable() {
         String res = "\tUP\tDOWN\tLEFT\tRIGHT\n";
         DecimalFormat df = new DecimalFormat("0.00");

@@ -20,7 +20,6 @@ public class QCell extends AbstractCell{
 
     /**
      * Returns the coordinate of the cell.
-     * 
      * @return Coordinate of the cell
      */
     public Coordinate getCoordinate() {
@@ -47,6 +46,10 @@ public class QCell extends AbstractCell{
         this.qValue[direction] = qValue;
     }
 
+    /**
+     * Iterates through q-values of all directions to pick the highest
+     * @return the index of the direction with the highest q value
+     */
     public int bestDirection() {
         int direction = 0;
         float maxVal = Float.NEGATIVE_INFINITY;
@@ -59,6 +62,11 @@ public class QCell extends AbstractCell{
         return direction;
     }
 
+    /**
+     * checks if to cells are equal
+     * @param o
+     * @return a boolean of "are the two equal?"
+     */
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) {
