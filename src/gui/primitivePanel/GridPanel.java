@@ -13,14 +13,21 @@ import data.qlearn.QGrid;
 import gui.GUIConstant;
 import gui.management.SquareDrawStrategy;
 import process.visitor.DrawingVisitor;
-/*
- * //TODO WORK IN PROGRESS 
+
+/**
+ * The GridPanel class represents a panel that displays an AbstractGrid using a
+ * graphical interface.
  */
 public class GridPanel extends JPanel {
     private static final int WIDTH = GUIConstant.SCALING_FACTOR * 170;
     private static final int HEIGHT = GUIConstant.SCALING_FACTOR * 170;
     private AbstractGrid grid;
 
+    /**
+     * Constructs a new GridPanel with the specified AbstractGrid.
+     * 
+     * @param grid the AbstractGrid to be displayed.
+     */
     public GridPanel(AbstractGrid grid) {
         this.grid = grid;
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -30,12 +37,12 @@ public class GridPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        
+
         Graphics2D g2d = (Graphics2D) g;
-        
+
         int cellSize = getWidth() / grid.getSize();
-        
-        DrawingVisitor drawingVisitor = new DrawingVisitor(g2d, new SquareDrawStrategy(),cellSize);
+
+        DrawingVisitor drawingVisitor = new DrawingVisitor(g2d, new SquareDrawStrategy(), cellSize);
         for (int i = 0; i < grid.getSize(); i++) {
             for (int j = 0; j < grid.getSize(); j++) {
                 Element e = grid.getCell(i, j).getElement();
@@ -43,10 +50,12 @@ public class GridPanel extends JPanel {
             }
         }
     }
+
     public void setGrid(AGrid grid) {
         this.grid = grid;
     }
-    public void setGrid(QGrid grid){
+
+    public void setGrid(QGrid grid) {
         this.grid = grid;
     }
 }

@@ -8,9 +8,14 @@ import javax.swing.JPanel;
 import gui.management.CoinDrawStrategy;
 import gui.management.PaintStrategy;
 
+/**
+ * The CoinPanel class represents a panel that displays a specified number of
+ * coins using a graphical interface.
+ */
 public class CoinPanel extends JPanel {
     private PaintStrategy paintStrategy;
     private int coinNumber;
+
     public CoinPanel(int coin) {
         coinNumber = coin;
         paintStrategy = new CoinDrawStrategy();
@@ -23,7 +28,7 @@ public class CoinPanel extends JPanel {
         int width = getWidth();
         int height = getHeight();
         int coinSize = (int) ((width - (coinNumber - 1) * 5) / (double) coinNumber); // calculate coin size
-        if (coinSize> 48) {
+        if (coinSize > 48) {
             coinSize = 48;
         }
         int coinWidth = coinNumber * coinSize;

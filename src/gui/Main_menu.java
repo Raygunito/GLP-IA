@@ -17,22 +17,21 @@ import javax.swing.*;
  */
 public class Main_menu extends JPanel {
     //TODO ActionListener link with data class
-    //TODO make this panel scalable with the scale factor
     private JLabel title;
     private JButton astar,minmax,qlearn,quit;
     public Main_menu() {
         super();
         setAlignmentX(Component.CENTER_ALIGNMENT);
         init();
-        add(Box.createVerticalStrut(50));
+        add(Box.createVerticalStrut(GUIConstant.SCALING_FACTOR*20));
         add(title);
-        add(Box.createVerticalStrut(50));
+        add(Box.createVerticalStrut(GUIConstant.SCALING_FACTOR*20));
         add(astar);
-        add(Box.createVerticalStrut(10));
+        add(Box.createVerticalStrut(GUIConstant.SCALING_FACTOR*10));
         add(minmax);
-        add(Box.createVerticalStrut(10));
+        add(Box.createVerticalStrut(GUIConstant.SCALING_FACTOR*10));
         add(qlearn);
-        add(Box.createVerticalStrut(10));
+        add(Box.createVerticalStrut(GUIConstant.SCALING_FACTOR*10));
         add(quit);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setPreferredSize(new Dimension(GUIConstant.DIM_X,GUIConstant.DIM_Y));
