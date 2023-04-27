@@ -14,9 +14,12 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import org.apache.log4j.Logger;
+
 import gui.GUIConstant;
 import gui.primitivePanel.CoinPanel;
 import gui.utilsPanel.InformationPanel;
+import log.LoggerUtility;
 import process.minmax.MinMaxCore;
 
 public class MinMaxPanel extends JPanel implements Runnable {
@@ -28,6 +31,7 @@ public class MinMaxPanel extends JPanel implements Runnable {
     private CoinPanel coinPanel;
     private InformationPanel ip;
     private volatile boolean paused = false;
+    private static Logger logger = LoggerUtility.getLogger(MinMaxPanel.class, "text");
 
     public MinMaxPanel(int coin, int difficulty, InformationPanel ip) {
         super();
@@ -69,9 +73,9 @@ public class MinMaxPanel extends JPanel implements Runnable {
         three.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(),
                 BorderFactory.createEmptyBorder(15, 42, 15, 42)));
         playPanel.add(one);
-        playPanel.add(Box.createHorizontalStrut(GUIConstant.SCALING_FACTOR*25));
+        playPanel.add(Box.createHorizontalStrut(GUIConstant.SCALING_FACTOR * 25));
         playPanel.add(two);
-        playPanel.add(Box.createHorizontalStrut(GUIConstant.SCALING_FACTOR*25));
+        playPanel.add(Box.createHorizontalStrut(GUIConstant.SCALING_FACTOR * 25));
         playPanel.add(three);
 
         one.setEnabled(false);
@@ -88,22 +92,25 @@ public class MinMaxPanel extends JPanel implements Runnable {
 
     @Override
     public void run() {
-        // TODO Auto-generated method stub
         one.setEnabled(true);
         two.setEnabled(true);
         three.setEnabled(true);
-        if (new Random().nextInt(2)==0){minMaxCore.setPlayerTurn(true);}
+        if (new Random().nextInt(2) == 0) {
+            minMaxCore.setPlayerTurn(true);
+        }
         while (!minMaxCore.isEnded()) {
             if (!paused && !minMaxCore.isPlayerTurn()) {
                 int diff = minMaxCore.getCoin();
                 minMaxCore.process();
-                ip.setInfoValue1(String.valueOf(diff - minMaxCore.getCoin()));
                 coinPanel.setCoinNumber(minMaxCore.getCoin());
+                ip.setInfoValue1(String.valueOf(diff - minMaxCore.getCoin()));
+                logger.info("Le bot a pris " + String.valueOf(diff - minMaxCore.getCoin()) + " coins.");
             }
         }
         try {
             Thread.sleep(100);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
         if (!minMaxCore.isPlayerTurn()) {
             JOptionPane.showMessageDialog(this, "You win !");
         } else {
@@ -132,7 +139,7 @@ public class MinMaxPanel extends JPanel implements Runnable {
             int currentCoin = instance.minMaxCore.getCoin();
             instance.minMaxCore.playerMove(currentCoin - fixedAmount);
             coinPanel.setCoinNumber(currentCoin - fixedAmount);
-            System.out.println("j'ai pris " + fixedAmount + " coins.");
+            logger.info("Le joueur a pris " + fixedAmount + " coins.");
         }
     }
 

@@ -47,16 +47,11 @@ public class QLearnCore {
         String res = "";
         for (int i = 0; i < grid.getSize() - 1; i++) {
             for (int j = 0; j < grid.getSize() - 1; j++) {
-                if ((i != grid.getEndingCell().getCoordinate().coordinateX()
-                        && i != grid.getStartingCell().getCoordinate().coordinateX())
-                        && (j != grid.getEndingCell().getCoordinate().coordinateY()
-                                && j != grid.getEndingCell().getCoordinate().coordinateY())) {
+                if ((i != grid.getEndingCell().getCoordinate().coordinateY()
+                        && j != grid.getStartingCell().getCoordinate().coordinateX())) {
                     if ((float) Math.random() < 0.35f) {
                         QCell tmp = grid.getCell(i, j);
                         tmp.setElement(new Hole(tmp.getCoordinate()));
-                        // for (int k = 0; k < 4; k++) {
-                            // tmp.setqValue(Grid.MALUS_VALUE, k);
-                        // }
                         res = res + tmp.toString() + ",";
                     }
                 }

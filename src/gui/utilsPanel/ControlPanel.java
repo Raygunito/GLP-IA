@@ -132,12 +132,15 @@ public class ControlPanel extends JPanel{
         parameterTag.setAlignmentX(CENTER_ALIGNMENT);
         option1 = new JLabel("Coins :");
         option2 = new JLabel("Depth :");   
-        
+        JLabel jLabelAmount = new JLabel("(5-20)");
+        JLabel jLabelDepth = new JLabel("(1-5)");
         InitOptionPanel();
         minMaxParameter.add(Box.createVerticalGlue());
         minMaxParameter.add(parameterTag);
         minMaxParameter.add(Box.createVerticalGlue());
+        minMaxParameter.add(jLabelAmount);
         minMaxParameter.add(option1Panel);
+        minMaxParameter.add(jLabelDepth);
         minMaxParameter.add(option2Panel);   
         minMaxParameter.add(Box.createVerticalGlue());
     }
@@ -151,6 +154,12 @@ public class ControlPanel extends JPanel{
         option1Panel.add(opt1Field);
         option2Panel.add(option2);
         option2Panel.add(opt2Field);
+        Font fontSize = new Font("Segoe UI", Font.PLAIN, GUIConstant.SCALING_FACTOR*5);
+        option1.setFont(fontSize);
+        option2.setFont(fontSize);
+        opt1Field.setFont(fontSize);
+        opt2Field.setFont(fontSize);
+        parameterTag.setFont(fontSize);
     }
 
     private void placementDebug(){

@@ -8,7 +8,7 @@ import process.qlearn.GridBorderException;
 
 public class QGrid extends AbstractGrid {
     public static final float MALUS_VALUE = -100f;
-    public static final float ENDING_VALUE = 300f;
+    public static final float ENDING_VALUE = 600f;
     public static final float WALL_VALUE = -999f;
 
     public QGrid(int n) {

@@ -2,6 +2,7 @@ package gui.utilsPanel;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -55,6 +56,11 @@ public class InformationPanel extends JPanel{
         info2 = new JLabel();
         infoValue1 = new JLabel("0");
         infoValue2 = new JLabel("0");
+        Font fontSize = new Font("Segoe UI", Font.PLAIN, GUIConstant.SCALING_FACTOR*4);
+        info1.setFont(fontSize);
+        info2.setFont(fontSize);
+        infoValue1.setFont(fontSize);
+        infoValue2.setFont(fontSize);
     }
 
     private void initAStar(){
