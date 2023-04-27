@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import process.astar.AStarCore;
 
-public class TestTxTAstar {
+public class TestUnitAstar {
 
   private AStarCore aStarCore;
 

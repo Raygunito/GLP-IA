@@ -7,13 +7,18 @@ import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import org.apache.log4j.Logger;
+
 import gui.GUIConstant;
+import log.LoggerUtility;
 
 public class InformationPanel extends JPanel{
     private static final int WIDTH = GUIConstant.SCALING_FACTOR*400;
     private static final int HEIGHT = GUIConstant.SCALING_FACTOR*45 ;
     private JPanel info1Panel,info2Panel;
     private JLabel info1,info2,infoValue1,infoValue2;
+    private static Logger logger = LoggerUtility.getLogger(InformationPanel.class, "text");
+
     public InformationPanel(String algoName) throws IllegalArgumentException{
         super();
         setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -34,6 +39,7 @@ public class InformationPanel extends JPanel{
                 break;
         
             default:
+                logger.error(algoName + " isn't found for initializing the InformationPanel");
                 throw new IllegalArgumentException("Wrong name used to construct InformationPanel, use constants from GUIConstant.");
         }
 

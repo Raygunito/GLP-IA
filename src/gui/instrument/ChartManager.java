@@ -22,7 +22,7 @@ import org.jfree.data.xy.XYSeriesCollection;
  */
 public class ChartManager {
 	private HashMap<Character, Integer> nodeTypeCount = new HashMap<Character, Integer>();
-	private ArrayList<Integer> heights = new ArrayList<Integer>();
+	private ArrayList<Integer> heuristics = new ArrayList<Integer>();
 
 	/**
 	 * Initializes the manager, by creating null value for each node type.
@@ -46,12 +46,12 @@ public class ChartManager {
 	}
 
 	/**
-	 * Adds step by step the evolution of the tree height.
+	 * Adds step by step the evolution of the heuristic.
 	 * 
-	 * @param height current tree height
+	 * @param cost current heuristic
 	 */
 	public void registerHeuristicByStep(int cost) {
-		heights.add(cost);
+		heuristics.add(cost);
 	}
 
 	/**
@@ -87,14 +87,13 @@ public class ChartManager {
 	}
 
 	/**
-	 * Generates the curve chart for evolution of tree height during the visit.
-	 * 
+	 * Generates the curve chart for evolution of heuristic during the visit.
 	 * @return the curve chart
 	 */
-	public JFreeChart getHeightEvolutionChart() {
+	public JFreeChart getHeuristicEvolutionChart() {
 		XYSeries serie = new XYSeries("Heuristic Evolution");
-		for (int index = 0; index < heights.size(); index++) {
-			serie.add(index, heights.get(index));
+		for (int index = 0; index < heuristics.size(); index++) {
+			serie.add(index, heuristics.get(index));
 		}
 
 		XYSeriesCollection dataset = new XYSeriesCollection();

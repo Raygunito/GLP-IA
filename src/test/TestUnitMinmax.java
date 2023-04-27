@@ -9,7 +9,7 @@ import data.minmax.PlayerNode;
 import process.minmax.Tree;
 import process.minmax.TreeFactory;
 
-public class TestTxTMinmax {
+public class TestUnitMinmax {
     public static void main(String[] args) {
         Node node = TreeFactory.buildPlayerNode(10, 10);
         Tree tree = new Tree(node);
