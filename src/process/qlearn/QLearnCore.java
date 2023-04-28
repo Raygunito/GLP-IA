@@ -203,7 +203,7 @@ public class QLearnCore {
      * @param discountFactor the discount factor used to weigh future rewards.
      * @return the new Q-value computed using the Q-learning formula.
      */
-    private float qLearnFormula(float currentVal, float reward, float maxQValue, float discountFactor) {
+    public float qLearnFormula(float currentVal, float reward, float maxQValue, float discountFactor) {
         float newQValue = (1 - learningRate) * currentVal + learningRate * (reward + (discountFactor * maxQValue));
         return newQValue;
     }
@@ -232,9 +232,18 @@ public class QLearnCore {
         return nbTot;
     }
 
-    // public boolean workFinished(){
-    // return ;
-    // }
+    public float getLearningRate() {
+        return learningRate;
+    }
+
+    public float getExplorationRate() {
+        return explorationRate;
+    }
+
+    public float getDiscountFactor() {
+        return discountFactor;
+    }
+
     /**
      * Returns the best path as an ArrayList of QCells.
      * The path is computed using the Q-learning algorithm and is represented
@@ -307,4 +316,5 @@ public class QLearnCore {
 
         }
     }
+
 }
