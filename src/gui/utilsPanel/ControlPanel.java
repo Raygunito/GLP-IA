@@ -157,7 +157,7 @@ public class ControlPanel extends JPanel {
         parameterTag.setAlignmentX(CENTER_ALIGNMENT);
         option1 = new JLabel("Coins :");
         option2 = new JLabel("Depth :");
-        JLabel jLabelAmount = new JLabel("(5-20)");
+        JLabel jLabelAmount = new JLabel("(5-30)");
         JLabel jLabelDepth = new JLabel("(1-5)");
         InitOptionPanel();
         minMaxParameter.add(Box.createVerticalGlue());

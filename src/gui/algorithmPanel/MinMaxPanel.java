@@ -1,5 +1,6 @@
 package gui.algorithmPanel;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -112,8 +113,10 @@ public class MinMaxPanel extends JPanel implements Runnable {
         } catch (Exception e) {
         }
         if (!minMaxCore.isPlayerTurn()) {
+            logger.info("Ayo our AI is dumb.");
             JOptionPane.showMessageDialog(this, "You win !");
         } else {
+            logger.info("AI ? That's my boi.");
             JOptionPane.showMessageDialog(this, "You lose !");
         }
         togglePaused();

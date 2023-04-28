@@ -23,6 +23,8 @@ public class CoinDrawStrategy implements PaintStrategy {
     public void draw(Graphics2D g, int x, int y, int size) {
         g.setColor(Color.YELLOW);
         g.fillOval(x, y, size, size);
+        g.setColor(Color.black);
+        g.drawOval(x, y, size, size);
     }
     /**
      * Shouldn't be used but if used, set the color to yellow (for the coin)
