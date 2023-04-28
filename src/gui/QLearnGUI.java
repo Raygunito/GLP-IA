@@ -100,8 +100,7 @@ public class QLearnGUI extends JPanel {
             qlearnPanel.togglePaused();
             qlearnThread.interrupt();
             upperPanel.remove(1);
-            qlearnPanel = new QLearnPanel(Integer.valueOf(cp.getOpt1Field().getText()),
-                    Float.valueOf(cp.getOpt2Field().getText()) / 100, QLearnGUI.this.ip);
+            qlearnPanel = new QLearnPanel(verifyOpt1(),verifyOpt2() / 100, QLearnGUI.this.ip);
             qlearnThread = new Thread(qlearnPanel);
             upperPanel.add(qlearnPanel);
             upperPanel.revalidate();
@@ -114,6 +113,47 @@ public class QLearnGUI extends JPanel {
             resetTextfield();
         }
 
+        public int verifyOpt1() {
+            String inputCoins = cp.getOpt1Field().getText();
+            int iteration = qlearnPanel.getIteration();
+            if (inputCoins.matches("\\d+")) {
+                iteration = Integer.valueOf(inputCoins);
+                if (iteration > 1000) {
+                    logger.warn("Maximum iteration exceeded : " + iteration);
+                    iteration = 1000;
+                }
+                if (iteration < 1) {
+                    logger.warn("Minimum iteration exceeded : " + iteration);
+                    iteration = 1;
+                }
+                cp.setOpt1Value(iteration);
+            } else {
+                logger.warn("User input iteration invalid : " + inputCoins);
+                cp.setOpt1Value(qlearnPanel.getIteration());
+            }
+            return iteration;
+        }
+
+        public float verifyOpt2() {
+            String inputDepth = cp.getOpt2Field().getText();
+            float learningRate = qlearnPanel.getLearningRate()*100;
+            if (inputDepth.matches("\\d+")) {
+                learningRate = Integer.valueOf(inputDepth);
+                if (learningRate > 100) {
+                    logger.warn("Maximum learning rate exceeded : " + learningRate);
+                    learningRate = 100;
+                }
+                if (learningRate < 0) {
+                    logger.warn("Minimum learning rate exceeded : " + learningRate);
+                    learningRate = 0;
+                }
+                cp.setOpt2Value((int) learningRate);
+            } else {
+                logger.warn("User input learning rate invalid : " + inputDepth);
+                cp.setOpt2Value((int) (qlearnPanel.getLearningRate()*100));
+            }
+            return learningRate;
+        }
     }
 
     class ActionStop implements ActionListener {

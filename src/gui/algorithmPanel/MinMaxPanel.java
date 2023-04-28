@@ -152,4 +152,12 @@ public class MinMaxPanel extends JPanel implements Runnable {
     public void setPaused(boolean paused) {
         this.paused = paused;
     }
+
+    public int getCoin(){
+        return minMaxCore.getCoin();
+    }
+
+    public int getDepth(){
+        return minMaxCore.getDifficulty();
+    }
 }

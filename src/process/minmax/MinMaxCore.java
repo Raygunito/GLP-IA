@@ -88,4 +88,7 @@ public class MinMaxCore {
         this.coin = coin;
     }
 
+    public int getDifficulty() {
+        return difficulty;
+    }
 }

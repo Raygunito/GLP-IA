@@ -101,8 +101,7 @@ public class MinMaxGUI extends JPanel {
         public void actionPerformed(ActionEvent e) {
             minMaxThread.interrupt();
             upperPanel.remove(2);
-            minMaxPanel = new MinMaxPanel(Integer.valueOf(cp.getOpt1Field().getText()),
-                    Integer.valueOf(cp.getOpt2Field().getText()), MinMaxGUI.this.ip);
+            minMaxPanel = new MinMaxPanel(verifyOpt1(),verifyOpt2(), MinMaxGUI.this.ip);
             minMaxThread = new Thread(minMaxPanel);
             upperPanel.add(minMaxPanel);
             upperPanel.revalidate();
@@ -112,6 +111,47 @@ public class MinMaxGUI extends JPanel {
             resetTextfield();
         }
 
+        public int verifyOpt1(){
+            String inputCoins =  cp.getOpt1Field().getText();
+            int coins = minMaxPanel.getCoin();
+            if (inputCoins.matches("\\d+")) {
+                coins = Integer.valueOf(inputCoins);
+                if (coins > 30){
+                    logger.warn("Maximum coins exceeded : " + coins);
+                    coins = 30;
+                }
+                if (coins <5){
+                    logger.warn("Minimum coins exceeded : " + coins);
+                    coins = 5;
+                }
+                cp.setOpt1Value(coins);
+            } else {
+                logger.warn("User input coins invalid : "+ inputCoins);
+                cp.setOpt1Value(minMaxPanel.getCoin());
+            }
+            return coins;
+        }
+        
+        public int verifyOpt2(){
+            String inputDepth =  cp.getOpt2Field().getText();
+            int depth = minMaxPanel.getDepth();
+            if (inputDepth.matches("\\d+")) {
+                depth = Integer.valueOf(inputDepth);
+                if (depth > 5){
+                    logger.warn("Maximum depth exceeded : " + depth);
+                    depth = 5;
+                }
+                if (depth < 1){
+                    logger.warn("Minimum depth exceeded : " + depth);
+                    depth = 1;
+                }
+                cp.setOpt2Value(depth);
+            } else {
+                logger.warn("User input depth invalid : "+ inputDepth);
+                cp.setOpt2Value(minMaxPanel.getDepth());
+            }
+            return depth;
+        }
     }
 
     class ActionStop implements ActionListener {

@@ -112,8 +112,7 @@ public class AStarGUI extends JPanel {
             astarPanel.togglePaused();
             astarThread.interrupt();
             upperPanel.remove(2);
-            astarPanel = new AStarPanel(Integer.valueOf(cp.getOpt1Field().getText()),
-                    Integer.valueOf(cp.getOpt2Field().getText()), AStarGUI.this.ip);
+            astarPanel = new AStarPanel(verifyOpt1(), verifyOpt2(), AStarGUI.this.ip);
             astarThread = new Thread(astarPanel);
             upperPanel.add(astarPanel);
             upperPanel.revalidate();
@@ -126,6 +125,42 @@ public class AStarGUI extends JPanel {
             resetTextfield();
         }
 
+        public int verifyOpt1(){
+            String inputSize =  cp.getOpt1Field().getText();
+            int size = astarPanel.getGridSize();
+            if (inputSize.matches("\\d+")) {
+                size = Integer.valueOf(inputSize);
+                if (size > 100){
+                    size = 100;
+                    logger.warn("Maximum size exceeded : " + size);
+                }
+                if (size <2){
+                    size = 2;
+                }
+                cp.setOpt1Value(size);
+            } else {
+                logger.warn("User input size invalid : "+ inputSize);
+                cp.setOpt1Value(astarPanel.getGridSize());
+            }
+            return size;
+        }
+        
+        public int verifyOpt2(){
+            String inputSpeed =  cp.getOpt2Field().getText();
+            int speed = astarPanel.getSpeed();
+            if (inputSpeed.matches("\\d+")) {
+                speed = Integer.valueOf(inputSpeed);
+                if (speed > 10){
+                    logger.warn("Maximum speed exceeded : " + speed);
+                    speed = 10;
+                }
+                cp.setOpt2Value(speed);
+            } else {
+                logger.warn("User input speed invalid : "+ inputSpeed);
+                cp.setOpt2Value(astarPanel.getSpeed());
+            }
+            return speed;
+        }
     }
 
     class ActionStop implements ActionListener {
@@ -135,7 +170,13 @@ public class AStarGUI extends JPanel {
             astarPanel.togglePaused();
             String input = cp.getOpt2Field().getText();
             if (input.matches("\\d+")) {
-                astarPanel.setSpeed(Integer.valueOf(cp.getOpt2Field().getText()));
+                int inputValue = Integer.valueOf(cp.getOpt2Field().getText());
+                if (inputValue >= 0 && inputValue <= 10) {
+                    astarPanel.setSpeed(inputValue);
+                }else{
+                    logger.warn("Number out of range : " + input);
+                    cp.setOpt2Value(astarPanel.getSpeed());
+                }
             } else {
                 cp.setOpt2Value(astarPanel.getSpeed());
                 logger.warn("User input invalid for speed : " + input);

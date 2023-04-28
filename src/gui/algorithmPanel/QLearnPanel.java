@@ -121,4 +121,11 @@ public class QLearnPanel extends JPanel implements Runnable {
         return paused;
     }
 
+    public int getIteration() {
+        return core.getNbTot();
+    }
+
+    public float getLearningRate() {
+        return core.getLearningRate();
+    }
 }
