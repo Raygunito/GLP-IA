@@ -17,9 +17,9 @@ import gui.utilsPanel.ControlPanel;
 import gui.utilsPanel.InformationPanel;
 import log.LoggerUtility;
 
-public class MinMaxGUI extends JPanel implements Runnable{
-    private static final int WIDTH=GUIConstant.SCALING_FACTOR*400;
-    private static final int HEIGHT=GUIConstant.SCALING_FACTOR*180;
+public class MinMaxGUI extends JPanel {
+    private static final int WIDTH = GUIConstant.SCALING_FACTOR * 400;
+    private static final int HEIGHT = GUIConstant.SCALING_FACTOR * 180;
     private ControlPanel cp;
     private InformationPanel ip;
     private JPanel upperPanel;
@@ -30,15 +30,15 @@ public class MinMaxGUI extends JPanel implements Runnable{
     public MinMaxGUI() {
         super();
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        setPreferredSize(new Dimension(GUIConstant.DIM_X,GUIConstant.DIM_Y));
+        setPreferredSize(new Dimension(GUIConstant.DIM_X, GUIConstant.DIM_Y));
         cp = new ControlPanel(GUIConstant.MINMAX);
         cp.setOpt1Value(10);
         cp.setOpt2Value(5);
         ip = new InformationPanel(GUIConstant.MINMAX);
-        //TODO Remplacer le minMaxPanel avec sa version fonctionnelle
-        minMaxPanel = new MinMaxPanel(Integer.valueOf(cp.getOpt1Field().getText()),Integer.valueOf(cp.getOpt2Field().getText()),MinMaxGUI.this.ip);
+        minMaxPanel = new MinMaxPanel(Integer.valueOf(cp.getOpt1Field().getText()),
+                Integer.valueOf(cp.getOpt2Field().getText()), MinMaxGUI.this.ip);
         minMaxThread = new Thread(minMaxPanel);
-        
+
         initUpperPanel();
         cp.addActionListenerStart(new ActionStart());
         cp.addActionListenerRestart(new ActionRestart());
@@ -47,9 +47,10 @@ public class MinMaxGUI extends JPanel implements Runnable{
         add(upperPanel);
         add(ip);
 
+        logger.info("MinMaxGUI ready for run.");
         // placementDebug();
     }
-    
+
     private void placementDebug() {
         cp.setBorder(BorderFactory.createLineBorder(Color.black));
         setBorder(BorderFactory.createLineBorder(Color.black));
@@ -58,35 +59,28 @@ public class MinMaxGUI extends JPanel implements Runnable{
         upperPanel.setBorder(BorderFactory.createLineBorder(Color.black));
     }
 
-    private void initUpperPanel(){
+    private void initUpperPanel() {
         upperPanel = new JPanel();
         upperPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        upperPanel.setPreferredSize(new Dimension(WIDTH,HEIGHT));
-        upperPanel.setMaximumSize(new Dimension(WIDTH,HEIGHT));
+        upperPanel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        upperPanel.setMaximumSize(new Dimension(WIDTH, HEIGHT));
         upperPanel.add(cp);
-        upperPanel.add(Box.createHorizontalStrut(GUIConstant.SCALING_FACTOR*80));
+        upperPanel.add(Box.createHorizontalStrut(GUIConstant.SCALING_FACTOR * 80));
         upperPanel.add(minMaxPanel);
-        
-    }
-    @Override
-    public void run() {
-        logger.info("MinMaxGUI ready for run.");
-        repaint();
-        revalidate();
+
     }
 
-    public void resetButton(){
+    public void resetButton() {
         cp.getStart().setEnabled(true);
         cp.getRestart().setEnabled(true);
         cp.getStop().setEnabled(true);
         cp.getStop().setText("Stop");
     }
 
-    public void resetTextfield(){
+    public void resetTextfield() {
         cp.getOpt1Field().setEditable(true);
         cp.getOpt2Field().setEditable(true);
     }
-
 
     class ActionStart implements ActionListener {
 
@@ -108,7 +102,7 @@ public class MinMaxGUI extends JPanel implements Runnable{
             minMaxThread.interrupt();
             upperPanel.remove(2);
             minMaxPanel = new MinMaxPanel(Integer.valueOf(cp.getOpt1Field().getText()),
-                    Integer.valueOf(cp.getOpt2Field().getText()),MinMaxGUI.this.ip);
+                    Integer.valueOf(cp.getOpt2Field().getText()), MinMaxGUI.this.ip);
             minMaxThread = new Thread(minMaxPanel);
             upperPanel.add(minMaxPanel);
             upperPanel.revalidate();
@@ -138,6 +132,7 @@ public class MinMaxGUI extends JPanel implements Runnable{
     public ControlPanel getCp() {
         return cp;
     }
+
     public InformationPanel getIp() {
         return ip;
     }

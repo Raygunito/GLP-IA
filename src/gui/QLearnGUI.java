@@ -15,7 +15,7 @@ import gui.utilsPanel.ControlPanel;
 import gui.utilsPanel.InformationPanel;
 import log.LoggerUtility;
 
-public class QLearnGUI extends JPanel implements Runnable {
+public class QLearnGUI extends JPanel {
     private static final int WIDTH = GUIConstant.SCALING_FACTOR * 400;
     private static final int HEIGHT = GUIConstant.SCALING_FACTOR * 180;
     private ControlPanel cp;
@@ -34,18 +34,20 @@ public class QLearnGUI extends JPanel implements Runnable {
         cp.setOpt2Value(20);
         ip = new InformationPanel(GUIConstant.QLEARN);
         // TODO Remplacer le qlearnPanel avec sa version fonctionnelle
-        qlearnPanel = new QLearnPanel(Integer.valueOf(cp.getOpt1Field().getText()), Float.valueOf(cp.getOpt2Field().getText())/100, this.ip);
+        qlearnPanel = new QLearnPanel(Integer.valueOf(cp.getOpt1Field().getText()),
+                Float.valueOf(cp.getOpt2Field().getText()) / 100, this.ip);
         qlearnThread = new Thread(qlearnPanel);
         initUpperPanel();
 
         cp.addActionListenerStart(new ActionStart());
         cp.addActionListenerRestart(new ActionRestart());
         cp.addActionListenerStop(new ActionStop());
-        
+
         cp.getStop().setEnabled(false);
 
         add(upperPanel);
         add(ip);
+        logger.info("QLearnGUI ready to run.");
     }
 
     private void initUpperPanel() {
@@ -56,13 +58,6 @@ public class QLearnGUI extends JPanel implements Runnable {
         upperPanel.add(cp);
         upperPanel.add(qlearnPanel);
 
-    }
-
-    @Override
-    public void run() {
-        logger.info("QLearnGUI ready to run.");
-        repaint();
-        revalidate();
     }
 
     public ControlPanel getCp() {
@@ -106,7 +101,7 @@ public class QLearnGUI extends JPanel implements Runnable {
             qlearnThread.interrupt();
             upperPanel.remove(1);
             qlearnPanel = new QLearnPanel(Integer.valueOf(cp.getOpt1Field().getText()),
-                    Float.valueOf(cp.getOpt2Field().getText())/100, QLearnGUI.this.ip);
+                    Float.valueOf(cp.getOpt2Field().getText()) / 100, QLearnGUI.this.ip);
             qlearnThread = new Thread(qlearnPanel);
             upperPanel.add(qlearnPanel);
             upperPanel.revalidate();

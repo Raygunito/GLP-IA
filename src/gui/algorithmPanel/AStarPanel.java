@@ -106,7 +106,6 @@ public class AStarPanel extends JPanel implements Runnable {
             }
         }
         gridpanel.setGrid(core.getGrid());
-        // TODO Finir l'update de la value en temps réel.
         if (ip != null) {
             ip.setInfoValue1(String.valueOf(core.getClosedListSize()));
             ip.setInfoValue2(String.valueOf(core.getCurrentPathSize()));

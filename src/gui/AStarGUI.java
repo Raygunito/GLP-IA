@@ -18,7 +18,7 @@ import gui.utilsPanel.ControlPanel;
 import gui.utilsPanel.InformationPanel;
 import log.LoggerUtility;
 
-public class AStarGUI extends JPanel implements Runnable {
+public class AStarGUI extends JPanel {
     private static final int WIDTH = GUIConstant.SCALING_FACTOR * 400;
     private static final int HEIGHT = GUIConstant.SCALING_FACTOR * 180;
     private ControlPanel cp;
@@ -37,7 +37,6 @@ public class AStarGUI extends JPanel implements Runnable {
         cp.setOpt1Value(40);
         cp.setOpt2Value(3);
         ip = new InformationPanel(GUIConstant.ASTAR);
-        // TODO Remplacer le astarpanel avec sa version fonctionnelle
         astarPanel = new AStarPanel(Integer.valueOf(cp.getOpt1Field().getText()),
                 Integer.valueOf(cp.getOpt2Field().getText()), this.ip);
         astarThread = new Thread(astarPanel);
@@ -52,6 +51,7 @@ public class AStarGUI extends JPanel implements Runnable {
         add(upperPanel);
         add(ip);
         // placementDebug();
+        logger.info("AStarGUI ready for run.");
     }
 
     private void placementDebug() {
@@ -68,15 +68,8 @@ public class AStarGUI extends JPanel implements Runnable {
         upperPanel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         upperPanel.setMaximumSize(new Dimension(WIDTH, HEIGHT));
         upperPanel.add(cp);
-        upperPanel.add(Box.createHorizontalStrut(GUIConstant.SCALING_FACTOR*50));
+        upperPanel.add(Box.createHorizontalStrut(GUIConstant.SCALING_FACTOR * 50));
         upperPanel.add(astarPanel);
-    }
-
-    @Override
-    public void run() {
-        logger.info("AStarGUI ready for run.");
-        revalidate();
-        repaint();
     }
 
     public ControlPanel getCp() {
@@ -87,14 +80,14 @@ public class AStarGUI extends JPanel implements Runnable {
         return ip;
     }
 
-    public void resetButton(){
+    public void resetButton() {
         cp.getStart().setEnabled(true);
         cp.getRestart().setEnabled(true);
         cp.getStop().setEnabled(false);
         cp.getStop().setText("Stop");
     }
 
-    public void resetTextfield(){
+    public void resetTextfield() {
         cp.getOpt1Field().setEditable(true);
         cp.getOpt2Field().setEditable(true);
     }
@@ -120,12 +113,12 @@ public class AStarGUI extends JPanel implements Runnable {
             astarThread.interrupt();
             upperPanel.remove(2);
             astarPanel = new AStarPanel(Integer.valueOf(cp.getOpt1Field().getText()),
-                    Integer.valueOf(cp.getOpt2Field().getText()),AStarGUI.this.ip);
+                    Integer.valueOf(cp.getOpt2Field().getText()), AStarGUI.this.ip);
             astarThread = new Thread(astarPanel);
             upperPanel.add(astarPanel);
             upperPanel.revalidate();
             upperPanel.repaint();
-            if (ip.getComponentCount()==3) {
+            if (ip.getComponentCount() == 3) {
                 ip.remove(2);
             }
             ip.resetValue();
@@ -141,17 +134,19 @@ public class AStarGUI extends JPanel implements Runnable {
         public void actionPerformed(ActionEvent e) {
             astarPanel.togglePaused();
             String input = cp.getOpt2Field().getText();
-            if (input.matches("\\d+")){
+            if (input.matches("\\d+")) {
                 astarPanel.setSpeed(Integer.valueOf(cp.getOpt2Field().getText()));
-            }else{
+            } else {
                 cp.setOpt2Value(astarPanel.getSpeed());
                 logger.warn("User input invalid for speed : " + input);
-                JOptionPane.showMessageDialog(astarPanel, "Warning ! Speed value is not a number, previous value inserted.", "Not numeric !", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(astarPanel,
+                        "Warning ! Speed value is not a number, previous value inserted.", "Not numeric !",
+                        JOptionPane.INFORMATION_MESSAGE);
             }
-            if (astarPanel.isPaused()){
+            if (astarPanel.isPaused()) {
                 cp.getStop().setText("Resume");
                 cp.getOpt2Field().setEditable(true);
-            }else{
+            } else {
                 cp.getStop().setText("Stop");
                 cp.getOpt2Field().setEditable(false);
             }

@@ -15,7 +15,6 @@ public class GUI extends JFrame implements Runnable {
     private MinMaxGUI minmax;
     private QLearnGUI qlearn;
     private Container c;
-    private Thread astarThread,qlearnThread,minmaxThread;
 
     public GUI() {
         super("The Cognitive Crew");
@@ -79,12 +78,6 @@ public class GUI extends JFrame implements Runnable {
         menu.setVisible(true);
         astar.setVisible(false);
         qlearn.setVisible(false);
-        qlearnThread = new Thread(qlearn);
-        astarThread = new Thread(astar);
-        minmaxThread = new Thread(minmax);
-        astarThread.start();
-        qlearnThread.start();
-        minmaxThread.start();
     }
 
     class ActionBack implements ActionListener {

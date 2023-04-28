@@ -68,15 +68,16 @@ public class QLearnPanel extends JPanel implements Runnable {
             int cellSize = gridpanel.getWidth() / core.getGrid().getSize();
             Graphics2D g2d = (Graphics2D) gridpanel.getGraphics();
             Color color = g2d.getColor();
-            g2d.setColor(Color.cyan); 
-            g2d.drawRect(qCell.getCoordinate().coordinateX()*cellSize, qCell.getCoordinate().coordinateY()*cellSize, cellSize, cellSize);
-            g2d.setColor(color); 
+            g2d.setColor(Color.cyan);
+            g2d.drawRect(qCell.getCoordinate().coordinateX() * cellSize, qCell.getCoordinate().coordinateY() * cellSize,
+                    cellSize, cellSize);
+            g2d.setColor(color);
         }
         if (ip != null) {
             ip.setInfoValue1(String.valueOf(core.getNbTot() - core.getNbIte()));
         }
     }
-    
+
     @Override
     public void run() {
         int cellSize = gridpanel.getWidth() / core.getGrid().getSize();
@@ -97,6 +98,10 @@ public class QLearnPanel extends JPanel implements Runnable {
             Element element = qCell.getElement();
             qCell.setElement(new Trail(qCell.getCoordinate()));
             element.accept(drawingVisitor);
+            try {
+                Thread.sleep(100);
+            } catch (Exception e) {
+            }
         }
     }
 

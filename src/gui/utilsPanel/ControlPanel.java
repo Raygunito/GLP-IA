@@ -35,7 +35,6 @@ import gui.GUIConstant;
  * @see GUIConstant
  */
 public class ControlPanel extends JPanel {
-    // TODO scalable factor to take account, prepare parameter for each algorithms
     private static final int WIDTH = GUIConstant.SCALING_FACTOR * 50;
     private static final int HEIGHT = GUIConstant.SCALING_FACTOR * 175;
     private JPanel commonPanel, aStarParameter, qLearnParameter, minMaxParameter, option1Panel, option2Panel;
@@ -115,12 +114,16 @@ public class ControlPanel extends JPanel {
         parameterTag.setAlignmentX(CENTER_ALIGNMENT);
         option1 = new JLabel("Size :");
         option2 = new JLabel("Speed :");
+        JLabel jLabelSize = new JLabel("(2-100)");
+        JLabel jLabelSpeed = new JLabel("(1-10)");
 
         InitOptionPanel();
         aStarParameter.add(Box.createVerticalGlue());
         aStarParameter.add(parameterTag);
         aStarParameter.add(Box.createVerticalGlue());
+        aStarParameter.add(jLabelSize);
         aStarParameter.add(option1Panel);
+        aStarParameter.add(jLabelSpeed);
         aStarParameter.add(option2Panel);
         aStarParameter.add(Box.createVerticalGlue());
     }
@@ -133,12 +136,15 @@ public class ControlPanel extends JPanel {
         parameterTag.setAlignmentX(CENTER_ALIGNMENT);
         option1 = new JLabel("Iteration:");
         option2 = new JLabel("Learning rate:");
-
+        JLabel jLabelIteration = new JLabel("(1-1000)");
+        JLabel jLabelLearning = new JLabel("(0-100%)");
         InitOptionPanel();
         qLearnParameter.add(Box.createVerticalGlue());
         qLearnParameter.add(parameterTag);
         qLearnParameter.add(Box.createVerticalGlue());
+        qLearnParameter.add(jLabelIteration);
         qLearnParameter.add(option1Panel);
+        qLearnParameter.add(jLabelLearning);
         qLearnParameter.add(option2Panel);
         qLearnParameter.add(Box.createVerticalGlue());
     }
