@@ -15,41 +15,6 @@ public class InstrumentVisitor {
 		this.chartManager = chartManager;
 	}
 
-	// @Override
-	// public Void visit(Constant node) {
-	// 	chartManager.countType('c');
-	// 	chartManager.registerHeightByStep(currentHeight);
-	// 	return null;
-	// }
-
-	// @Override
-	// public Void visit(Variable node) {
-	// 	chartManager.countType('v');
-	// 	chartManager.registerHeightByStep(currentHeight);
-	// 	return null;
-	// }
-
-	// @Override
-	// public Void visit(Addition node) {
-	// 	processOperationNode(node);
-	// 	chartManager.countType('a');
-	// 	return null;
-	// }
-
-	// @Override
-	// public Void visit(Subtraction node) {
-	// 	processOperationNode(node);
-	// 	chartManager.countType('s');
-	// 	return null;
-	// }
-
-	// @Override
-	// public Void visit(Multiplication node) {
-	// 	processOperationNode(node);
-	// 	chartManager.countType('m');
-	// 	return null;
-	// }
-
 	// private void processOperationNode(Tree node) {
 	// 	chartManager.registerHeightByStep(currentHeight);
 	// 	currentHeight++;

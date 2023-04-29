@@ -21,18 +21,15 @@ import org.jfree.data.xy.XYSeriesCollection;
  * @author Tianxiao.Liu@u-cergy.fr
  */
 public class ChartManager {
-	private HashMap<Character, Integer> nodeTypeCount = new HashMap<Character, Integer>();
+	private HashMap<String, Integer> qLearnTypeCount = new HashMap<String, Integer>();
 	private ArrayList<Integer> heuristics = new ArrayList<Integer>();
 
 	/**
 	 * Initializes the manager, by creating null value for each node type.
 	 */
 	public ChartManager() {
-		nodeTypeCount.put('c', 0);
-		nodeTypeCount.put('v', 0);
-		nodeTypeCount.put('a', 0);
-		nodeTypeCount.put('s', 0);
-		nodeTypeCount.put('m', 0);
+		qLearnTypeCount.put("Hole", 0);
+		qLearnTypeCount.put("Tile", 0);
 	}
 
 	/**
@@ -40,9 +37,9 @@ public class ChartManager {
 	 * 
 	 * @param type the node type to count
 	 */
-	public void countType(char type) {
-		int count = nodeTypeCount.get(type);
-		nodeTypeCount.put(type, count + 1);
+	public void countType(String type) {
+		int count = qLearnTypeCount.get(type);
+		qLearnTypeCount.put(type, count + 1);
 	}
 
 	/**
@@ -61,13 +58,9 @@ public class ChartManager {
 	 */
 	public JFreeChart getTypeCountPie() {
 		DefaultPieDataset dataset = new DefaultPieDataset();
-		dataset.setValue("Constant", nodeTypeCount.get('c'));
-		dataset.setValue("Variable", nodeTypeCount.get('v'));
-		dataset.setValue("Addition", nodeTypeCount.get('a'));
-		dataset.setValue("Subtraction", nodeTypeCount.get('s'));
-		dataset.setValue("Multiplication", nodeTypeCount.get('m'));
-
-		return ChartFactory.createPieChart("", dataset, true, true, false);
+		dataset.setValue("Hole", qLearnTypeCount.get("Hole"));
+		dataset.setValue("Tile", qLearnTypeCount.get("Tile"));
+		return ChartFactory.createPieChart("Cases rencontrés", dataset, true, true, false);
 	}
 
 	/**
@@ -77,11 +70,7 @@ public class ChartManager {
 	 */
 	public JFreeChart getTypeCountBar() {
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-		dataset.setValue(nodeTypeCount.get('c'), "series", "Constant");
-		dataset.setValue(nodeTypeCount.get('v'), "series", "Variable");
-		dataset.setValue(nodeTypeCount.get('a'), "series", "Addition");
-		dataset.setValue(nodeTypeCount.get('s'), "series", "Subtraction");
-		dataset.setValue(nodeTypeCount.get('m'), "series", "Multiplication");
+		dataset.setValue(qLearnTypeCount.get("Coucou"), "series", "Constant");
 
 		return ChartFactory.createBarChart("", "Node type", "Count", dataset, PlotOrientation.VERTICAL, true, true, false);
 	}

@@ -81,7 +81,7 @@ public class InformationPanel extends JPanel{
     }
     private void initQLearn(){
         info1.setText("Numéro itération :");
-        info2.setText("Death Count :");
+        info2.setText("Total des cases visités :");
     }
 
     public void setInfoValue1(String value) {
@@ -96,4 +96,10 @@ public class InformationPanel extends JPanel{
         infoValue1.setText("0");
         infoValue2.setText("0");
     }
+
+
+    public String getInfoValue2() {
+        return infoValue2.getText();
+    }
+
 }

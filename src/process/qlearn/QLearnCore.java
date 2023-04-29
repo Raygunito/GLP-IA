@@ -258,12 +258,19 @@ public class QLearnCore {
         ArrayList<QCell> bestPath = new ArrayList<QCell>();
         int n = grid.getSize();
         int i = 0;
+        QCell repeatedCell = currentCell;
+        boolean repeated = false;
         bestPath.add(currentCell);
-        while (!grid.getEndingCell().equals(currentCell) && i < n * n) {
+        while (!grid.getEndingCell().equals(currentCell) && i < n * n && !repeated) {
             Direction direction = Direction.getDirectionFromValue(currentCell.bestDirection());
             QCell nextCell = grid.getCellFromDirection(currentCell, direction);
+            if (nextCell == repeatedCell){
+                repeated = true;
+            }
             bestPath.add(nextCell);
+            repeatedCell = currentCell;
             currentCell = nextCell;
+            
             i++;
         }
         if (grid.getEndingCell().equals(currentCell)) {
