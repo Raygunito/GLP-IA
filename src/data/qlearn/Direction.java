@@ -1,8 +1,8 @@
 package data.qlearn;
 
-
 /**
- * This enum makes up for all the direction used by QLearn (can be extended to AStar)
+ * This enum makes up for all the direction used by QLearn (can be extended to
+ * AStar)
  */
 public enum Direction {
     UP(0),
@@ -22,6 +22,7 @@ public enum Direction {
 
     /**
      * Return the opposite direction
+     * 
      * @param dir the direction whose opposite direction is to be returned.
      * @return the opposite direction of the given direction.
      */
@@ -38,7 +39,15 @@ public enum Direction {
         }
     }
 
-    public static Direction getDirectionFromValue(int value) throws IllegalArgumentException{
+    /**
+     * Returns the Direction with the specified integer value.
+     * 
+     * @param value the integer value of the Direction to retrieve.
+     * @return the Direction with the specified integer value.
+     * @throws IllegalArgumentException if no Direction with the specified value is
+     *                                  found.
+     */
+    public static Direction getDirectionFromValue(int value) throws IllegalArgumentException {
         for (Direction dir : Direction.values()) {
             if (dir.getValue() == value) {
                 return dir;

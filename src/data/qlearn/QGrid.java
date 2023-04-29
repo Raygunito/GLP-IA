@@ -89,10 +89,10 @@ public class QGrid extends AbstractGrid {
 
     /**
      * Gives you the cell according to its position
-     * @param cell the cell that you want
-     * @param x
-     * @param y
-     * @return the cell corresponding to the position
+     * @param cell the current cell 
+     * @param x coordinate X
+     * @param y coordinate Y
+     * @return the future cell corresponding to the position
      * @throws GridBorderException
      */
     private QCell getCellfromPosition(QCell cell, int x, int y) throws GridBorderException {

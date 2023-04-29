@@ -25,4 +25,10 @@ public class Trail implements Element{
     public Coordinate getCoordinate() {
         return coordinate;
     }
+
+    @Override
+    public String toString() {
+        return "Trail";
+    }
+    
 }

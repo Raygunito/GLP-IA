@@ -22,5 +22,10 @@ public class UselessTile implements Element{
     public Coordinate getCoordinate() {
         return coordinate;
     }
+    @Override
+    public String toString() {
+        return "UselessTile";
+    }
+    
     
 }

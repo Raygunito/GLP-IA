@@ -22,5 +22,9 @@ public class Tile implements Element{
     public Coordinate getCoordinate() {
         return coordinate;
     }
+    @Override
+    public String toString() {
+        return "Tile";
+    }
     
 }

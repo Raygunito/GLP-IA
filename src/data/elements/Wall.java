@@ -21,4 +21,9 @@ public class Wall implements Element{
     public Coordinate getCoordinate() {
         return coordinate;
     }
+    @Override
+    public String toString() {
+        return "Wall";
+    }
+    
 }
