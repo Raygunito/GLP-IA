@@ -101,12 +101,20 @@ public class AStarCore {
         for (int i = 0; i < 4; i++) {
             ACell cellDaughter;
             try {
-                cellDaughter = switch (i) {
-                    case 0 -> grid.getUp(cell);
-                    case 1 -> grid.getDown(cell);
-                    case 2 -> grid.getRight(cell);
-                    default -> grid.getLeft(cell);
-                };
+                switch (i) {
+                    case 0:
+                        cellDaughter = grid.getUp(cell);
+                        break;
+                    case 1:
+                        cellDaughter = grid.getDown(cell);
+                        break;
+                    case 2:
+                        cellDaughter = grid.getRight(cell);
+                        break;
+                    default:
+                        cellDaughter = grid.getLeft(cell);
+                        break;
+                }
                 if (!closedList.contains(cellDaughter) && !openList.getQueue().contains(cellDaughter)) {
                     cellDaughter.setParent(cell);
                     updateCosts(cellDaughter);
