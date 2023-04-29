@@ -1,7 +1,6 @@
 package gui.algorithmPanel;
 
 import javax.swing.*;
-import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
 
 import org.apache.log4j.Logger;
 import org.jfree.chart.ChartPanel;

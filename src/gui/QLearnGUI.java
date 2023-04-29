@@ -33,7 +33,6 @@ public class QLearnGUI extends JPanel {
         cp.setOpt1Value(500);
         cp.setOpt2Value(20);
         ip = new InformationPanel(GUIConstant.QLEARN);
-        // TODO Remplacer le qlearnPanel avec sa version fonctionnelle
         qlearnPanel = new QLearnPanel(Integer.valueOf(cp.getOpt1Field().getText()),
                 Float.valueOf(cp.getOpt2Field().getText()) / 100, this.ip);
         qlearnThread = new Thread(qlearnPanel);
