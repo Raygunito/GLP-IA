@@ -47,7 +47,7 @@ public class MinMaxCore {
      * determines the best move.
      */
     public synchronized void process() {
-        if (!playerTurn) {
+        if (!playerTurn && coin > 0) {
             tree = new Tree(TreeFactory.buildPlayerNode(coin, difficulty));
             coin = Math.max(tree.findMove(), 0);
             amountOfNodeCreated += tree.countAmountOfNode();
@@ -61,8 +61,13 @@ public class MinMaxCore {
      * @param coin the number of coins the player chooses to remove
      */
     public void playerMove(int coin) {
-        this.coin = coin;
-        playerTurn = false;
+        if (coin >0){
+            this.coin = coin;
+            playerTurn = false;
+        }else {
+            this.coin = 0;
+            playerTurn = false;
+        }
     }
 
     /**

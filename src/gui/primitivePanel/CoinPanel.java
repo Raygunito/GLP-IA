@@ -64,6 +64,10 @@ public class CoinPanel extends JPanel {
     }
 
     public void setCoinNumber(int coinNumber) {
-        this.coinNumber = coinNumber;
+        if (coinNumber < 0){
+            this.coinNumber = 0;
+        }else {
+            this.coinNumber = coinNumber;
+        }
     }
 }

@@ -102,9 +102,9 @@ public class MinMaxPanel extends JPanel implements Runnable {
         while (!minMaxCore.isEnded()) {
             if (!paused && !minMaxCore.isPlayerTurn()) {
                 int diff = minMaxCore.getCoin();
-                int nodeAmount = Integer.valueOf(ip.getInfoValue2());
                 minMaxCore.process();
                 coinPanel.setCoinNumber(minMaxCore.getCoin());
+                int nodeAmount = Integer.valueOf(ip.getInfoValue2());
                 ip.setInfoValue1(String.valueOf(diff - minMaxCore.getCoin()));
                 ip.setInfoValue2(String.valueOf(nodeAmount + minMaxCore.getAmountOfNodeCreated()));
                 logger.info("Le bot a pris " + String.valueOf(diff - minMaxCore.getCoin()) + " coins.");
