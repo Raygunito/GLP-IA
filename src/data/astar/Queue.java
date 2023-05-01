@@ -1,9 +1,7 @@
-package process.astar;
+package data.astar;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-
-import data.astar.ACell;
 
 /**
  * A queue data structure implemented using an ArrayList.

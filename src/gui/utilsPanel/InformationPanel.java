@@ -70,18 +70,18 @@ public class InformationPanel extends JPanel{
     }
 
     private void initAStar(){
-        info1.setText("Case visité :");
-        info2.setText("Taille du chemin :");
+        info1.setText("Tiles visited :");
+        info2.setText("Current path size :");
     }
     
     private void initMinMax(){
-        info1.setText("Pièce(s) prise par le bot :");
-        info2.setText("Noeud visité :");
+        info1.setText("Coin taken by bot:");
+        info2.setText("Node visited :");
         
     }
     private void initQLearn(){
-        info1.setText("Numéro itération :");
-        info2.setText("Total des cases visités :");
+        info1.setText("Iteration number :");
+        info2.setText("Total tiles visited :");
     }
 
     public void setInfoValue1(String value) {

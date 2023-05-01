@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import data.astar.ACell;
 import data.astar.AGrid;
+import data.astar.Queue;
 import gui.instrument.ChartManager;
 
 /**
