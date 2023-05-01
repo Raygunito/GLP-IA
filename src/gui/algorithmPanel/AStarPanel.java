@@ -34,17 +34,6 @@ public class AStarPanel extends JPanel implements Runnable {
     private static Logger logger = LoggerUtility.getLogger(AStarPanel.class, "text");
 
     /**
-     * Creates an AStarPanel with a default size of 40x40.
-     */
-    public AStarPanel() {
-        super();
-        core = new AStarCore(40);
-        init();
-        setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        setMaximumSize(new Dimension(WIDTH, HEIGHT));
-    }
-
-    /**
      * Creates an AStarPanel with a size of n*n, a speed of speed, and an
      * InformationPanel of ip.
      * 
@@ -60,14 +49,16 @@ public class AStarPanel extends JPanel implements Runnable {
         init();
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setMaximumSize(new Dimension(WIDTH, HEIGHT));
+        logger.info("Successfully created AStarPanel with size : " + n + " and speed : " + speed);
     }
 
     /**
      * Creates an AStarPanel with a size of nxn, a speed of speed.
-     * 
+     * Used for debug
      * @param n
      * @param speed
      */
+    @Deprecated
     public AStarPanel(int n, int speed) {
         super();
         core = new AStarCore(n);

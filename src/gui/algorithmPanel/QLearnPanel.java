@@ -48,6 +48,7 @@ public class QLearnPanel extends JPanel implements Runnable {
         setMaximumSize(new Dimension(WIDTH * 7 / 4, HEIGHT));
         init();
         initTextArea();
+        logger.info("Successfully created MinMaxPanel with iteration amount : " + nbIteration + " and learning rate : " + learningRate );
     }
 
     private void initTextArea() {

@@ -98,17 +98,11 @@ public abstract class Node {
     }
 
     /**
-     * 
-     * Returns the cost of this node based on the cost of its child nodes.
-     * 
-     * @param leftCost   the cost of the left child node
-     * @param middleCost the cost of the middle child node
-     * @param rightCost  the cost of the right child node
-     * @return an integer representing the estimated cost from this node to the goal
-     *         node, based on the costs of its child nodes.
+     * Returns the number of nodes in the tree rooted at this node, including this
+     * node.
+     * @return the number of nodes in the tree rooted at this node, including this
+     *         node.
      */
-    public abstract int returnCost(int leftCost, int middleCost, int rightCost);
-
     public int count() {
         int count = 1;
         if (leftChild != null) {
@@ -122,4 +116,17 @@ public abstract class Node {
         }
         return count;
     }
+
+    /**
+     * 
+     * Returns the cost of this node based on the cost of its child nodes.
+     * 
+     * @param leftCost   the cost of the left child node
+     * @param middleCost the cost of the middle child node
+     * @param rightCost  the cost of the right child node
+     * @return an integer representing the estimated cost from this node to the goal
+     *         node, based on the costs of its child nodes.
+     */
+    public abstract int returnCost(int leftCost, int middleCost, int rightCost);
+
 }

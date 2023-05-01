@@ -16,7 +16,6 @@ import javax.swing.*;
  * Classe qui permet de créer le menu principal de notre application.
  */
 public class Main_menu extends JPanel {
-    //TODO ActionListener link with data class
     private JLabel title;
     private JButton astar,minmax,qlearn,quit;
     public Main_menu() {

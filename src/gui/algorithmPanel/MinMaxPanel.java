@@ -44,6 +44,7 @@ public class MinMaxPanel extends JPanel implements Runnable {
         add(coinPanel);
         add(playPanel);
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        logger.info("Successfully created MinMaxPanel with coin : " + coin + " and difficulty : " + difficulty );
     }
 
     private void initCoinPanel(int coin) {
