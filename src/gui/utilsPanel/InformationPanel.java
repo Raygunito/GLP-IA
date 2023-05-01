@@ -76,7 +76,7 @@ public class InformationPanel extends JPanel{
     
     private void initMinMax(){
         info1.setText("Coin taken by bot:");
-        info2.setText("Node visited :");
+        info2.setText("Total node visited :");
         
     }
     private void initQLearn(){

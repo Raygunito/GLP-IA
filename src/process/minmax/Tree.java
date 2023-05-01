@@ -42,4 +42,7 @@ public class Tree {
         return children.get(children.size() - 1).getValue();
     }
 
+    public int countAmountOfNode(){
+        return root.count();
+    }
 }

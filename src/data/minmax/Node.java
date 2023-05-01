@@ -108,4 +108,18 @@ public abstract class Node {
      *         node, based on the costs of its child nodes.
      */
     public abstract int returnCost(int leftCost, int middleCost, int rightCost);
+
+    public int count() {
+        int count = 1;
+        if (leftChild != null) {
+            count += leftChild.count();
+        }
+        if (middleChild != null) {
+            count += middleChild.count();
+        }
+        if (rightChild != null) {
+            count += rightChild.count();
+        }
+        return count;
+    }
 }

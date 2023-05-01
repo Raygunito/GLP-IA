@@ -24,6 +24,7 @@ public class MinMaxCore {
      */
     private boolean playerTurn = false;
 
+    private int amountOfNodeCreated;
     /**
      * Creates a new MinMaxCore object with the specified base coin value and
      * difficulty level.
@@ -35,6 +36,7 @@ public class MinMaxCore {
         this.coin = baseCoin;
         this.difficulty = difficulty;
         playerTurn = false;
+        amountOfNodeCreated = 0;
         this.tree = new Tree(TreeFactory.buildPlayerNode(baseCoin, difficulty));
     }
 
@@ -48,6 +50,7 @@ public class MinMaxCore {
         if (!playerTurn) {
             tree = new Tree(TreeFactory.buildPlayerNode(coin, difficulty));
             coin = Math.max(tree.findMove(), 0);
+            amountOfNodeCreated += tree.countAmountOfNode();
             playerTurn = true;
         }
     }
@@ -90,5 +93,9 @@ public class MinMaxCore {
 
     public int getDifficulty() {
         return difficulty;
+    }
+
+    public int getAmountOfNodeCreated() {
+        return amountOfNodeCreated;
     }
 }

@@ -23,7 +23,6 @@ public class ElementCountVisitor implements ElementVisitor<Void>{
         }
         if (element instanceof Tile) {
             visit((Tile) element);
-            
         }
     }
 

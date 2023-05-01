@@ -15,7 +15,6 @@ import org.jfree.data.xy.XYSeriesCollection;
  * This class manages all instrument charts of the graphical tree, including : 1) pie chart for node type count 2) bar chart for node type count 3) curve
  * chart for tree height evolution during the visit.
  * 
- * @see InstrumentVisitor
  * @author Tianxiao.Liu@u-cergy.fr
  */
 public class ChartManager {
