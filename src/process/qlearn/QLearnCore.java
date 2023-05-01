@@ -1,11 +1,11 @@
 package process.qlearn;
 
-import java.time.Duration;
-import java.time.Instant;
+// import java.time.Duration;
+// import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Random;
 
-import org.apache.log4j.Level;
+// import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import data.elements.Hole;
@@ -288,40 +288,40 @@ public class QLearnCore {
         return bestPath;
     }
 
-    public static void main(String[] args) {
-        logger.setLevel(Level.ERROR);
-        int gridSize = 10;
-        int nbIteration = 200;
-        float learningRate = 0.2f;
-        float explorationRate = 0.5f;
-        float discountFactor = 0.8f;
-        QLearnCore qLearn = new QLearnCore(gridSize, nbIteration, learningRate, explorationRate, discountFactor);
-        // Run the iterations
-        // for (int i = 0; i < nbIteration; i++) {
-        // System.out.println("Iteration numéro : " + i);
-        // qLearn.doOneIteration();
-        // }
-        // logger.info("\n" + qLearn.getqTable().printTable());
-        // qLearn.bestPath();
+    // public static void main(String[] args) {
+    //     logger.setLevel(Level.ERROR);
+    //     int gridSize = 10;
+    //     int nbIteration = 200;
+    //     float learningRate = 0.2f;
+    //     float explorationRate = 0.5f;
+    //     float discountFactor = 0.8f;
+    //     QLearnCore qLearn = new QLearnCore(gridSize, nbIteration, learningRate, explorationRate, discountFactor);
+    //     // Run the iterations
+    //     // for (int i = 0; i < nbIteration; i++) {
+    //     // System.out.println("Iteration numéro : " + i);
+    //     // qLearn.doOneIteration();
+    //     // }
+    //     // logger.info("\n" + qLearn.getqTable().printTable());
+    //     // qLearn.bestPath();
 
-        System.out.println("Grid size = 10");
-        for (int i = 0; i < 30; i++) {
-            Instant start = Instant.now();
-            int counter = 0;
-            for (int n = 1; n < 500; n++) {
-                qLearn = new QLearnCore(10, n, learningRate, explorationRate,
-                        discountFactor);
-                for (int k = 0; k < n; k++) {
-                    qLearn.doOneIteration();
-                }
-                qLearn.bestPath();
-                counter = counter + qLearn.success;
-            }
-            Instant end = Instant.now();
-            float valueRate = Float.valueOf(counter) / 5;
-            System.out.println(Duration.between(start, end).toMillis() + " ms\t Success Rate : " + valueRate);
+    //     System.out.println("Grid size = 10");
+    //     for (int i = 0; i < 30; i++) {
+    //         Instant start = Instant.now();
+    //         int counter = 0;
+    //         for (int n = 1; n < 500; n++) {
+    //             qLearn = new QLearnCore(10, n, learningRate, explorationRate,
+    //                     discountFactor);
+    //             for (int k = 0; k < n; k++) {
+    //                 qLearn.doOneIteration();
+    //             }
+    //             qLearn.bestPath();
+    //             counter = counter + qLearn.success;
+    //         }
+    //         Instant end = Instant.now();
+    //         float valueRate = Float.valueOf(counter) / 5;
+    //         System.out.println(Duration.between(start, end).toMillis() + " ms\t Success Rate : " + valueRate);
 
-        }
-    }
+    //     }
+    // }
 
 }

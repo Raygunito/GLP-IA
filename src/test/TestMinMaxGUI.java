@@ -91,6 +91,10 @@ public class TestMinMaxGUI extends JFrame {
             gui.run();
         }
     }
+
+    public static void main(String[] args) {
+        new TestMinMaxGUI();
+    }
 }
 
 
