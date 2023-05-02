@@ -1,15 +1,14 @@
 ![Logo](https://github.com/Raygunito/GLP-IA/blob/main/readme_asset/TC_logo.png?raw=true)
 # The Cognitive Crew
 ## Trois programmeurs, trois frères : voici leur histoire
+
 <p>Le début de leur histoire est tourmentée</p>
+
 <p>Projet GLP L2 info IA, 2022-2023</p>
 
-## Getting Started
+<p>This project is about creating an app that help visualize how some standard AI algorithm works. The app will provide interactive visualizations for algorithms such as A* search, Q-learning, and MinMax optimization, allowing users to better understand how these algorithms function and how they can be applied in various scenarios.</p>
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
-## Prerequisites
+## Getting started
 
 To use the program, you need to have at least Java 11 or + installed in your system. You can install Java [here](https://www.oracle.com/java/technologies/downloads/).
 
@@ -19,7 +18,7 @@ Once you have Java installed, you can open the program by openning a command lin
 
 ### Updates
 
-successfully implemented algorithms:
+Successfully implemented algorithms:
 - [x] MinMax
 - [x] AStar
 - [x] Q-Learning
