@@ -13,6 +13,13 @@ To get a local copy up and running follow these simple example steps.
 
 To use the program, you need to have at least Java 11 or + installed in your system. You can install Java [here](https://www.oracle.com/java/technologies/downloads/).
 
+###Updates
+successfully implemented algorithms:
+- [x] MinMax
+- [x] AStar
+- [x] Q-Learning
+- [ ] Neural Network
+
 ## Auteurs
 - [@Raygunito aka Laurent](https://github.com/Raygunito)
 - [@MathVK aka Mathieu](https://github.com/MathVK)
