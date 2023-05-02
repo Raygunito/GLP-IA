@@ -17,7 +17,15 @@ Once you have Java installed, you can open the program by openning a command lin
 
 **`java -jar The_Cognitive_Crew.jar`**
 
-## Authors
+### Updates
+
+successfully implemented algorithms:
+- [x] MinMax
+- [x] AStar
+- [x] Q-Learning
+- [ ] Neural Network
+
+## Auteurs
 - [@Raygunito aka Laurent](https://github.com/Raygunito)
 - [@MathVK aka Mathieu](https://github.com/MathVK)
 - [@CoeurdeTaxi aka Ethan](https://github.com/CoeurdeTaxi)
