@@ -1,5 +1,6 @@
 package gui.algorithmPanel;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -101,9 +102,16 @@ public class MinMaxPanel extends JPanel implements Runnable {
         }
         while (!minMaxCore.isEnded()) {
             if (!paused && !minMaxCore.isPlayerTurn()) {
+                togglePaused(false);
+                try {
+                    Thread.sleep(800);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 int diff = minMaxCore.getCoin();
                 minMaxCore.process();
                 coinPanel.setCoinNumber(minMaxCore.getCoin());
+                togglePaused(true);
                 int nodeAmount = Integer.valueOf(ip.getInfoValue2());
                 ip.setInfoValue1(String.valueOf(diff - minMaxCore.getCoin()));
                 ip.setInfoValue2(String.valueOf(nodeAmount + minMaxCore.getAmountOfNodeCreated()));
@@ -130,6 +138,13 @@ public class MinMaxPanel extends JPanel implements Runnable {
         three.setEnabled(paused);
         paused = !paused;
     }
+    
+    public void togglePaused(boolean bool) {
+        one.setEnabled(bool);
+        two.setEnabled(bool);
+        three.setEnabled(bool);
+    }
+
 
     class takeCoin implements ActionListener {
         private int fixedAmount;
