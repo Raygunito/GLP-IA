@@ -3,21 +3,27 @@ package gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Image;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
 
 import gui.algorithmPanel.MinMaxPanel;
 import gui.utilsPanel.ControlPanel;
+import gui.utilsPanel.ForcedPause;
 import gui.utilsPanel.InformationPanel;
 import log.LoggerUtility;
 
-public class MinMaxGUI extends JPanel {
+public class MinMaxGUI extends JPanel implements ForcedPause {
     private static final int WIDTH = GUIConstant.SCALING_FACTOR * 400;
     private static final int HEIGHT = GUIConstant.SCALING_FACTOR * 180;
     private ControlPanel cp;
@@ -65,8 +71,17 @@ public class MinMaxGUI extends JPanel {
         upperPanel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         upperPanel.setMaximumSize(new Dimension(WIDTH, HEIGHT));
         upperPanel.add(cp);
-        upperPanel.add(Box.createHorizontalStrut(GUIConstant.SCALING_FACTOR * 80));
+        try {
+            JLabel jLabelBot = new JLabel(new ImageIcon(new ImageIcon(ImageIO.read(new File("src/res/player.png"))).getImage().getScaledInstance(GUIConstant.SCALING_FACTOR*70, HEIGHT/2, Image.SCALE_SMOOTH)));
+            upperPanel.add(jLabelBot);
+        } catch (IOException e) {
+        }
         upperPanel.add(minMaxPanel);
+        try {
+            JLabel jLabelBot = new JLabel(new ImageIcon(new ImageIcon(ImageIO.read(new File("src/res/bot.png"))).getImage().getScaledInstance(GUIConstant.SCALING_FACTOR*70, HEIGHT/2, Image.SCALE_SMOOTH)));
+            upperPanel.add(jLabelBot);
+        } catch (IOException e) {
+        }
 
     }
 
@@ -103,7 +118,7 @@ public class MinMaxGUI extends JPanel {
             upperPanel.remove(2);
             minMaxPanel = new MinMaxPanel(verifyOpt1(),verifyOpt2(), MinMaxGUI.this.ip);
             minMaxThread = new Thread(minMaxPanel);
-            upperPanel.add(minMaxPanel);
+            upperPanel.add(minMaxPanel,2);
             upperPanel.revalidate();
             upperPanel.repaint();
             ip.resetValue();
@@ -159,21 +174,33 @@ public class MinMaxGUI extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             minMaxPanel.togglePaused();
-            if (minMaxPanel.isPaused()) {
-                cp.getStop().setText("Resume");
-                cp.getOpt2Field().setEditable(true);
-            } else {
-                cp.getStop().setText("Stop");
-                cp.getOpt2Field().setEditable(false);
-            }
+            stopAndResume();
         }
     }
-
+    
     public ControlPanel getCp() {
         return cp;
     }
 
     public InformationPanel getIp() {
         return ip;
+    }
+
+    private void stopAndResume(){
+        if (minMaxPanel.isPaused()) {
+            cp.getStop().setText("Resume");
+            cp.getOpt2Field().setEditable(true);
+        } else {
+            cp.getStop().setText("Stop");
+            cp.getOpt2Field().setEditable(false);
+        }
+    }
+
+    @Override
+    public void togglePaused() {
+        if (!minMaxPanel.isPaused() && minMaxThread.isAlive()){
+            minMaxPanel.togglePaused();
+            stopAndResume();
+        }
     }
 }

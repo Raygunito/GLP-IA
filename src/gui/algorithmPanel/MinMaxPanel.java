@@ -1,9 +1,11 @@
 package gui.algorithmPanel;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
@@ -45,7 +47,7 @@ public class MinMaxPanel extends JPanel implements Runnable {
         add(coinPanel);
         add(playPanel);
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        logger.info("Successfully created MinMaxPanel with coin : " + coin + " and difficulty : " + difficulty );
+        logger.info("Successfully created MinMaxPanel with coin : " + coin + " and difficulty : " + difficulty);
     }
 
     private void initCoinPanel(int coin) {
@@ -101,20 +103,19 @@ public class MinMaxPanel extends JPanel implements Runnable {
             minMaxCore.setPlayerTurn(true);
         }
         while (!minMaxCore.isEnded()) {
+            if (!paused){
+                drawArrow(!minMaxCore.isPlayerTurn());
+            }
             if (!paused && !minMaxCore.isPlayerTurn()) {
-                togglePaused(false);
+                toggleButton(false);
                 try {
                     Thread.sleep(800);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                } catch (InterruptedException e) {}
                 int diff = minMaxCore.getCoin();
                 minMaxCore.process();
                 coinPanel.setCoinNumber(minMaxCore.getCoin());
-                togglePaused(true);
-                int nodeAmount = Integer.valueOf(ip.getInfoValue2());
-                ip.setInfoValue1(String.valueOf(diff - minMaxCore.getCoin()));
-                ip.setInfoValue2(String.valueOf(nodeAmount + minMaxCore.getAmountOfNodeCreated()));
+                updateInfo(diff);
+                toggleButton(true);
                 logger.info("Le bot a pris " + String.valueOf(diff - minMaxCore.getCoin()) + " coins.");
             }
         }
@@ -132,19 +133,59 @@ public class MinMaxPanel extends JPanel implements Runnable {
         togglePaused();
     }
 
+    private void updateInfo(int diff){
+        int nodeAmount = Integer.valueOf(ip.getInfoValue2());
+        ip.setInfoValue1(String.valueOf(diff - minMaxCore.getCoin()));
+        ip.setInfoValue2(String.valueOf(nodeAmount + minMaxCore.getAmountOfNodeCreated()));
+    }
+    private void drawArrow(boolean botTurn) {
+        Graphics2D g2d = (Graphics2D) getGraphics();
+        int x1 =100;
+        int x2 = 50;
+        int y1 = 100;
+        int y2 = 100;
+        if (botTurn){
+            x1 = 450;
+            y1 = 100;
+            x2 = 500;
+            y2 = 100;
+        }
+        g2d.setColor(Color.BLACK);
+        g2d.setStroke(new BasicStroke(2));
+        g2d.drawLine(x1, y1, x2, y2);
+        int arrowSize = 10;
+        int x3; 
+        int y3;
+        if (botTurn){
+            x3 = (int) (x2 - arrowSize * Math.cos(-Math.PI / 4));
+            y3 = (int) (y2 - arrowSize * Math.sin(-Math.PI / 4));
+        }else{
+            x3 = (int) (x2 + arrowSize * Math.cos(-Math.PI / 4));
+            y3 = (int) (y2 + arrowSize * Math.sin(-Math.PI / 4));
+        }
+        g2d.drawLine(x2, y2, x3, y3);
+        if (botTurn) {
+            x3 = (int) (x2 - arrowSize * Math.cos(Math.PI / 4));
+            y3 = (int) (y2 - arrowSize * Math.sin(Math.PI / 4));
+        } else {
+            x3 = (int) (x2 + arrowSize * Math.cos(Math.PI / 4));
+            y3 = (int) (y2 + arrowSize * Math.sin(Math.PI / 4));
+        }
+        g2d.drawLine(x2, y2, x3, y3);
+    }
+
     public void togglePaused() {
         one.setEnabled(paused);
         two.setEnabled(paused);
         three.setEnabled(paused);
         paused = !paused;
     }
-    
-    public void togglePaused(boolean bool) {
+
+    public void toggleButton(boolean bool) {
         one.setEnabled(bool);
         two.setEnabled(bool);
         three.setEnabled(bool);
     }
-
 
     class takeCoin implements ActionListener {
         private int fixedAmount;
@@ -171,11 +212,11 @@ public class MinMaxPanel extends JPanel implements Runnable {
         this.paused = paused;
     }
 
-    public int getCoin(){
+    public int getCoin() {
         return minMaxCore.getCoin();
     }
 
-    public int getDepth(){
+    public int getDepth() {
         return minMaxCore.getDifficulty();
     }
 }

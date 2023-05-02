@@ -15,10 +15,11 @@ import org.apache.log4j.Logger;
 
 import gui.algorithmPanel.AStarPanel;
 import gui.utilsPanel.ControlPanel;
+import gui.utilsPanel.ForcedPause;
 import gui.utilsPanel.InformationPanel;
 import log.LoggerUtility;
 
-public class AStarGUI extends JPanel {
+public class AStarGUI extends JPanel implements ForcedPause {
     private static final int WIDTH = GUIConstant.SCALING_FACTOR * 400;
     private static final int HEIGHT = GUIConstant.SCALING_FACTOR * 180;
     private ControlPanel cp;
@@ -168,29 +169,42 @@ public class AStarGUI extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             astarPanel.togglePaused();
-            String input = cp.getOpt2Field().getText();
-            if (input.matches("\\d+")) {
-                int inputValue = Integer.valueOf(cp.getOpt2Field().getText());
-                if (inputValue >= 0 && inputValue <= 10) {
-                    astarPanel.setSpeed(inputValue);
-                }else{
-                    logger.warn("Number out of range : " + input);
-                    cp.setOpt2Value(astarPanel.getSpeed());
-                }
-            } else {
-                cp.setOpt2Value(astarPanel.getSpeed());
-                logger.warn("User input invalid for speed : " + input);
-                JOptionPane.showMessageDialog(astarPanel,
-                        "Warning ! Speed value is not a number, previous value inserted.", "Not numeric !",
-                        JOptionPane.INFORMATION_MESSAGE);
-            }
-            if (astarPanel.isPaused()) {
-                cp.getStop().setText("Resume");
-                cp.getOpt2Field().setEditable(true);
-            } else {
-                cp.getStop().setText("Stop");
-                cp.getOpt2Field().setEditable(false);
-            }
+            stopAndResume();
         }
     }
+    
+    private void stopAndResume(){
+        String input = cp.getOpt2Field().getText();
+        if (input.matches("\\d+")) {
+            int inputValue = Integer.valueOf(cp.getOpt2Field().getText());
+            if (inputValue >= 0 && inputValue <= 10) {
+                astarPanel.setSpeed(inputValue);
+            }else{
+                logger.warn("Number out of range : " + input);
+                cp.setOpt2Value(astarPanel.getSpeed());
+            }
+        } else {
+            cp.setOpt2Value(astarPanel.getSpeed());
+            logger.warn("User input invalid for speed : " + input);
+            JOptionPane.showMessageDialog(astarPanel,
+                    "Warning ! Speed value is not a number, previous value inserted.", "Not numeric !",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+        if (astarPanel.isPaused()) {
+            cp.getStop().setText("Resume");
+            cp.getOpt2Field().setEditable(true);
+        } else {
+            cp.getStop().setText("Stop");
+            cp.getOpt2Field().setEditable(false);
+        }
+        
+    }
+    @Override
+    public void togglePaused() {
+        if (!astarPanel.isPaused() && astarThread.isAlive()){
+            astarPanel.togglePaused(); 
+            stopAndResume();       
+        }
+    }
+
 }

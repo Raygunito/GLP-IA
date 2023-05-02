@@ -12,10 +12,11 @@ import org.apache.log4j.Logger;
 
 import gui.algorithmPanel.QLearnPanel;
 import gui.utilsPanel.ControlPanel;
+import gui.utilsPanel.ForcedPause;
 import gui.utilsPanel.InformationPanel;
 import log.LoggerUtility;
 
-public class QLearnGUI extends JPanel {
+public class QLearnGUI extends JPanel implements ForcedPause {
     private static final int WIDTH = GUIConstant.SCALING_FACTOR * 400;
     private static final int HEIGHT = GUIConstant.SCALING_FACTOR * 180;
     private ControlPanel cp;
@@ -160,13 +161,23 @@ public class QLearnGUI extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             qlearnPanel.togglePaused();
-            if (qlearnPanel.isPaused()) {
-                cp.getStop().setText("Resume");
-                cp.getOpt2Field().setEditable(true);
-            } else {
-                cp.getStop().setText("Stop");
-                cp.getOpt2Field().setEditable(false);
-            }
+            stopAndResume();
         }
     }
+    
+    private void stopAndResume(){
+        if (qlearnPanel.isPaused()) {
+            cp.getStop().setText("Resume");
+        } else {
+            cp.getStop().setText("Stop");
+        }
+    }
+    @Override
+    public void togglePaused() {
+        if (!qlearnPanel.isPaused() && qlearnThread.isAlive()){
+            qlearnPanel.togglePaused(); 
+            stopAndResume();       
+        }
+    }
+    
 }

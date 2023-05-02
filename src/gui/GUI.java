@@ -85,9 +85,12 @@ public class GUI extends JFrame implements Runnable {
         @Override
         public void actionPerformed(ActionEvent e) {
             minmax.setVisible(false);
+            minmax.togglePaused();
             menu.setVisible(true);
             astar.setVisible(false);
+            astar.togglePaused();
             qlearn.setVisible(false);
+            qlearn.togglePaused();
             c.revalidate();
             c.repaint();
         }
