@@ -1,4 +1,4 @@
-![Logo](https://github.com/Drag0nQQ/L2-Projet-Java/blob/main/readme_assets/TC_logo.png?raw=true)
+![Logo](https://github.com/Raygunito/GLP-IA/blob/main/readme_asset/TC_logo.png?raw=true)
 # The Cognitive Crew
 ## Trois programmeurs, trois frères : voici leur histoire
 <p>Le début de leur histoire est tourmentée</p>
