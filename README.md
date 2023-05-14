@@ -16,7 +16,7 @@ Once you have Java installed, you can open the program by openning a command lin
 
 **`java -jar The_Cognitive_Crew.jar`**
 
-### Updates
+## Updates
 
 Successfully implemented algorithms:
 - [x] MinMax

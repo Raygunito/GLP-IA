@@ -7,9 +7,11 @@ import java.awt.Image;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -72,13 +74,14 @@ public class MinMaxGUI extends JPanel implements ForcedPause {
         upperPanel.setMaximumSize(new Dimension(WIDTH, HEIGHT));
         upperPanel.add(cp);
         try {
-            JLabel jLabelBot = new JLabel(new ImageIcon(new ImageIcon(ImageIO.read(new File("src/res/player.png"))).getImage().getScaledInstance(GUIConstant.SCALING_FACTOR*70, HEIGHT/2, Image.SCALE_SMOOTH)));
-            upperPanel.add(jLabelBot);
+            URL playerURL = this.getClass().getResource("/res/player.png");
+            JLabel jLabelPlayer = new JLabel(new ImageIcon(new ImageIcon(ImageIO.read(playerURL)).getImage().getScaledInstance(GUIConstant.SCALING_FACTOR*70, HEIGHT/2, Image.SCALE_SMOOTH)));
+            upperPanel.add(jLabelPlayer);
         } catch (IOException e) {
         }
         upperPanel.add(minMaxPanel);
         try {
-            JLabel jLabelBot = new JLabel(new ImageIcon(new ImageIcon(ImageIO.read(new File("src/res/bot.png"))).getImage().getScaledInstance(GUIConstant.SCALING_FACTOR*70, HEIGHT/2, Image.SCALE_SMOOTH)));
+            JLabel jLabelBot = new JLabel(new ImageIcon(new ImageIcon(ImageIO.read(this.getClass().getResource("/res/bot.png"))).getImage().getScaledInstance(GUIConstant.SCALING_FACTOR*70, HEIGHT/2, Image.SCALE_SMOOTH)));
             upperPanel.add(jLabelBot);
         } catch (IOException e) {
         }
