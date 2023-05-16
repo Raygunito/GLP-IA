@@ -2,8 +2,10 @@ package gui;
 
 import java.awt.Container;
 import java.awt.event.*;
+import java.io.IOException;
 import java.awt.CardLayout;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 public class GUI extends JFrame implements Runnable {
@@ -36,7 +38,11 @@ public class GUI extends JFrame implements Runnable {
         // ActionListener pour le QLearn
         qlearn.getCp().addActionListenerBack(new ActionBack());
 
-        
+        try {
+            setIconImage(ImageIO.read(getClass().getResource("/res/TC_logo.png")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
