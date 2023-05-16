@@ -46,7 +46,7 @@ public class GUI extends JFrame implements Runnable {
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-        setResizable(true);
+        setResizable(false);
         setLocationRelativeTo(null);
     }
 
