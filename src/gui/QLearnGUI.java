@@ -105,8 +105,8 @@ public class QLearnGUI extends JPanel implements ForcedPause {
             upperPanel.add(qlearnPanel);
             upperPanel.revalidate();
             upperPanel.repaint();
-            if (ip.getComponentCount() == 3) {
-                ip.remove(2);
+            if (ip.getWrapper().getComponentCount() == 3) {
+                ip.getWrapper().remove(2);
             }
             ip.resetValue();
             resetButton();

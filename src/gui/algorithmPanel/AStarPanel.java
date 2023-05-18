@@ -166,6 +166,6 @@ public class AStarPanel extends JPanel implements Runnable {
     public void test() {
         ChartPanel chartPanel = new ChartPanel(core.chartManager.getHeuristicEvolutionChart());
         chartPanel.setPreferredSize(new Dimension(300, 150));
-        this.ip.add(chartPanel);
+        this.ip.getWrapper().add(chartPanel,2);
     }
 }

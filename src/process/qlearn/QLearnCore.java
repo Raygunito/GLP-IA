@@ -55,7 +55,7 @@ public class QLearnCore {
      * <p>
      * The function iterates over all cells in the grid except for the starting cell
      * and the ending cell, and randomly assigns a hole to each cell with a certain
-     * probability. The probability is a value of <b>0.35f</b>. The
+     * probability. The probability is a value of <b>0.20f</b>. The
      * coordinates of the generated holes are logged to the logger with the TRACE
      * level.
      */
@@ -65,7 +65,7 @@ public class QLearnCore {
             for (int j = 0; j < grid.getSize() - 1; j++) {
                 if ((i != grid.getEndingCell().getCoordinate().coordinateY()
                         && j != grid.getStartingCell().getCoordinate().coordinateX())) {
-                    if ((float) Math.random() < 0.35f) {
+                    if ((float) Math.random() < 0.20f) {
                         QCell tmp = grid.getCell(i, j);
                         tmp.setElement(new Hole(tmp.getCoordinate()));
                         res = res + tmp.toString() + ",";

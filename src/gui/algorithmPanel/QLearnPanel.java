@@ -117,7 +117,7 @@ public class QLearnPanel extends JPanel implements Runnable {
 
         ChartPanel chartPanel = new ChartPanel(chartManager.getTypeCountPie());
         chartPanel.setPreferredSize(new Dimension(300, 150));
-        this.ip.add(chartPanel);
+        this.ip.getWrapper().add(chartPanel,2);
 
 
     }
